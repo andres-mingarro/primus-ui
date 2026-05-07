@@ -1,0 +1,10 @@
+{%
+  set classes = [
+    'pu-divider',
+    orientation == 'vertical' ? 'pu-divider--vertical' : 'pu-divider--horizontal',
+  ]
+%}
+<hr
+  {{ attributes.addClass(classes) }}
+  {% if assistive_hidden %}aria-hidden="true"{% endif %}
+/>

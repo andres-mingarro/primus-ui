@@ -1,0 +1,17 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Divider
+status: experimental
+description: A horizontal or vertical line for separating content sections.
+props:
+  type: object
+  properties:
+    orientation:
+      type: string
+      title: Orientation
+      description: 'horizontal or vertical'
+      default: horizontal
+    assistive_hidden:
+      type: boolean
+      title: Assistive hidden
+      description: Adds aria-hidden for decorative dividers that do not mark a topic shift
+      default: false

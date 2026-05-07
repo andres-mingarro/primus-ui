@@ -1,0 +1,22 @@
+.pu-divider {
+  // --- Overridable tokens ---
+  --pu-divider-color:     #e5e7eb;
+  --pu-divider-thickness: 1px;
+  --pu-divider-length:    100%;
+
+  // --- Implementation ---
+  display: block;
+  border: none;
+  background-color: var(--pu-divider-color);
+
+  &--horizontal {
+    width: var(--pu-divider-length);
+    height: var(--pu-divider-thickness);
+  }
+
+  &--vertical {
+    width: var(--pu-divider-thickness);
+    height: var(--pu-divider-length);
+    align-self: stretch;
+  }
+}

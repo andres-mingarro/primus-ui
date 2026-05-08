@@ -15,7 +15,7 @@ A horizontal or vertical line for separating content sections. Renders as an `<h
 
 | Variable                   | Default    | Description                                            |
 | -------------------------- | ---------- | ------------------------------------------------------ |
-| `--pu-divider-color`       | `#e5e7eb`  | Line color                                             |
+| `--pu-divider-color`       | `#525252`  | Line color                                             |
 | `--pu-divider-thickness`   | `1px`      | Line width (horizontal) or height (vertical)           |
 | `--pu-divider-length`      | `100%`     | Line length — width for horizontal, height for vertical|
 
@@ -44,10 +44,10 @@ import { Divider } from './Divider.tailwind'
 
 ### SCSS/CSS
 
-Copy `Divider.css.tsx` + `divider.scss` into your project. Import the SCSS once in your app entry.
+Copy `Divider.tsx` + `divider.scss` into your project. Import the SCSS once in your app entry.
 
 ```tsx
-import { Divider } from './Divider.css'
+import { Divider } from './Divider'
 // In your app entry: import './divider.scss'
 
 <Divider />

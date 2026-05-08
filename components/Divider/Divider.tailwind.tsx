@@ -9,8 +9,8 @@ export function Divider({ orientation = 'horizontal', assistiveHidden = false }:
       aria-hidden={assistiveHidden || undefined}
       className={
         orientation === 'horizontal'
-          ? 'h-px w-full border-none bg-neutral-200'
-          : 'h-full w-px self-stretch border-none bg-neutral-200'
+          ? 'h-px w-full border-none bg-neutral-600'
+          : 'h-full w-px self-stretch border-none bg-neutral-600'
       }
     />
   )

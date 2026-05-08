@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100">
+      <body className="min-h-full bg-white text-brand-900 dark:bg-brand-950 dark:text-brand-50">
         <ThemeProvider>
           <Header />
           <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>

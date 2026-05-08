@@ -12,7 +12,7 @@ Next.js runs from the repo root. You own:
 - `app/` — pages and routes
 - `ui/` — landing-specific components (ShowcaseFrame, Header, CodeTabs, ThemeToggle)
 - `lib/`, `providers/`
-- `components/[Name]/*.tailwind.tsx`, `*.css.tsx`, `*.scss`, `meta.ts`, `README.md`
+- `components/[Name]/*.tailwind.tsx`, `*.tsx` (SCSS version), `*.scss`, `meta.ts`, `README.md`
 
 Path aliases: `@/*` → repo root, `@primus/*` → `./components/*`
 
@@ -33,7 +33,7 @@ Each component folder is a drop-in unit. No component may import from another co
 - Does **not** use `@apply` or CSS variable references
 - Self-contained — copy the `.tsx` file alone and it works
 
-**`[ComponentName].css.tsx`**
+**`[ComponentName].tsx`** (SCSS/CSS version — the default name)
 
 - Only uses `pu-` prefixed classes (e.g. `pu-button`, `pu-button--primary`)
 - Must import `./[component-name].scss`
@@ -117,7 +117,7 @@ Demos render inside `<ShowcaseFrame>` from `@/ui/ShowcaseFrame` — neutral back
 
 1. Read `CLAUDE.md` for current conventions
 2. Create `components/[ComponentName]/[ComponentName].tailwind.tsx`
-3. Create `components/[ComponentName]/[ComponentName].css.tsx`
+3. Create `components/[ComponentName]/[ComponentName].tsx`
 4. Create `components/[ComponentName]/[component-name].scss`
 5. Create `components/[ComponentName]/meta.ts`
 6. Create `components/[ComponentName]/README.md`
@@ -159,7 +159,7 @@ export function Button({ label, variant = 'primary', disabled = false, onClick }
 }
 ```
 
-### SCSS/CSS version
+### SCSS/CSS version — `Button.tsx`
 
 ```tsx
 import './button.scss'

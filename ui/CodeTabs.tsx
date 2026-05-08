@@ -16,8 +16,8 @@ export function CodeTabs({ tabs }: CodeTabsProps) {
   const [active, setActive] = useState(0)
 
   return (
-    <div className="overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
-      <div className="flex border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900">
+    <div className="overflow-hidden rounded-lg border border-brand-200 dark:border-brand-900">
+      <div className="flex border-b border-brand-200 bg-brand-50 dark:border-brand-900 dark:bg-brand-950">
         {tabs.map((tab, i) => (
           <button
             key={tab.label}
@@ -25,15 +25,15 @@ export function CodeTabs({ tabs }: CodeTabsProps) {
             className={cn(
               'px-4 py-2 text-sm font-medium transition-colors',
               i === active
-                ? 'border-b-2 border-blue-600 text-blue-600 dark:border-blue-400 dark:text-blue-400'
-                : 'text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100',
+                ? 'border-b-2 border-brand-700 text-brand-700 dark:border-brand-500 dark:text-brand-500'
+                : 'text-brand-500 hover:text-brand-900 dark:text-brand-200 dark:hover:text-brand-50',
             )}
           >
             {tab.label}
           </button>
         ))}
       </div>
-      <pre className="overflow-x-auto bg-neutral-950 p-5 text-sm leading-relaxed text-neutral-200">
+      <pre className="overflow-x-auto bg-brand-950 p-5 text-sm leading-relaxed text-brand-200">
         <code>{tabs[active].code.trim()}</code>
       </pre>
     </div>

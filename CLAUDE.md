@@ -25,7 +25,7 @@ primus-ui/
 ├── components/                 # The actual library (copy-paste)
 │   └── [ComponentName]/
 │       ├── [ComponentName].tailwind.tsx   # Tailwind version
-│       ├── [ComponentName].css.tsx        # SCSS/CSS version
+│       ├── [ComponentName].tsx            # SCSS/CSS version (default)
 │       ├── [component-name].scss          # SCSS with CSS vars
 │       ├── meta.ts                        # Props, CSS vars, version
 │       ├── README.md                      # Per-component docs
@@ -59,7 +59,7 @@ Each component is a self-contained unit. No component may import from another co
 components/
   [ComponentName]/
     [ComponentName].tailwind.tsx   # React — Tailwind classes only, no SCSS
-    [ComponentName].css.tsx        # React — only uses pu- classes from the SCSS file
+    [ComponentName].tsx            # React — only uses pu- classes from the SCSS file (default)
     [component-name].scss          # SCSS — all styles, CSS vars with defaults
     meta.ts                        # Props, CSS vars, version, description
     README.md                      # Per-component documentation

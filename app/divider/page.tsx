@@ -17,10 +17,10 @@ import { Divider } from './Divider.tailwind'
 `
 
 const SCSS_CODE = `
-// 1. Copy Divider.css.tsx + divider.scss into your project
+// 1. Copy Divider.tsx + divider.scss into your project
 // 2. Import divider.scss once in your app entry
 
-import { Divider } from './Divider.css'
+import { Divider } from './Divider'
 
 <Divider />
 <Divider orientation="vertical" />
@@ -51,17 +51,17 @@ export default function DividerPage() {
     <div className="space-y-12">
 
       {/* Header */}
-      <div className="space-y-2 border-b border-neutral-200 pb-8 dark:border-neutral-800">
+      <div className="space-y-2 border-b border-brand-100 pb-8 dark:border-brand-900">
         <div className="flex items-baseline gap-3">
           <h1 className="text-2xl font-semibold tracking-tight">{ComponentMeta.name}</h1>
-          <span className="text-sm text-neutral-400">v{ComponentMeta.version}</span>
+          <span className="text-sm text-brand-500">v{ComponentMeta.version}</span>
         </div>
-        <p className="text-neutral-500 dark:text-neutral-400">{ComponentMeta.description}</p>
+        <p className="text-brand-500 dark:text-brand-200">{ComponentMeta.description}</p>
       </div>
 
       {/* Demos */}
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
+        <h2 className="text-sm font-semibold tracking-widest text-brand-500 uppercase dark:text-brand-500">
           Examples
         </h2>
 
@@ -73,9 +73,9 @@ export default function DividerPage() {
 
         <ShowcaseFrame label="Vertical">
           <div className="flex h-16 items-center gap-4">
-            <span className="text-sm text-neutral-400">Left</span>
+            <span className="text-sm text-brand-500">Left</span>
             <Divider orientation="vertical" />
-            <span className="text-sm text-neutral-400">Right</span>
+            <span className="text-sm text-brand-500">Right</span>
           </div>
         </ShowcaseFrame>
 
@@ -90,27 +90,27 @@ export default function DividerPage() {
 
       {/* Props */}
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
+        <h2 className="text-sm font-semibold tracking-widest text-brand-500 uppercase dark:text-brand-500">
           Props
         </h2>
-        <div className="overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+        <div className="overflow-hidden rounded-lg border border-brand-100 dark:border-brand-900">
           <table className="w-full text-sm">
-            <thead className="bg-neutral-50 dark:bg-neutral-900">
+            <thead className="bg-brand-50 dark:bg-brand-950">
               <tr>
                 {['Prop', 'Type', 'Default', 'Description'].map((h) => (
-                  <th key={h} className="px-4 py-3 text-left font-medium text-neutral-500 dark:text-neutral-400">
+                  <th key={h} className="px-4 py-3 text-left font-medium text-brand-500 dark:text-brand-200">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
+            <tbody className="divide-y divide-brand-50 dark:divide-brand-900">
               {ComponentMeta.props.map((p) => (
                 <tr key={p.name}>
-                  <td className="px-4 py-3 font-mono text-neutral-900 dark:text-neutral-100">{p.name}</td>
-                  <td className="px-4 py-3 font-mono text-blue-600 dark:text-blue-400">{p.type}</td>
-                  <td className="px-4 py-3 font-mono text-neutral-500">{String(p.default)}</td>
-                  <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">{p.description}</td>
+                  <td className="px-4 py-3 font-mono text-brand-900 dark:text-brand-50">{p.name}</td>
+                  <td className="px-4 py-3 font-mono text-brand-700 dark:text-brand-500">{p.type}</td>
+                  <td className="px-4 py-3 font-mono text-brand-500">{String(p.default)}</td>
+                  <td className="px-4 py-3 text-brand-500 dark:text-brand-200">{p.description}</td>
                 </tr>
               ))}
             </tbody>
@@ -120,26 +120,26 @@ export default function DividerPage() {
 
       {/* CSS Variables */}
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
+        <h2 className="text-sm font-semibold tracking-widest text-brand-500 uppercase dark:text-brand-500">
           CSS Variables (SCSS version)
         </h2>
-        <div className="overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700">
+        <div className="overflow-hidden rounded-lg border border-brand-100 dark:border-brand-900">
           <table className="w-full text-sm">
-            <thead className="bg-neutral-50 dark:bg-neutral-900">
+            <thead className="bg-brand-50 dark:bg-brand-950">
               <tr>
                 {['Variable', 'Default', 'Description'].map((h) => (
-                  <th key={h} className="px-4 py-3 text-left font-medium text-neutral-500 dark:text-neutral-400">
+                  <th key={h} className="px-4 py-3 text-left font-medium text-brand-500 dark:text-brand-200">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
+            <tbody className="divide-y divide-brand-50 dark:divide-brand-900">
               {ComponentMeta.cssVars.map((v) => (
                 <tr key={v.name}>
-                  <td className="px-4 py-3 font-mono text-neutral-900 dark:text-neutral-100">{v.name}</td>
-                  <td className="px-4 py-3 font-mono text-neutral-500">{v.default}</td>
-                  <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">{v.description}</td>
+                  <td className="px-4 py-3 font-mono text-brand-900 dark:text-brand-50">{v.name}</td>
+                  <td className="px-4 py-3 font-mono text-brand-500">{v.default}</td>
+                  <td className="px-4 py-3 text-brand-500 dark:text-brand-200">{v.description}</td>
                 </tr>
               ))}
             </tbody>
@@ -149,7 +149,7 @@ export default function DividerPage() {
 
       {/* Code */}
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold tracking-widest text-neutral-400 uppercase dark:text-neutral-500">
+        <h2 className="text-sm font-semibold tracking-widest text-brand-500 uppercase dark:text-brand-500">
           Code
         </h2>
         <CodeTabs

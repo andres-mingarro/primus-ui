@@ -4,7 +4,7 @@ A copy-paste component library for **Next.js** and **Drupal SDC** (Single Direct
 
 ## Repository Structure
 
-Next.js runs from the repo root so that `components/` is within the project boundary (Turbopack requirement).
+Next.js runs from the repo root so that `components-library/` is within the project boundary (Turbopack requirement).
 
 ```text
 primus-ui/
@@ -24,7 +24,7 @@ primus-ui/
 ├── lib/utils.ts                # cn() helper
 ├── providers/ThemeProvider.tsx
 ├── public/
-├── components/                 # The actual library (copy-paste)
+├── components-library/         # The actual library (copy-paste)
 │   └── [ComponentName]/
 │       ├── [ComponentName].tailwind.tsx   # Tailwind version
 │       ├── [ComponentName].tsx            # SCSS/CSS version (default)
@@ -37,7 +37,7 @@ primus-ui/
 │           └── [component-name].scss
 ├── next.config.ts
 ├── package.json
-└── tsconfig.json               # @/* = ./, @primus/* = ./components/*
+└── tsconfig.json               # @/* = ./, @primus/* = ./components-library/*
 ```
 
 ## Agents
@@ -58,7 +58,7 @@ Each component is a self-contained unit. No component may import from another co
 ### 2. Files per component
 
 ```text
-components/
+components-library/
   [ComponentName]/
     [ComponentName].tailwind.tsx   # React — Tailwind classes only, no SCSS
     [ComponentName].tsx            # React — only uses pu- classes from the SCSS file (default)

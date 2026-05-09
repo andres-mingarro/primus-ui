@@ -7,17 +7,52 @@ You are the **Drupal SDC agent** for Primus UI — a copy-paste component librar
 
 ## Your responsibility
 
-You own everything inside `components/[ComponentName]/drupal/`. You translate the React spec (from `meta.ts` and the SCSS version) into a proper Drupal Single Directory Component.
+You own everything inside `components-library/[ComponentName]/drupal/`. You translate the React spec (from `meta.ts` and the SCSS version) into a proper Drupal Single Directory Component.
 
 ---
 
 ## Non-negotiable rules
 
-### 1. Full independence
+### 1. `addClassName` prop — required on every component
+
+Every SDC must declare an `addClassName` prop and apply it to the root element, allowing users to inject extra classes without modifying the source.
+
+**`.component.yml`:**
+
+```yaml
+props:
+  type: object
+  properties:
+    addClassName:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element
+```
+
+**`.twig`:**
+
+```twig
+{%
+  set classes = [
+    'pu-button',
+    variant ? 'pu-button--' ~ variant : 'pu-button--primary',
+    addClassName ?? '',
+  ]
+%}
+<button {{ attributes.addClass(classes) }}>...</button>
+```
+
+Rules:
+- Always optional, no default value
+- Always appended **after** the component's own classes
+
+---
+
+### 2. Full independence
 
 The Drupal component folder must be droppable into any Drupal theme with zero other files from this repo. No shared SCSS partials, no shared variables between components.
 
-### 2. SCSS with CSS variables — defaults scoped to root class
+### 3. SCSS with CSS variables — defaults scoped to root class
 
 Same pattern as the React SCSS version. All CSS variables must have defaults inside the component root class. The user overrides them without touching the source.
 
@@ -38,7 +73,7 @@ Same pattern as the React SCSS version. All CSS variables must have defaults ins
 
 Copy from `react/[component-name].scss` as the base and adjust if Drupal needs it.
 
-### 3. Minimal Twig logic
+### 4. Minimal Twig logic
 
 Only class-building and simple conditionals. No business logic in templates.
 
@@ -148,11 +183,11 @@ Machine name format: `primus-ui:[component-name]`
 
 ## When creating a new component
 
-1. Read `components/[ComponentName]/meta.ts` for the props contract
-2. Read `components/[ComponentName]/[component-name].scss` for class names and tokens
-3. Create `components/[ComponentName]/drupal/[component-name].component.yml`
-4. Create `components/[ComponentName]/drupal/[component-name].twig`
-5. Create `components/[ComponentName]/drupal/[component-name].scss`
+1. Read `components-library/[ComponentName]/meta.ts` for the props contract
+2. Read `components-library/[ComponentName]/[component-name].scss` for class names and tokens
+3. Create `components-library/[ComponentName]/drupal/[component-name].component.yml`
+4. Create `components-library/[ComponentName]/drupal/[component-name].twig`
+5. Create `components-library/[ComponentName]/drupal/[component-name].scss`
 
 ---
 

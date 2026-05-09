@@ -12,19 +12,64 @@ Next.js runs from the repo root. You own:
 - `app/` — pages and routes
 - `ui/` — landing-specific components (ShowcaseFrame, Header, CodeTabs, ThemeToggle)
 - `lib/`, `providers/`
-- `components/[Name]/*.tailwind.tsx`, `*.tsx` (SCSS version), `*.scss`, `meta.ts`, `README.md`
+- `components-library/[Name]/*.tailwind.tsx`, `*.tsx` (SCSS version), `*.scss`, `meta.ts`, `README.md`
 
-Path aliases: `@/*` → repo root, `@primus/*` → `./components/*`
+Path aliases: `@/*` → repo root, `@primus/*` → `./components-library/*`
 
 ---
 
 ## Non-negotiable rules
 
-### 1. Full independence
+### 1. `addClassName` prop — required on every component
+
+Every component (both Tailwind and SCSS versions) must accept an `addClassName` prop that appends extra classes to the root element. This lets users extend styles without modifying the source.
+
+**Tailwind version:**
+
+```tsx
+export interface ButtonProps {
+  addClassName?: string
+  // ...rest of props
+}
+
+export function Button({ addClassName, ...rest }: ButtonProps) {
+  return (
+    <button className={cn('...base classes...', addClassName)}>
+      ...
+    </button>
+  )
+}
+```
+
+**SCSS version:**
+
+```tsx
+export interface ButtonProps {
+  addClassName?: string
+  // ...rest of props
+}
+
+export function Button({ addClassName, variant = 'primary' }: ButtonProps) {
+  return (
+    <button className={['pu-button', `pu-button--${variant}`, addClassName].filter(Boolean).join(' ')}>
+      ...
+    </button>
+  )
+}
+```
+
+Rules:
+- Always optional (`addClassName?: string`), never required
+- Always appended **after** the component's own classes, never before
+- Must appear in `meta.ts` props array: `{ name: 'addClassName', type: 'string', required: false, default: undefined, description: 'Extra classes appended to the root element' }`
+
+---
+
+### 2. Full independence
 
 Each component folder is a drop-in unit. No component may import from another component, no shared SCSS partials, no shared utilities between components. A user copies one folder and it works — nothing else from this repo needed.
 
-### 2. Two React files, never mixed
+### 3. Two React files, never mixed
 
 **`[ComponentName].tailwind.tsx`**
 
@@ -39,7 +84,7 @@ Each component folder is a drop-in unit. No component may import from another co
 - Must import `./[component-name].scss`
 - No Tailwind classes
 
-### 3. SCSS with CSS variables — defaults scoped to root class
+### 4. SCSS with CSS variables — defaults scoped to root class
 
 Every SCSS file defines all CSS variables **inside the component root class** with their default values. No external variables required. Users override at any scope.
 
@@ -62,7 +107,7 @@ Every SCSS file defines all CSS variables **inside the component root class** wi
 
 Variable naming: `--pu-[component]-[property]`
 
-### 4. README.md in every component folder
+### 5. README.md in every component folder
 
 Required sections:
 
@@ -105,7 +150,7 @@ See drupal/README or CLAUDE.md
 - Per-component page `app/[slug]/page.tsx`: props table + CSS vars table + code tabs
 - Code tabs: **Tailwind** | **SCSS/CSS** | **Drupal Twig**
 - Dark/light mode via `dark:` classes — toggle stored in `localStorage`
-- Landing UI lives in `ui/` (not `components/`, which is the library)
+- Landing UI lives in `ui/` (not `components-library/`, which is the library)
 
 ### CSS structure
 
@@ -126,11 +171,11 @@ Demos render inside `<ShowcaseFrame>` from `@/ui/ShowcaseFrame` — neutral back
 ## When creating a new component
 
 1. Read `CLAUDE.md` for current conventions
-2. Create `components/[ComponentName]/[ComponentName].tailwind.tsx`
-3. Create `components/[ComponentName]/[ComponentName].tsx`
-4. Create `components/[ComponentName]/[component-name].scss`
-5. Create `components/[ComponentName]/meta.ts`
-6. Create `components/[ComponentName]/README.md`
+2. Create `components-library/[ComponentName]/[ComponentName].tailwind.tsx`
+3. Create `components-library/[ComponentName]/[ComponentName].tsx`
+4. Create `components-library/[ComponentName]/[component-name].scss`
+5. Create `components-library/[ComponentName]/meta.ts`
+6. Create `components-library/[ComponentName]/README.md`
 7. Create `app/[slug]/page.tsx` — import component from `@primus/[ComponentName]/...`
 8. Add component card to `app/page.tsx`
 

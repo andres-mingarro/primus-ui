@@ -81,7 +81,7 @@ function EmptyState() {
     <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-brand-200 py-20 text-center dark:border-brand-900">
       <p className="text-sm text-brand-500 dark:text-brand-500">No components yet.</p>
       <p className="mt-1 text-xs text-brand-200 dark:text-brand-700">
-        Add the first one to <code className="font-mono">components/</code>
+        Add the first one to <code className="font-mono">components-library/</code>
       </p>
     </div>
   )

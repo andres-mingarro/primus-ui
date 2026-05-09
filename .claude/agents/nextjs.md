@@ -107,6 +107,16 @@ See drupal/README or CLAUDE.md
 - Dark/light mode via `dark:` classes — toggle stored in `localStorage`
 - Landing UI lives in `ui/` (not `components/`, which is the library)
 
+### CSS structure
+
+```
+app/styles/
+├── globals.css   # @import "tailwindcss", @custom-variant dark, utility classes
+└── tokens.css    # :root { --brand, derived shades } + @theme for Tailwind colors
+```
+
+`layout.tsx` imports `./styles/globals.css`. To change the entire color palette, edit `--brand` in `tokens.css`.
+
 ### Wireframe demo style
 
 Demos render inside `<ShowcaseFrame>` from `@/ui/ShowcaseFrame` — neutral background, dot-grid, gray border. The component itself is the only colored element.

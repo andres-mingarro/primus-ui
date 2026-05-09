@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.showcase-grid {
+  background-image: radial-gradient(circle, #d1d5dbb0 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.dark .showcase-grid {
+  background-image: radial-gradient(circle, #d1d5db1a 1px, transparent 1px);
+}

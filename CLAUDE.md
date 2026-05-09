@@ -9,9 +9,11 @@ Next.js runs from the repo root so that `components/` is within the project boun
 ```text
 primus-ui/
 ├── app/                        # Next.js App Router pages
+│   ├── styles/
+│   │   ├── globals.css         # Tailwind import, dark variant, utility classes
+│   │   └── tokens.css          # CSS variables (--brand) + @theme for Tailwind
 │   ├── layout.tsx
 │   ├── page.tsx                # Component gallery
-│   ├── globals.css
 │   └── [component]/
 │       └── page.tsx            # Per-component docs page
 ├── ui/                         # Landing-only UI (not library)

@@ -1,27 +1,88 @@
 :root {
-  /* ── Change this to update the entire color palette ── */
-  --brand: #662A09;
+  /* ── Restaurant/Food Service palette — UI PRO MAX #34 ── */
+  /* Appetizing red + warm gold */
 
-  /* Derived shades — recalculate automatically when --brand changes */
-  --brand-950: color-mix(in srgb, var(--brand) 12%, black);
-  --brand-900: color-mix(in srgb, var(--brand) 40%, black);
-  --brand-500: color-mix(in srgb, var(--brand) 55%, white);
-  --brand-200: color-mix(in srgb, var(--brand) 30%, white);
-  --brand-100: color-mix(in srgb, var(--brand) 20%, white);
-  --brand-50:  color-mix(in srgb, var(--brand) 12%, white);
-  --surface:   color-mix(in srgb, var(--brand) 2%, white);
+  --color-primary:          #DC2626;
+  --color-on-primary:       #FFFFFF;
+  --color-secondary:        #F87171;
+  --color-on-secondary:     #0F172A;
+  --color-accent:           #A16207;
+  --color-on-accent:        #FFFFFF;
+  --color-background:       #FEF2F2;
+  --color-foreground:       #450A0A;
+  --color-card:             #FFFFFF;
+  --color-card-foreground:  #450A0A;
+  --color-muted:            #F0EDF1;
+  --color-muted-foreground: #64748B;
+  --color-border:           #FECACA;
+  --color-ring:             #DC2626;
+
+  /* Derived tints */
+  --color-primary-hover:    #B91C1C;
+  --color-primary-subtle:   #FEE2E2;
+  --color-primary-faint:    #FEF2F2;
+  --color-accent-subtle:    #FEF3C7;
+  --color-foreground-muted: #7C2020;
+
+  /* ── Dark mode overrides ── */
+  /* Applied via .dark class on <html> */
+
+  /* ── Vibrant & Block-based layout ── */
+  --block-gap:          3rem;        /* 48px */
+  --display-size:       2.25rem;     /* 36px — scales up with clamp */
+  --animation-duration: 300ms;
+  --animation-ease:     cubic-bezier(0.4, 0, 0.2, 1);
+  --parallax-layers:    5;
+}
+
+/* ── Dark mode token overrides ── */
+.dark {
+  --color-primary:          #EF4444;
+  --color-on-primary:       #FFFFFF;
+  --color-secondary:        #FCA5A5;
+  --color-on-secondary:     #1A0000;
+  --color-accent:           #D97706;
+  --color-on-accent:        #FFFFFF;
+  --color-background:       #1A0505;
+  --color-foreground:       #FEF2F2;
+  --color-card:             #2D0A0A;
+  --color-card-foreground:  #FEF2F2;
+  --color-muted:            #3D1010;
+  --color-muted-foreground: #94A3B8;
+  --color-border:           #7F1D1D;
+  --color-ring:             #EF4444;
+
+  --color-primary-hover:    #DC2626;
+  --color-primary-subtle:   #3D0A0A;
+  --color-primary-faint:    #2D0A0A;
+  --color-accent-subtle:    #3D2000;
+  --color-foreground-muted: #FECACA;
 }
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans:    var(--font-geist-sans);
+  --font-mono:    var(--font-geist-mono);
+  --font-display: var(--font-geist-sans);
 
-  --color-brand-950: var(--brand-950);
-  --color-brand-900: var(--brand-900);
-  --color-brand-700: var(--brand);
-  --color-brand-500: var(--brand-500);
-  --color-brand-200: var(--brand-200);
-  --color-brand-100: var(--brand-100);
-  --color-brand-50:  var(--brand-50);
-  --color-surface:   var(--surface);
+  /* Semantic palette — available as Tailwind utilities */
+  --color-primary:          var(--color-primary);
+  --color-on-primary:       var(--color-on-primary);
+  --color-secondary:        var(--color-secondary);
+  --color-on-secondary:     var(--color-on-secondary);
+  --color-accent:           var(--color-accent);
+  --color-on-accent:        var(--color-on-accent);
+  --color-background:       var(--color-background);
+  --color-foreground:       var(--color-foreground);
+  --color-card:             var(--color-card);
+  --color-card-foreground:  var(--color-card-foreground);
+  --color-muted:            var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-border:           var(--color-border);
+  --color-ring:             var(--color-ring);
+
+  --color-primary-hover:    var(--color-primary-hover);
+  --color-primary-subtle:   var(--color-primary-subtle);
+  --color-primary-faint:    var(--color-primary-faint);
+  --color-accent-subtle:    var(--color-accent-subtle);
+  --color-foreground-muted: var(--color-foreground-muted);
 }

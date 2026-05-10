@@ -10,15 +10,19 @@ export function ShowcaseFrame({ children, className, label }: ShowcaseFrameProps
   return (
     <div className="space-y-2">
       {label && (
-        <p className="text-xs font-medium tracking-wide text-brand-700 uppercase dark:text-brand-500">
+        <p
+          className="font-mono text-[10px] font-bold uppercase tracking-[0.15em]"
+          style={{ color: 'var(--color-accent)' }}
+        >
           {label}
         </p>
       )}
       <div
         className={cn(
-          'showcase-grid relative flex min-h-32 items-center justify-center overflow-hidden rounded-lg border border-brand-200 bg-brand-50 p-8 dark:border-brand-700 dark:bg-brand-900',
+          'showcase-grid showcase-frame relative flex min-h-36 items-center justify-center overflow-hidden p-8 transition-all duration-300',
           className,
         )}
+        style={{ border: '2px solid var(--color-border)' }}
       >
         {children}
       </div>

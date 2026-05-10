@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import Script from 'next/script'
+import { cookies } from 'next/headers'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import { Header } from '@/ui/layout/Header'
@@ -36,27 +36,34 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages()
+  const cookieStore = await cookies()
+  const isDark = cookieStore.get('theme')?.value === 'dark'
 
   return (
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased${isDark ? ' dark' : ''}`}
     >
-      <head>
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}` }}
-        />
-      </head>
-      <body className="min-h-full bg-surface text-brand-900 dark:bg-brand-950 dark:text-brand-50">
+      <body
+        className="min-h-full"
+        style={{
+          backgroundColor: 'var(--color-background)',
+          color: 'var(--color-foreground)',
+        }}
+      >
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <Header />
             <div className="mx-auto flex max-w-6xl">
               <Sidebar />
-              <main className="min-w-0 flex-1 px-6 py-10 lg:px-10">{children}</main>
+              <main
+                id="main-content"
+                className="min-w-0 flex-1 overflow-hidden px-6 py-12 lg:px-10"
+                tabIndex={-1}
+              >
+                {children}
+              </main>
             </div>
           </ThemeProvider>
         </NextIntlClientProvider>

@@ -3,6 +3,7 @@ import { SectionContainer } from '@primus/SectionContainer/SectionContainer.tail
 import { ShowcaseFrame } from '@/ui/ShowcaseFrame'
 import { CodeTabs } from '@/ui/CodeTabs'
 import { ComponentMeta } from '@primus/SectionContainer/meta'
+import { ComponentPageHeader, SectionLabel, PropsTable, CssVarsTable } from '@/ui/ComponentPage'
 
 const TAILWIND_CODE = `
 import { SectionContainer } from './SectionContainer.tailwind'
@@ -56,7 +57,6 @@ import { SectionContainer } from './SectionContainer'
 
 const DRUPAL_CODE = `
 {# Replace THEME-NAME with your Drupal theme or module machine name #}
-{# Copy drupal/ folder to [your-theme]/components/section-container/ then clear cache #}
 
 {% embed 'THEME-NAME:section-container' %}
   {% block content %}
@@ -76,14 +76,12 @@ const DRUPAL_CODE = `
 {% endembed %}
 `
 
-function DemoContent({ label, wide = false }: { label: string; wide?: boolean }) {
+function Swatch() {
   return (
-    <div className={`rounded border border-brand-200 bg-brand-50 p-4 dark:border-brand-800 dark:bg-brand-900 ${wide ? 'w-full' : ''}`}>
-      <p className="text-sm font-medium text-brand-700 dark:text-brand-200">{label}</p>
-      <p className="mt-1 text-xs text-brand-500 dark:text-brand-500">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      </p>
-    </div>
+    <div
+      className="h-8 rounded-sm"
+      style={{ backgroundColor: 'var(--color-card)' }}
+    />
   )
 }
 
@@ -93,145 +91,156 @@ export default function SectionContainerPage() {
   return (
     <div className="space-y-12">
 
-      <div className="space-y-2 border-b border-brand-100 pb-8 dark:border-brand-900">
-        <div className="flex items-baseline gap-3">
-          <h1 className="text-2xl font-semibold tracking-tight">{ComponentMeta.name}</h1>
-          <span className="text-sm text-brand-700 dark:text-brand-500">v{ComponentMeta.version}</span>
-        </div>
-        <p className="text-brand-700 dark:text-brand-200">{ComponentMeta.description}</p>
-      </div>
+      <ComponentPageHeader
+        label="Component"
+        name={ComponentMeta.name}
+        version={ComponentMeta.version}
+        description={ComponentMeta.description}
+      />
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('examples')}
-        </h2>
+        <SectionLabel label={t('examples')} />
 
-        <ShowcaseFrame label="container=large (default, 1280px max-width)">
-          <div className="w-full">
-            <SectionContainer container="large">
-              <DemoContent label="Large container — constrained to 1280px, gap on" wide />
-            </SectionContainer>
+        <ShowcaseFrame label="container — size comparison (proportional to 1400px reference)">
+          <div className="w-full space-y-3 py-1">
+            {([
+              { value: 'full',  label: 'full',            px: 'no max-width', pct: 100 },
+              { value: 'large', label: 'large (default)', px: '1280px',       pct: 91  },
+              { value: 'small', label: 'small',           px: '768px',        pct: 55  },
+            ] as const).map(({ value, label, px, pct }) => (
+              <div key={value} className="flex items-center gap-3">
+                <span className="w-28 shrink-0 text-right font-mono text-[11px]" style={{ color: 'var(--color-muted-foreground)' }}>
+                  {label}
+                </span>
+                <div className="relative h-7 flex-1 overflow-hidden rounded-sm" style={{ backgroundColor: 'var(--color-muted)' }}>
+                  <div
+                    className="absolute inset-y-0 left-0 flex items-center justify-end rounded-sm px-2"
+                    style={{ width: `${pct}%`, backgroundColor: 'var(--color-border)' }}
+                  >
+                    <span className="font-mono text-[11px]" style={{ color: 'var(--color-foreground)' }}>{px}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </ShowcaseFrame>
 
-        <ShowcaseFrame label="container=small (768px max-width)">
-          <div className="w-full">
-            <SectionContainer container="small">
-              <DemoContent label="Small container — constrained to 768px, ideal for article text" wide />
-            </SectionContainer>
+        <ShowcaseFrame label="gap — horizontal padding between container edge and content">
+          <div className="grid w-full grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <span className="font-mono text-[11px]" style={{ color: 'var(--color-muted-foreground)' }}>gap=true (default)</span>
+              <div className="rounded-sm" style={{ backgroundColor: 'var(--color-muted)' }}>
+                <SectionContainer container="full" gap>
+                  <Swatch />
+                </SectionContainer>
+              </div>
+              <p className="text-[11px]" style={{ color: 'var(--color-muted-foreground)', opacity: 0.7 }}>Strips = 1rem padding each side</p>
+            </div>
+            <div className="space-y-1.5">
+              <span className="font-mono text-[11px]" style={{ color: 'var(--color-muted-foreground)' }}>gap=false</span>
+              <div className="overflow-hidden rounded-sm" style={{ backgroundColor: 'var(--color-muted)' }}>
+                <SectionContainer container="full" gap={false}>
+                  <Swatch />
+                </SectionContainer>
+              </div>
+              <p className="text-[11px]" style={{ color: 'var(--color-muted-foreground)', opacity: 0.7 }}>Content touches edges — no padding</p>
+            </div>
           </div>
         </ShowcaseFrame>
 
-        <ShowcaseFrame label="container=full (no max-width)">
-          <div className="w-full">
+        <ShowcaseFrame label="mobileGap — padding at ≤ 768px viewport (simulated at ~200px)">
+          <div className="flex w-full justify-around">
+            {([
+              { value: 'small', label: 'small (default)', px: 16 },
+              { value: 'large', label: 'large',           px: 24 },
+              { value: 'none',  label: 'none',            px: 0  },
+            ] as const).map(({ value, label, px }) => (
+              <div key={value} className="flex flex-col items-center gap-2">
+                <span className="font-mono text-[11px]" style={{ color: 'var(--color-muted-foreground)' }}>{value}</span>
+                <div className="w-36 overflow-hidden rounded-sm" style={{ backgroundColor: 'var(--color-muted)' }}>
+                  <div style={{ padding: `8px ${px}px` }}>
+                    <div className="h-10 rounded-sm" style={{ backgroundColor: 'var(--color-card)' }} />
+                  </div>
+                </div>
+                <span className="text-[11px]" style={{ color: 'var(--color-muted-foreground)', opacity: 0.7 }}>{px}px / side</span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-center text-[11px]" style={{ color: 'var(--color-muted-foreground)', opacity: 0.7 }}>
+            Mobile gap is a separate axis from <code className="font-mono">gap</code> — both can be set independently.
+          </p>
+        </ShowcaseFrame>
+
+        <ShowcaseFrame label="tag — semantic HTML element">
+          <div className="w-full space-y-2">
+            {(['section', 'main', 'article', 'div'] as const).map((tag) => (
+              <div key={tag} className="flex items-center gap-3">
+                <code
+                  className="w-20 shrink-0 rounded-sm px-2 py-1 text-right font-mono text-[11px]"
+                  style={{ backgroundColor: 'var(--color-primary-subtle)', color: 'var(--color-primary)' }}
+                >
+                  &lt;{tag}&gt;
+                </code>
+                <div
+                  className="flex h-7 flex-1 items-center rounded-sm border border-dashed px-3"
+                  style={{ borderColor: 'var(--color-border)' }}
+                >
+                  <span className="text-[11px]" style={{ color: 'var(--color-muted-foreground)' }}>content rendered inside &lt;{tag}&gt;</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ShowcaseFrame>
+
+        <ShowcaseFrame label="addClassName — extra classes on root element">
+          <div className="w-full rounded-sm" style={{ backgroundColor: 'var(--color-muted)' }}>
             <SectionContainer container="full">
-              <DemoContent label="Full container — no max-width, spans the entire parent width" wide />
+              <div
+                className="flex h-10 items-center justify-center rounded-sm"
+                style={{ backgroundColor: 'var(--color-card)' }}
+              >
+                <span className="font-mono text-[11px]" style={{ color: 'var(--color-muted-foreground)' }}>addClassName=&quot;...&quot;</span>
+              </div>
             </SectionContainer>
           </div>
         </ShowcaseFrame>
 
-        <ShowcaseFrame label="gap=false (no horizontal padding)">
-          <div className="w-full">
-            <SectionContainer container="large" gap={false}>
-              <DemoContent label="No gap — inner element has no horizontal padding, content touches the container edge" wide />
-            </SectionContainer>
-          </div>
-        </ShowcaseFrame>
-
-        <ShowcaseFrame label="mobileGap=large (more padding on mobile)">
-          <div className="w-full">
-            <SectionContainer container="large" mobileGap="large">
-              <DemoContent label="mobileGap=large — increases horizontal padding to 1.5rem at ≤ 768px" wide />
-            </SectionContainer>
-          </div>
-        </ShowcaseFrame>
-
-        <ShowcaseFrame label="mobileGap=none (no padding on mobile)">
-          <div className="w-full">
-            <SectionContainer container="large" mobileGap="none">
-              <DemoContent label="mobileGap=none — removes horizontal padding entirely on small screens" wide />
-            </SectionContainer>
-          </div>
-        </ShowcaseFrame>
-
-        <ShowcaseFrame label="tag=main (semantic landmark)">
-          <div className="w-full">
-            <SectionContainer tag="main" container="small">
-              <DemoContent label="Rendered as <main> — correct landmark for the primary page content" wide />
-            </SectionContainer>
-          </div>
-        </ShowcaseFrame>
-
-        <ShowcaseFrame label="Nested containers (inner margin collapses)">
-          <div className="w-full">
-            <SectionContainer container="full" gap={false}>
-              <DemoContent label="Outer: full, no gap" wide />
-              <SectionContainer container="small">
-                <DemoContent label="Inner: small — margin-bottom collapses to 0 when nested" wide />
+        <ShowcaseFrame label="Nested containers — inner margin collapses to 0">
+          <div className="w-full space-y-1">
+            <div className="overflow-hidden rounded-sm" style={{ backgroundColor: 'var(--color-muted)' }}>
+              <SectionContainer container="full" gap={false}>
+                <div className="rounded-sm px-3 py-2" style={{ backgroundColor: 'var(--color-border)' }}>
+                  <span className="font-mono text-[11px]" style={{ color: 'var(--color-foreground)' }}>outer — full, no gap</span>
+                </div>
+                <SectionContainer container="small">
+                  <div className="rounded-sm px-3 py-2" style={{ backgroundColor: 'var(--color-card)', opacity: 0.9 }}>
+                    <span className="font-mono text-[11px]" style={{ color: 'var(--color-muted-foreground)' }}>inner — small, gap — margin-bottom collapses</span>
+                  </div>
+                </SectionContainer>
               </SectionContainer>
-            </SectionContainer>
+            </div>
           </div>
         </ShowcaseFrame>
 
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('props')}
-        </h2>
-        <div className="overflow-hidden rounded-lg border border-brand-100 dark:border-brand-900">
-          <table className="w-full text-sm">
-            <thead className="bg-brand-50 dark:bg-brand-950">
-              <tr>
-                {[t('prop'), t('type'), t('default'), t('description')].map((h) => (
-                  <th key={h} scope="col" className="px-4 py-3 text-left font-medium text-brand-700 dark:text-brand-200">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-brand-50 dark:divide-brand-900">
-              {ComponentMeta.props.map((p) => (
-                <tr key={p.name}>
-                  <td className="px-4 py-3 font-mono text-brand-900 dark:text-brand-50">{p.name}</td>
-                  <td className="px-4 py-3 font-mono text-brand-700 dark:text-brand-500">{p.type}</td>
-                  <td className="px-4 py-3 font-mono text-brand-700 dark:text-brand-500">{String(p.default ?? '—')}</td>
-                  <td className="px-4 py-3 text-brand-700 dark:text-brand-200">{p.description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <SectionLabel label={t('props')} />
+        <PropsTable rows={ComponentMeta.props.map((p) => ({
+          name: p.name,
+          type: p.type,
+          default: String(p.default ?? '—'),
+          description: p.description,
+        }))} headers={[t('prop'), t('type'), t('default'), t('description')]} />
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('cssVars')}
-        </h2>
-        <div className="overflow-hidden rounded-lg border border-brand-100 dark:border-brand-900">
-          <table className="w-full text-sm">
-            <thead className="bg-brand-50 dark:bg-brand-950">
-              <tr>
-                {[t('variable'), t('default'), t('description')].map((h) => (
-                  <th key={h} scope="col" className="px-4 py-3 text-left font-medium text-brand-700 dark:text-brand-200">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-brand-50 dark:divide-brand-900">
-              {ComponentMeta.cssVars.map((v) => (
-                <tr key={v.name}>
-                  <td className="px-4 py-3 font-mono text-brand-900 dark:text-brand-50">{v.name}</td>
-                  <td className="px-4 py-3 font-mono text-brand-700 dark:text-brand-500">{v.default}</td>
-                  <td className="px-4 py-3 text-brand-700 dark:text-brand-200">{v.description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <SectionLabel label={t('cssVars')} />
+        <CssVarsTable rows={ComponentMeta.cssVars} headers={[t('variable'), t('default'), t('description')]} />
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('code')}
-        </h2>
+        <SectionLabel label={t('code')} />
         <CodeTabs
           tabs={[
             { label: 'Tailwind', code: TAILWIND_CODE },
@@ -244,3 +253,4 @@ export default function SectionContainerPage() {
     </div>
   )
 }
+

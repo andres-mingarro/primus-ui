@@ -1,87 +1,317 @@
+'use client'
+
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import React, { useEffect, useRef } from 'react'
 import { components, type ComponentEntry } from '@/lib/components-registry'
 
 export default function HomePage() {
   const t = useTranslations('home')
 
   return (
-    <div className="space-y-14">
+    <div className="flex flex-col">
 
-      <section className="space-y-3 border-b border-brand-100 pb-10 dark:border-brand-900">
-        <div className="flex items-baseline gap-3">
-          <h1 className="text-3xl font-semibold tracking-tight">{t('title')}</h1>
-          <span className="text-sm text-brand-700 dark:text-brand-500">{t('version')}</span>
+      {/* ── Hero — full-bleed red block ── */}
+      <section
+        className="relative -mx-6 -mt-12 overflow-hidden lg:-mx-10"
+        style={{ backgroundColor: 'var(--color-primary)', minHeight: '72vh' }}
+      >
+        {/* Animated warm diagonal pattern overlay */}
+        <div className="hero-pattern pointer-events-none absolute inset-0 opacity-20" aria-hidden />
+
+        <div className="relative flex min-h-[72vh] flex-col justify-center px-8 py-24 lg:px-16">
+          <p
+            className="hero-label mb-6 font-mono text-[11px] font-bold uppercase tracking-[0.22em]"
+            style={{ color: 'color-mix(in srgb, var(--color-on-primary) 65%, transparent)' }}
+          >
+            Primus UI
+          </p>
+
+          <h1
+            className="hero-title font-sans font-black leading-[0.95] tracking-[-0.04em]"
+            style={{
+              fontSize: 'clamp(4rem, 10vw, 7rem)',
+              color: 'var(--color-on-primary)',
+            }}
+          >
+            {t('title')}
+          </h1>
+
+          <p
+            className="hero-tagline mt-8 max-w-xl text-xl leading-relaxed"
+            style={{ color: 'color-mix(in srgb, var(--color-on-primary) 80%, transparent)' }}
+          >
+            {t('tagline')}
+          </p>
+
+          <div className="hero-cta mt-10 flex flex-wrap items-center gap-5">
+            <Link
+              href="#components"
+              className="cta-primary inline-flex items-center rounded-none px-10 py-4 font-sans text-base font-bold tracking-tight transition-all duration-200"
+              style={{
+                backgroundColor: 'var(--color-accent)',
+                color: 'var(--color-on-accent)',
+              }}
+            >
+              Browse Components
+            </Link>
+            <span
+              className="hero-meta font-mono text-[11px]"
+              style={{ color: 'color-mix(in srgb, var(--color-on-primary) 50%, transparent)' }}
+            >
+              {t('version')}
+            </span>
+          </div>
         </div>
-        <p className="max-w-2xl text-brand-700 dark:text-brand-200">{t('tagline')}</p>
+
+        <style>{`
+          .cta-primary {
+            box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-accent) 50%, black);
+          }
+          .cta-primary:hover {
+            background-color: color-mix(in srgb, var(--color-accent) 85%, black);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 color-mix(in srgb, var(--color-accent) 50%, black);
+          }
+          .cta-primary:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 color-mix(in srgb, var(--color-accent) 50%, black);
+          }
+          .cta-primary:focus-visible {
+            outline: 3px solid var(--color-on-primary);
+            outline-offset: 3px;
+          }
+        `}</style>
       </section>
 
-      <section className="space-y-6">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('howToUse')}
-        </h2>
-        <div className="space-y-4 text-sm text-brand-700 dark:text-brand-200">
-          <p>
+      {/* ── How to use — dark block ── */}
+      <section
+        className="-mx-6 lg:-mx-10"
+        style={{ backgroundColor: 'var(--color-foreground)' }}
+      >
+        <div className="px-8 py-20 lg:px-16 lg:py-28">
+          <BlockHeading label={t('howToUse')} light />
+
+          <p
+            className="mt-8 max-w-2xl text-lg leading-relaxed"
+            style={{ color: 'color-mix(in srgb, var(--color-on-primary) 70%, transparent)' }}
+          >
             {t.rich('howToUseP1', {
               code: (chunks) => (
-                <code className="rounded bg-brand-100 px-1.5 py-0.5 font-mono text-[13px] text-brand-900 dark:bg-brand-900 dark:text-brand-50">
+                <code
+                  className="rounded-none px-2 py-0.5 font-mono text-base"
+                  style={{
+                    backgroundColor: 'color-mix(in srgb, var(--color-primary) 30%, transparent)',
+                    color: 'var(--color-secondary)',
+                  }}
+                >
                   {chunks}
                 </code>
               ),
             })}
           </p>
-          <p>{t('howToUseP2')}</p>
-        </div>
+          <p
+            className="mt-4 max-w-2xl text-base leading-relaxed"
+            style={{ color: 'color-mix(in srgb, var(--color-on-primary) 55%, transparent)' }}
+          >
+            {t('howToUseP2')}
+          </p>
 
-        <div className="grid gap-4 sm:grid-cols-3">
-          <FlavorCard title={t('flavorTailwindTitle')} file="Button.tailwind.tsx" description={t('flavorTailwindDesc')} />
-          <FlavorCard title={t('flavorScssTitle')} file="Button.tsx + button.scss" description={t('flavorScssDesc')} />
-          <FlavorCard title={t('flavorDrupalTitle')} file="drupal/button.twig + .scss" description={t('flavorDrupalDesc')} />
-        </div>
-        <p className="text-xs text-brand-700 dark:text-brand-200" dangerouslySetInnerHTML={{ __html: t('drupalThemeNote') }} />
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('quickStart')}
-        </h2>
-        <ol className="space-y-3 text-sm text-brand-700 dark:text-brand-200">
-          {(['step1', 'step2', 'step3', 'step4'] as const).map((key, i) => (
-            <li key={key} className="flex gap-3">
-              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 text-[11px] font-semibold text-brand-900 dark:bg-brand-900 dark:text-brand-50">
-                {i + 1}
-              </span>
-              <span>{t(key)}</span>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="space-y-4">
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('componentsSection')}
-        </h2>
-        {components.length === 0 ? (
-          <EmptyState empty={t('empty')} hint={t('emptyHint')} />
-        ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {components.map((c) => (
-              <ComponentCard key={c.slug} {...c} />
-            ))}
+          <div className="mt-12 grid gap-6 sm:grid-cols-3">
+            <FlavorCard
+              title={t('flavorTailwindTitle')}
+              file="Button.tailwind.tsx"
+              description={t('flavorTailwindDesc')}
+              index={0}
+            />
+            <FlavorCard
+              title={t('flavorScssTitle')}
+              file="Button.tsx + button.scss"
+              description={t('flavorScssDesc')}
+              index={1}
+            />
+            <FlavorCard
+              title={t('flavorDrupalTitle')}
+              file="drupal/button.twig + .scss"
+              description={t('flavorDrupalDesc')}
+              index={2}
+            />
           </div>
-        )}
+
+          <p
+            className="mt-8 text-[11px]"
+            style={{ color: 'color-mix(in srgb, var(--color-on-primary) 40%, transparent)' }}
+          >
+            {t.rich('drupalThemeNote', {
+              code: (chunks) => (
+                <code
+                  className="rounded-none px-1.5 py-0.5 font-mono text-[12px]"
+                  style={{
+                    backgroundColor: 'color-mix(in srgb, var(--color-primary) 25%, transparent)',
+                    color: 'var(--color-secondary)',
+                  }}
+                >
+                  {chunks}
+                </code>
+              ),
+            })}
+          </p>
+        </div>
+      </section>
+
+      {/* ── Quick Start — cream block ── */}
+      <section
+        className="-mx-6 lg:-mx-10"
+        style={{ backgroundColor: 'var(--color-background)' }}
+      >
+        <div className="px-8 py-20 lg:px-16 lg:py-24">
+          <BlockHeading label={t('quickStart')} />
+
+          <ol className="mt-12 grid gap-6 sm:grid-cols-2">
+            {(['step1', 'step2', 'step3', 'step4'] as const).map((key, i) => (
+              <li key={key} className="flex gap-5">
+                <span
+                  className="flex h-12 w-12 shrink-0 items-center justify-center font-mono text-base font-black"
+                  style={{
+                    backgroundColor: 'var(--color-primary)',
+                    color: 'var(--color-on-primary)',
+                  }}
+                >
+                  {i + 1}
+                </span>
+                <span
+                  className="pt-2.5 text-base leading-snug font-medium"
+                  style={{ color: 'var(--color-foreground)' }}
+                >
+                  {t(key)}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* ── Component gallery — white block ── */}
+      <section
+        id="components"
+        className="-mx-6 -mb-12 lg:-mx-10"
+        style={{ backgroundColor: 'var(--color-card)' }}
+      >
+        <div className="px-8 py-20 lg:px-16 lg:py-24">
+          <BlockHeading label={t('componentsSection')} />
+
+          <div className="mt-12">
+            {components.length === 0 ? (
+              <EmptyState empty={t('empty')} hint={t('emptyHint')} />
+            ) : (
+              <ComponentGrid components={components} />
+            )}
+          </div>
+        </div>
       </section>
 
     </div>
   )
 }
 
-function FlavorCard({ title, file, description }: { title: string; file: string; description: string }) {
+function BlockHeading({ label, light = false }: { label: string; light?: boolean }) {
   return (
-    <div className="rounded-lg border border-brand-100 p-4 dark:border-brand-900">
-      <p className="font-medium text-brand-900 dark:text-brand-50">{title}</p>
-      <p className="mt-1 font-mono text-[11px] text-brand-700 dark:text-brand-500">{file}</p>
-      <p className="mt-2 text-xs leading-relaxed text-brand-700 dark:text-brand-200">{description}</p>
+    <div className="flex items-end gap-4">
+      <span
+        className="inline-block w-1.5 self-stretch"
+        style={{ backgroundColor: light ? 'var(--color-accent)' : 'var(--color-primary)' }}
+        aria-hidden
+      />
+      <h2
+        className="font-sans font-black leading-[1] tracking-[-0.03em]"
+        style={{
+          fontSize: 'clamp(2rem, 4vw, 3rem)',
+          color: light ? 'var(--color-on-primary)' : 'var(--color-foreground)',
+        }}
+      >
+        {label}
+      </h2>
+    </div>
+  )
+}
+
+function FlavorCard({
+  title,
+  file,
+  description,
+  index,
+}: {
+  title: string
+  file: string
+  description: string
+  index: number
+}) {
+  return (
+    <div
+      className="flavor-card flex flex-col gap-3 p-6 transition-all duration-200"
+      style={{
+        backgroundColor: 'var(--color-accent)',
+        animationDelay: `${index * 80}ms`,
+      }}
+    >
+      <p className="font-sans text-base font-bold" style={{ color: 'var(--color-on-accent)' }}>
+        {title}
+      </p>
+      <p className="font-mono text-[11px]" style={{ color: 'color-mix(in srgb, var(--color-on-accent) 70%, transparent)' }}>
+        {file}
+      </p>
+      <p className="text-sm leading-relaxed" style={{ color: 'color-mix(in srgb, var(--color-on-accent) 80%, transparent)' }}>
+        {description}
+      </p>
+      <style>{`
+        .flavor-card {
+          box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-accent) 40%, black);
+        }
+        .flavor-card:hover {
+          background-color: color-mix(in srgb, var(--color-accent) 85%, black);
+          transform: translate(-3px, -3px);
+          box-shadow: 7px 7px 0 color-mix(in srgb, var(--color-accent) 40%, black);
+        }
+        .flavor-card:active {
+          transform: translate(2px, 2px);
+          box-shadow: 2px 2px 0 color-mix(in srgb, var(--color-accent) 40%, black);
+        }
+      `}</style>
+    </div>
+  )
+}
+
+function ComponentGrid({ components }: { components: ComponentEntry[] }) {
+  const gridRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = gridRef.current
+    if (!el) return
+
+    const items = el.querySelectorAll<HTMLElement>('.scroll-reveal')
+    if (!items.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 },
+    )
+
+    items.forEach((item) => observer.observe(item))
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div ref={gridRef} className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+      {components.map((c) => (
+        <ComponentCard key={c.slug} {...c} />
+      ))}
     </div>
   )
 }
@@ -90,18 +320,45 @@ function ComponentCard({ name, slug, description, tags, version }: ComponentEntr
   return (
     <Link
       href={`/${slug}`}
-      className="group flex flex-col gap-3 rounded-lg border border-brand-100 bg-brand-50/50 p-5 transition-colors hover:border-brand-200 hover:bg-brand-50 dark:border-brand-900 dark:bg-brand-950 dark:hover:border-brand-700 dark:hover:bg-brand-900"
+      className="group scroll-reveal flex min-h-[280px] flex-col justify-between gap-6 p-8
+                 border-2 border-[var(--color-border)] bg-[var(--color-card)]
+                 shadow-[4px_4px_0_var(--color-border)]
+                 transition-all duration-300
+                 hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)]
+                 hover:shadow-[8px_8px_0_color-mix(in_srgb,var(--color-primary)_50%,black)]
+                 hover:-translate-x-1 hover:-translate-y-1
+                 active:translate-x-0 active:translate-y-0
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
     >
-      <div className="flex items-start justify-between gap-2">
-        <span className="font-medium text-brand-900 group-hover:text-brand-700 dark:text-brand-50 dark:group-hover:text-brand-500">
-          {name}
-        </span>
-        <span className="shrink-0 text-xs text-brand-700 dark:text-brand-500">v{version}</span>
+      <div>
+        <div className="mb-4 flex items-start justify-between gap-3">
+          <span className="text-2xl font-black leading-tight tracking-tight
+                           text-[var(--color-foreground)] transition-colors duration-300
+                           group-hover:text-[var(--color-on-primary)]">
+            {name}
+          </span>
+          <span className="mt-1 shrink-0 font-mono text-[11px]
+                           text-[var(--color-muted-foreground)] transition-colors duration-300
+                           group-hover:text-[var(--color-on-primary)]">
+            v{version}
+          </span>
+        </div>
+        <p className="text-sm leading-relaxed
+                      text-[var(--color-muted-foreground)] transition-colors duration-300
+                      group-hover:text-[var(--color-on-primary)]">
+          {description}
+        </p>
       </div>
-      <p className="text-sm text-brand-700 dark:text-brand-200">{description}</p>
-      <div className="flex flex-wrap gap-1">
+      <div className="flex flex-wrap gap-2">
         {tags.map((tag) => (
-          <span key={tag} className="rounded bg-brand-100 px-1.5 py-0.5 text-xs text-brand-700 dark:bg-brand-900 dark:text-brand-200">
+          <span
+            key={tag}
+            className="rounded-none px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-[0.08em]
+                       bg-[var(--color-accent)] text-[var(--color-on-accent)]
+                       transition-colors duration-300
+                       group-hover:bg-[color-mix(in_srgb,var(--color-on-primary)_20%,transparent)]
+                       group-hover:text-[var(--color-on-primary)]"
+          >
             {tag}
           </span>
         ))}
@@ -112,9 +369,18 @@ function ComponentCard({ name, slug, description, tags, version }: ComponentEntr
 
 function EmptyState({ empty, hint }: { empty: string; hint: string }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-brand-200 py-20 text-center dark:border-brand-900">
-      <p className="text-sm text-brand-700 dark:text-brand-500">{empty}</p>
-      <p className="mt-1 text-xs text-brand-500 dark:text-brand-700">{hint}</p>
+    <div
+      className="flex flex-col items-center justify-center py-24 text-center"
+      style={{
+        border: '2px dashed var(--color-border)',
+      }}
+    >
+      <p className="text-base" style={{ color: 'var(--color-muted-foreground)' }}>
+        {empty}
+      </p>
+      <p className="mt-2 text-[11px] opacity-60" style={{ color: 'var(--color-muted-foreground)' }}>
+        {hint}
+      </p>
     </div>
   )
 }

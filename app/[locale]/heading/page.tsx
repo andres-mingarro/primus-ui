@@ -3,6 +3,7 @@ import { Heading } from '@primus/Heading/Heading.tailwind'
 import { ShowcaseFrame } from '@/ui/ShowcaseFrame'
 import { CodeTabs } from '@/ui/CodeTabs'
 import { ComponentMeta } from '@primus/Heading/meta'
+import { ComponentPageHeader, SectionLabel, PropsTable, CssVarsTable } from '@/ui/ComponentPage'
 
 const TAILWIND_CODE = `
 import { Heading } from './Heading.tailwind'
@@ -83,18 +84,15 @@ export default function HeadingPage() {
   return (
     <div className="space-y-12">
 
-      <div className="space-y-2 border-b border-brand-100 pb-8 dark:border-brand-900">
-        <div className="flex items-baseline gap-3">
-          <h1 className="text-2xl font-semibold tracking-tight">{ComponentMeta.name}</h1>
-          <span className="text-sm text-brand-700 dark:text-brand-500">v{ComponentMeta.version}</span>
-        </div>
-        <p className="text-brand-700 dark:text-brand-200">{ComponentMeta.description}</p>
-      </div>
+      <ComponentPageHeader
+        label="Component"
+        name={ComponentMeta.name}
+        version={ComponentMeta.version}
+        description={ComponentMeta.description}
+      />
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('examples')}
-        </h2>
+        <SectionLabel label={t('examples')} />
 
         <ShowcaseFrame label="variant — h1 through h6">
           <div className="flex w-full flex-col gap-3">
@@ -134,62 +132,22 @@ export default function HeadingPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('props')}
-        </h2>
-        <div className="overflow-hidden rounded-lg border border-brand-100 dark:border-brand-900">
-          <table className="w-full text-sm">
-            <thead className="bg-brand-50 dark:bg-brand-950">
-              <tr>
-                {[t('prop'), t('type'), t('default'), t('description')].map((h) => (
-                  <th key={h} scope="col" className="px-4 py-3 text-left font-medium text-brand-700 dark:text-brand-200">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-brand-50 dark:divide-brand-900">
-              {ComponentMeta.props.map((p) => (
-                <tr key={p.name}>
-                  <td className="px-4 py-3 font-mono text-brand-900 dark:text-brand-50">{p.name}</td>
-                  <td className="px-4 py-3 font-mono text-brand-700 dark:text-brand-500">{p.type}</td>
-                  <td className="px-4 py-3 font-mono text-brand-700 dark:text-brand-500">{String(p.default ?? '—')}</td>
-                  <td className="px-4 py-3 text-brand-700 dark:text-brand-200">{p.description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <SectionLabel label={t('props')} />
+        <PropsTable rows={ComponentMeta.props.map((p) => ({
+          name: p.name,
+          type: p.type,
+          default: String(p.default ?? '—'),
+          description: p.description,
+        }))} headers={[t('prop'), t('type'), t('default'), t('description')]} />
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('cssVars')}
-        </h2>
-        <div className="overflow-hidden rounded-lg border border-brand-100 dark:border-brand-900">
-          <table className="w-full text-sm">
-            <thead className="bg-brand-50 dark:bg-brand-950">
-              <tr>
-                {[t('variable'), t('default'), t('description')].map((h) => (
-                  <th key={h} scope="col" className="px-4 py-3 text-left font-medium text-brand-700 dark:text-brand-200">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-brand-50 dark:divide-brand-900">
-              {ComponentMeta.cssVars.map((v) => (
-                <tr key={v.name}>
-                  <td className="px-4 py-3 font-mono text-brand-900 dark:text-brand-50">{v.name}</td>
-                  <td className="px-4 py-3 font-mono text-brand-700 dark:text-brand-500">{v.default}</td>
-                  <td className="px-4 py-3 text-brand-700 dark:text-brand-200">{v.description}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <SectionLabel label={t('cssVars')} />
+        <CssVarsTable rows={ComponentMeta.cssVars} headers={[t('variable'), t('default'), t('description')]} />
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
-          {t('code')}
-        </h2>
+        <SectionLabel label={t('code')} />
         <CodeTabs
           tabs={[
             { label: 'Tailwind', code: TAILWIND_CODE },
@@ -202,3 +160,4 @@ export default function HeadingPage() {
     </div>
   )
 }
+

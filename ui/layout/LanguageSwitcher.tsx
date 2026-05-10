@@ -16,23 +16,45 @@ export function LanguageSwitcher() {
   }
 
   return (
-    <div className="flex items-center rounded-md border border-brand-200 text-xs dark:border-brand-800">
-      {routing.locales.map((l, i) => (
-        <button
-          key={l}
-          onClick={() => switchLocale(l)}
-          aria-label={`Switch to ${l === 'en' ? 'English' : 'Español'}`}
-          className={[
-            'px-2 py-1 font-medium uppercase transition-colors',
-            i === 0 ? 'rounded-l-md' : 'rounded-r-md',
-            locale === l
-              ? 'bg-brand-900 text-brand-50 dark:bg-brand-50 dark:text-brand-900'
-              : 'text-brand-700 hover:text-brand-900 dark:text-brand-200 dark:hover:text-brand-50',
-          ].join(' ')}
-        >
-          {l}
-        </button>
-      ))}
+    <div
+      className="flex items-center overflow-hidden rounded-sm text-[11px]"
+      style={{ border: '1px solid color-mix(in srgb, var(--color-on-primary) 30%, transparent)' }}
+    >
+      {routing.locales.map((l, i) => {
+        const isActive = locale === l
+        return (
+          <button
+            key={l}
+            onClick={() => switchLocale(l)}
+            aria-label={`Switch to ${l === 'en' ? 'English' : 'Español'}`}
+            aria-pressed={isActive}
+            className="lang-btn min-h-[36px] min-w-[36px] px-2.5 font-mono font-bold uppercase tracking-widest transition-all duration-200"
+            style={{
+              borderLeft: i > 0
+                ? '1px solid color-mix(in srgb, var(--color-on-primary) 30%, transparent)'
+                : undefined,
+              backgroundColor: isActive
+                ? 'color-mix(in srgb, var(--color-on-primary) 20%, transparent)'
+                : 'transparent',
+              color: isActive
+                ? 'var(--color-on-primary)'
+                : 'color-mix(in srgb, var(--color-on-primary) 65%, transparent)',
+            }}
+          >
+            {l}
+          </button>
+        )
+      })}
+      <style>{`
+        .lang-btn:hover {
+          background-color: color-mix(in srgb, var(--color-on-primary) 15%, transparent) !important;
+          color: var(--color-on-primary) !important;
+        }
+        .lang-btn:focus-visible {
+          outline: 2px solid var(--color-on-primary);
+          outline-offset: 2px;
+        }
+      `}</style>
     </div>
   )
 }

@@ -9,19 +9,32 @@ interface SidebarNavProps {
   components: ComponentEntry[]
 }
 
-function NavLink({ href, label, badge, active }: { href: string; label: string; badge?: string; active: boolean }) {
+function SidebarLink({
+  href,
+  label,
+  badge,
+  active,
+}: {
+  href: string
+  label: string
+  badge?: string
+  active: boolean
+}) {
   return (
     <Link
       href={href}
       className={[
-        'flex items-center justify-between rounded-md px-2 py-1.5 text-sm transition-colors',
-        active
-          ? 'bg-brand-100 font-medium text-brand-900 dark:bg-brand-900 dark:text-brand-50'
-          : 'text-brand-700 hover:bg-brand-50 hover:text-brand-900 dark:text-brand-200 dark:hover:bg-brand-900 dark:hover:text-brand-50',
+        'group relative flex items-center justify-between rounded-none px-4 py-2.5 text-[0.9375rem] font-medium transition-all duration-200',
+        active ? 'sidebar-link--active' : 'sidebar-link--idle',
       ].join(' ')}
+      aria-current={active ? 'page' : undefined}
     >
-      <span>{label}</span>
-      {badge && <span className="text-xs text-brand-500">{badge}</span>}
+      <span className={active ? 'font-bold' : ''}>{label}</span>
+      {badge && (
+        <span className="shrink-0 font-mono text-[10px] sidebar-link__badge">
+          {badge}
+        </span>
+      )}
     </Link>
   )
 }
@@ -34,35 +47,86 @@ export function SidebarNav({ components }: SidebarNavProps) {
   const base = `/${locale}`
 
   return (
-    <div className="space-y-6">
-      <div>
-        <p className="mb-1.5 px-2 text-xs font-semibold uppercase tracking-widest text-brand-500">
-          {t('docs')}
-        </p>
-        <ul className="space-y-0.5">
-          <li>
-            <NavLink href={base} label={t('intro')} active={pathname === base || pathname === `${base}/`} />
-          </li>
-        </ul>
-      </div>
+    <>
+      {/* Scoped sidebar link styles — single declaration, palette-driven */}
+      <style>{`
+        .sidebar-link--active {
+          background-color: var(--color-primary);
+          color: var(--color-on-primary);
+        }
+        .sidebar-link--idle {
+          color: var(--color-foreground);
+        }
+        .sidebar-link--idle:hover {
+          background-color: var(--color-border);
+          color: var(--color-foreground);
+          transition: background-color 200ms, color 200ms;
+        }
+        .sidebar-link--active .sidebar-link__badge {
+          color: color-mix(in srgb, var(--color-on-primary) 60%, transparent);
+        }
+        .sidebar-link--idle .sidebar-link__badge {
+          color: var(--color-muted-foreground);
+        }
+        .sidebar-link--active:focus-visible {
+          outline: 2px solid var(--color-on-primary);
+          outline-offset: 2px;
+        }
+        .sidebar-link--idle:focus-visible {
+          outline: 2px solid var(--color-primary);
+          outline-offset: 2px;
+        }
+      `}</style>
 
-      <div>
-        <p className="mb-1.5 px-2 text-xs font-semibold uppercase tracking-widest text-brand-500">
-          {t('components')}
-        </p>
-        <ul className="space-y-0.5">
-          {components.map((c) => (
-            <li key={c.slug}>
-              <NavLink
-                href={`${base}/${c.slug}`}
-                label={c.name}
-                badge={`v${c.version}`}
-                active={pathname === `${base}/${c.slug}`}
+      <div className="space-y-8">
+        {/* Docs section */}
+        <div>
+          <p
+            className="mb-3 px-4 font-mono text-[10px] font-black uppercase tracking-[0.2em]"
+            style={{ color: 'var(--color-accent)' }}
+          >
+            {t('docs')}
+          </p>
+          <ul className="space-y-0.5">
+            <li>
+              <SidebarLink
+                href={base}
+                label={t('intro')}
+                active={pathname === base || pathname === `${base}/`}
               />
             </li>
-          ))}
-        </ul>
+          </ul>
+        </div>
+
+        {/* Divider */}
+        <div
+          className="h-px w-full"
+          style={{ backgroundColor: 'var(--color-border)' }}
+          aria-hidden
+        />
+
+        {/* Components section */}
+        <div>
+          <p
+            className="mb-3 px-4 font-mono text-[10px] font-black uppercase tracking-[0.2em]"
+            style={{ color: 'var(--color-accent)' }}
+          >
+            {t('components')}
+          </p>
+          <ul className="space-y-0.5">
+            {components.map((c) => (
+              <li key={c.slug}>
+                <SidebarLink
+                  href={`${base}/${c.slug}`}
+                  label={c.name}
+                  badge={`v${c.version}`}
+                  active={pathname === `${base}/${c.slug}`}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

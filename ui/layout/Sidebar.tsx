@@ -3,8 +3,14 @@ import { SidebarNav } from './SidebarNav'
 
 export function Sidebar() {
   return (
-    <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-56 shrink-0 overflow-y-auto border-r border-brand-100 dark:border-brand-900 lg:block">
-      <div className="space-y-6 px-3 py-6">
+    <aside
+      className="sticky top-20 hidden h-[calc(100vh-5rem)] w-64 shrink-0 overflow-y-auto lg:block"
+      style={{
+        backgroundColor: 'var(--color-muted)',
+        borderRight: '2px solid var(--color-border)',
+      }}
+    >
+      <div className="px-3 py-8">
         <SidebarNav components={components} />
       </div>
     </aside>

@@ -1,0 +1,54 @@
+{#
+  THEME-NAME:text — 1.3.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  include (text prop)
+  {% include 'THEME-NAME:text' with {
+    tag: 'p', text: 'Texto de ejemplo',
+    size: 'lg', mobile_size: 'md', weight: 'bold',
+    translate_enabled: false, addClassName: 'my-extra-class',
+  } only %}
+
+  embed (markup / slot)
+  {% embed 'THEME-NAME:text' with { tag: 'p', size: 'lg', weight: 'medium' } only %}
+    {% block items %}Texto con <strong>énfasis</strong> y un <a href="/ruta">enlace</a>.{% endblock %}
+  {% endembed %}
+
+  plain text field
+  {{ include('THEME-NAME:text', { tag: 'p', text: node.field_subtitle.value, translate_enabled: false, size: 'lg' }, false) }}
+
+  field with markup (body, text_long)
+  {% embed 'THEME-NAME:text' with { tag: 'div', size: 'md' } %}
+    {% block items %}{{ content.field_body }}{% endblock %}
+  {% endembed %}
+
+  static label in template
+  {{ include('THEME-NAME:text', { tag: 'label', text: 'Email address', translate_enabled: true, size: 'sm', weight: 'medium' }, false) }}
+#}
+{% set _text = text ? (translate_enabled is same as(false) ? text : text|t) : null %}
+{%
+  set classes = [
+    'pu-text',
+    size ? 'pu-text--size-' ~ size : '',
+    mobile_size ? 'pu-text--mobile-' ~ mobile_size : '',
+    weight ? 'pu-text--weight-' ~ weight : '',
+    addClassName ?? '',
+  ]
+%}
+{% if tag == 'p' %}
+  <p {{ attributes.addClass(classes) }}>
+    {%- if items %}{{ items }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </p>
+{% elseif tag == 'label' %}
+  <label {{ attributes.addClass(classes) }}>
+    {%- if items %}{{ items }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </label>
+{% elseif tag == 'div' %}
+  <div {{ attributes.addClass(classes) }}>
+    {%- if items %}{{ items }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </div>
+{% else %}
+  <span {{ attributes.addClass(classes) }}>
+    {%- if items %}{{ items }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </span>
+{% endif %}

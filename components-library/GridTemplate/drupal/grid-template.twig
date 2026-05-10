@@ -1,3 +1,22 @@
+{#
+  THEME-NAME:grid-template — 1.0.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  include
+  {{ include('THEME-NAME:grid-template', { cols: 3, cols_medium: 2, cols_small: 1, gap: true, addClassName: '' }, false) }}
+
+  embed (items slot)
+  {% embed 'THEME-NAME:grid-template' with { cols: 3, cols_medium: 2, cols_small: 1 } %}
+    {% block items %}
+      <div>Cell 1</div>
+      <div>Cell 2</div>
+      <div>Cell 3</div>
+    {% endblock %}
+  {% endembed %}
+
+  no gap
+  {{ include('THEME-NAME:grid-template', { cols: 3, gap: false }, false) }}
+#}
 {%
   set classes = [
     'pu-grid-template',

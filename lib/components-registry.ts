@@ -21,4 +21,11 @@ export const components: ComponentEntry[] = [
     tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
     version: '1.0.0',
   },
+  {
+    name: 'Text',
+    slug: 'text',
+    description: 'A polymorphic text element that renders a configurable HTML tag with overridable typography tokens.',
+    tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
+    version: '1.0.0',
+  },
 ]

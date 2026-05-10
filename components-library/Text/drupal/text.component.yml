@@ -1,0 +1,61 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Text
+status: experimental
+description: A polymorphic text element that renders a configurable HTML tag with overridable typography tokens.
+props:
+  type: object
+  properties:
+    tag:
+      type: string
+      title: HTML tag
+      description: HTML element to render
+      enum:
+        - span
+        - label
+        - p
+        - div
+      default: span
+    size:
+      type: string
+      title: Size
+      description: 'Typography size. To add a new value: add the modifier in text.scss and extend this enum.'
+      enum:
+        - sm
+        - md
+        - lg
+        - xl
+    mobile_size:
+      type: string
+      title: Mobile size
+      description: 'Overrides size at ≤ 768px. Same values as size.'
+      enum:
+        - sm
+        - md
+        - lg
+        - xl
+    weight:
+      type: string
+      title: Font weight
+      description: 'To add a new value: add the modifier in text.scss and extend this enum.'
+      enum:
+        - light
+        - regular
+        - medium
+        - bold
+    text:
+      type: string
+      title: Text
+      description: Plain text content. Alternative to the items slot for simple strings.
+    translate_enabled:
+      type: boolean
+      title: Enable translation
+      description: "Apply Drupal t() to the text prop. Set false when the text already comes translated from the CMS (e.g. a field with separate EN/ES values)."
+      default: true
+    addClassName:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element
+slots:
+  items:
+    title: Content
+    description: Content to render inside the element

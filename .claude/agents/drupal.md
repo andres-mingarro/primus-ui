@@ -171,11 +171,11 @@ props:
 
 ```twig
 {# Caso normal — translate_enabled: true (default) #}
-{% include 'primus-ui:button' with { label: 'Submit' } %}
+{% include 'THEME-NAME:button' with { label: 'Submit' } %}
 
 {# El caller ya traduce — translate_enabled: false #}
 {% set my_label = 'Submit'|t %}
-{% include 'primus-ui:button' with { label: my_label, translate_enabled: false } %}
+{% include 'THEME-NAME:button' with { label: my_label, translate_enabled: false } %}
 ```
 
 ---
@@ -248,6 +248,72 @@ All props from `meta.ts` must appear here.
 
 Always use `{{ attributes.addClass(classes) }}` on the root element so Drupal can inject its own attributes.
 
+**Todo archivo `.twig` debe comenzar con un docblock.** Formato exacto — sin variaciones:
+
+```twig
+{#
+  THEME-NAME:[component-name] — [version]
+
+  [case title]
+  [code snippet]
+
+  [case title]
+  [code snippet]
+#}
+```
+
+Reglas:
+- Primera línea del archivo, antes de cualquier lógica Twig.
+- Header: `THEME-NAME:[name] — [version]`, sin palabras extra.
+- Un título corto en inglés por caso de uso, seguido del snippet. Sin tablas de props, sin separadores `───`, sin explicaciones largas.
+- El tercer argumento `false` en `include` siempre presente — desactiva el aislamiento de variables.
+- Si el componente tiene slots, incluir un caso con `embed`.
+- Todo el texto en inglés.
+
+**Ejemplo — componente sin slot:**
+
+```twig
+{#
+  THEME-NAME:divider — 1.0.0
+
+  horizontal (default)
+  {{ include('THEME-NAME:divider', {}, false) }}
+
+  vertical
+  {{ include('THEME-NAME:divider', { orientation: 'vertical' }, false) }}
+
+  decorative (hidden from assistive tech)
+  {{ include('THEME-NAME:divider', { assistive_hidden: true }, false) }}
+#}
+```
+
+**Ejemplo — componente con slot y campos Drupal:**
+
+```twig
+{#
+  THEME-NAME:text — 1.3.0
+
+  include (text prop)
+  {{ include('THEME-NAME:text', { tag: 'p', text: 'Example', size: 'lg', weight: 'medium', translate_enabled: false, addClassName: '' }, false) }}
+
+  embed (markup / slot)
+  {% embed 'THEME-NAME:text' with { tag: 'p', size: 'lg' } %}
+    {% block items %}Text with <strong>markup</strong>.{% endblock %}
+  {% endembed %}
+
+  plain text field
+  {{ include('THEME-NAME:text', { tag: 'p', text: node.field_subtitle.value, translate_enabled: false, size: 'lg' }, false) }}
+
+  field with markup (body, text_long)
+  {% embed 'THEME-NAME:text' with { tag: 'div', size: 'md' } %}
+    {% block items %}{{ content.field_body }}{% endblock %}
+  {% endembed %}
+
+  static label in template
+  {{ include('THEME-NAME:text', { tag: 'label', text: 'Email address', translate_enabled: true, size: 'sm', weight: 'medium' }, false) }}
+#}
+```
+
 ---
 
 ## SCSS file
@@ -272,13 +338,13 @@ Drop the entire `drupal/` folder into your theme:
 Then clear Drupal's cache and use it:
 
 ```twig
-{% include 'primus-ui:[component-name]' with {
+{% include 'THEME-NAME:[component-name]' with {
   label: 'Click me',
   variant: 'primary',
 } %}
 ```
 
-Machine name format: `primus-ui:[component-name]`
+Machine name format: `THEME-NAME:[component-name]`
 
 ---
 

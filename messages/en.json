@@ -25,7 +25,8 @@
     "step4": "To customize tokens, override CSS variables in your own CSS — no source edits needed.",
     "componentsSection": "Components",
     "empty": "No components yet.",
-    "emptyHint": "Add the first one to components-library/"
+    "emptyHint": "Add the first one to components-library/",
+    "drupalThemeNote": "In Drupal snippets, replace <code>THEME-NAME</code> with your theme or module machine name (e.g. <code>my_theme:button</code>)."
   },
   "component": {
     "examples": "Examples",

@@ -34,15 +34,16 @@ import { Divider } from './Divider'
 `
 
 const DRUPAL_CODE = `
+{# Replace THEME-NAME with your Drupal theme or module machine name #}
 {# Copy drupal/ folder to [your-theme]/components/divider/ then clear cache #}
 
-{% include 'primus-ui:divider' %}
+{% include 'THEME-NAME:divider' %}
 
-{% include 'primus-ui:divider' with {
+{% include 'THEME-NAME:divider' with {
   orientation: 'vertical',
 } %}
 
-{% include 'primus-ui:divider' with {
+{% include 'THEME-NAME:divider' with {
   assistive_hidden: true,
 } %}
 `

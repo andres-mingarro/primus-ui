@@ -1,3 +1,16 @@
+{#
+  THEME-NAME:divider — 1.0.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  horizontal (default)
+  {{ include('THEME-NAME:divider', {}, false) }}
+
+  vertical
+  {{ include('THEME-NAME:divider', { orientation: 'vertical' }, false) }}
+
+  decorative (hidden from assistive tech)
+  {{ include('THEME-NAME:divider', { assistive_hidden: true }, false) }}
+#}
 {%
   set classes = [
     'pu-divider',

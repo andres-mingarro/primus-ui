@@ -38,6 +38,7 @@ export default function HomePage() {
           <FlavorCard title={t('flavorScssTitle')} file="Button.tsx + button.scss" description={t('flavorScssDesc')} />
           <FlavorCard title={t('flavorDrupalTitle')} file="drupal/button.twig + .scss" description={t('flavorDrupalDesc')} />
         </div>
+        <p className="text-xs text-brand-700 dark:text-brand-200" dangerouslySetInnerHTML={{ __html: t('drupalThemeNote') }} />
       </section>
 
       <section className="space-y-4">

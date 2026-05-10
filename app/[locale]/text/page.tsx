@@ -1,77 +1,95 @@
 import { useTranslations } from 'next-intl'
-import { GridTemplate } from '@primus/GridTemplate/GridTemplate.tailwind'
+import { Text } from '@primus/Text/Text.tailwind'
 import { ShowcaseFrame } from '@/ui/ShowcaseFrame'
 import { CodeTabs } from '@/ui/CodeTabs'
-import { ComponentMeta } from '@primus/GridTemplate/meta'
+import { ComponentMeta } from '@primus/Text/meta'
 
 const TAILWIND_CODE = `
-import { GridTemplate } from './GridTemplate.tailwind'
+import { Text } from './Text.tailwind'
 
-// 3 → 2 → 1 columns (default)
-<GridTemplate>
-  <div>Item 1</div>
-  <div>Item 2</div>
-  <div>Item 3</div>
-</GridTemplate>
+// Default — renders a <span>
+<Text>Hello world</Text>
 
-// Custom breakpoint columns
-<GridTemplate cols={4} colsMedium={2} colsSmall={1}>
-  <div>A</div>
-  <div>B</div>
-  <div>C</div>
-  <div>D</div>
-</GridTemplate>
+// Paragraph
+<Text tag="p" addClassName="text-base leading-relaxed">
+  A full paragraph of text.
+</Text>
 
-// No gap
-<GridTemplate gap={false}>
-  <div>A</div>
-  <div>B</div>
-</GridTemplate>
+// text prop — shorthand for string-only content
+<Text tag="label" text="Email address" />
+<Text tag="p" size="sm" text="Helper text below the field" />
+
+// Size prop
+<Text size="sm">Small (14px)</Text>
+<Text size="md">Medium (16px)</Text>
+<Text size="lg">Large (18px)</Text>
+<Text size="xl">Extra large (20px)</Text>
+
+// mobileSize — xl on desktop, sm on mobile
+<Text size="xl" mobileSize="sm">Responsive text</Text>
+
+// Weight prop
+<Text weight="light">Light (300)</Text>
+<Text weight="regular">Regular (400)</Text>
+<Text weight="medium">Medium (500)</Text>
+<Text weight="bold">Bold (700)</Text>
 `
 
 const SCSS_CODE = `
-// 1. Copy GridTemplate.tsx + grid-template.scss into your project
-// 2. Import grid-template.scss once in your app entry
+// 1. Copy Text.tsx + text.scss into your project
+// 2. Import text.scss once in your app entry
 
-import { GridTemplate } from './GridTemplate'
+import { Text } from './Text'
 
-<GridTemplate cols={3} colsMedium={2} colsSmall={1}>
-  <div>Item 1</div>
-  <div>Item 2</div>
-  <div>Item 3</div>
-</GridTemplate>
+<Text>Hello world</Text>
+<Text tag="p">A paragraph</Text>
 
-// Override gap token in your CSS:
-// .my-grid { --pu-grid-template-gap: 2rem; }
+// text prop — shorthand for string-only content
+<Text tag="label" text="Email address" />
+<Text tag="p" size="sm" text="Helper text below the field" />
+
+// Size prop
+<Text size="sm">Small (14px)</Text>
+<Text size="md">Medium (16px)</Text>
+<Text size="lg">Large (18px)</Text>
+<Text size="xl">Extra large (20px)</Text>
+
+// mobileSize — xl on desktop, sm on mobile
+<Text size="xl" mobileSize="sm">Responsive text</Text>
+
+// Weight prop
+<Text weight="light">Light (300)</Text>
+<Text weight="regular">Regular (400)</Text>
+<Text weight="medium">Medium (500)</Text>
+<Text weight="bold">Bold (700)</Text>
+
+// Override tokens in your CSS:
+// .my-section {
+//   --pu-text-font-size:   1.125rem;
+//   --pu-text-color:       #1d4ed8;
+//   --pu-text-font-weight: 600;
+// }
 `
 
 const DRUPAL_CODE = `
-{# Replace THEME-NAME with your Drupal theme or module machine name #}
-{# Copy drupal/ folder to [your-theme]/components/grid-template/ then clear cache #}
+{# Copy drupal/ folder to [your-theme]/components/text/ then clear cache #}
 
-{% embed 'THEME-NAME:grid-template' with { cols: 3, cols_medium: 2, cols_small: 1 } %}
-  {% block items %}
-    <div>Item 1</div>
-    <div>Item 2</div>
-    <div>Item 3</div>
-  {% endblock %}
-{% endembed %}
+{% include 'THEME-NAME:text' with {
+  content: 'Hello world',
+} %}
 
-{# No gap #}
-{% embed 'THEME-NAME:grid-template' with { gap: false } %}
-  {% block items %}<div>A</div><div>B</div>{% endblock %}
-{% endembed %}
+{% include 'THEME-NAME:text' with {
+  as: 'p',
+  content: 'A paragraph of text.',
+} %}
+
+{% include 'THEME-NAME:text' with {
+  as: 'label',
+  content: 'Form label',
+} %}
 `
 
-function DemoCard({ label }: { label: string }) {
-  return (
-    <div className="flex h-16 items-center justify-center rounded border border-brand-200 bg-brand-50 text-sm font-medium text-brand-700 dark:border-brand-800 dark:bg-brand-900 dark:text-brand-200">
-      {label}
-    </div>
-  )
-}
-
-export default function GridTemplatePage() {
+export default function TextPage() {
   const t = useTranslations('component')
 
   return (
@@ -89,31 +107,47 @@ export default function GridTemplatePage() {
         <h2 className="text-sm font-semibold uppercase tracking-widest text-brand-700 dark:text-brand-500">
           {t('examples')}
         </h2>
-        <ShowcaseFrame label="3 → 2 → 1 columns (default)">
-          <div className="w-full">
-            <GridTemplate>
-              {['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'].map((l) => (
-                <DemoCard key={l} label={l} />
-              ))}
-            </GridTemplate>
+        <ShowcaseFrame label="span (default)">
+          <Text>Hello world — rendered as a span</Text>
+        </ShowcaseFrame>
+        <ShowcaseFrame label="p">
+          <Text tag="p" addClassName="text-base leading-relaxed">
+            A full paragraph of text rendered as a &lt;p&gt; element.
+          </Text>
+        </ShowcaseFrame>
+        <ShowcaseFrame label="label">
+          <Text tag="label" addClassName="text-sm font-medium">
+            Form label rendered as a &lt;label&gt; element
+          </Text>
+        </ShowcaseFrame>
+        <ShowcaseFrame label="div">
+          <Text tag="div" addClassName="text-xl font-bold">
+            Section heading rendered as a &lt;div&gt;
+          </Text>
+        </ShowcaseFrame>
+        <ShowcaseFrame label="text prop — string shorthand">
+          <div className="flex flex-col gap-2">
+            <Text tag="label" text="Email address" addClassName="text-sm font-medium" />
+            <Text tag="p" size="sm" text="Helper text below the field" />
           </div>
         </ShowcaseFrame>
-        <ShowcaseFrame label="4 → 2 → 1 columns">
-          <div className="w-full">
-            <GridTemplate cols={4} colsMedium={2} colsSmall={1}>
-              {['A', 'B', 'C', 'D'].map((l) => (
-                <DemoCard key={l} label={l} />
-              ))}
-            </GridTemplate>
+        <ShowcaseFrame label="size — all 4 values">
+          <div className="flex flex-col gap-2">
+            <Text size="sm">sm — 14px</Text>
+            <Text size="md">md — 16px</Text>
+            <Text size="lg">lg — 18px</Text>
+            <Text size="xl">xl — 20px</Text>
           </div>
         </ShowcaseFrame>
-        <ShowcaseFrame label="No gap">
-          <div className="w-full">
-            <GridTemplate cols={3} colsMedium={2} colsSmall={1} gap={false}>
-              {['X', 'Y', 'Z'].map((l) => (
-                <DemoCard key={l} label={l} />
-              ))}
-            </GridTemplate>
+        <ShowcaseFrame label="mobileSize — xl on desktop, sm on mobile (resize to see)">
+          <Text size="xl" mobileSize="sm">Responsive: xl above 768px, sm below</Text>
+        </ShowcaseFrame>
+        <ShowcaseFrame label="weight — all 4 values">
+          <div className="flex flex-col gap-2">
+            <Text weight="light">light — 300</Text>
+            <Text weight="regular">regular — 400</Text>
+            <Text weight="medium">medium — 500</Text>
+            <Text weight="bold">bold — 700</Text>
           </div>
         </ShowcaseFrame>
       </section>

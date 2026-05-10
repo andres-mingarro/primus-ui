@@ -1,0 +1,35 @@
+.pu-text {
+  // --- Overridable tokens (safe to override in your project) ---
+  --pu-text-font-family:   inherit;
+  --pu-text-font-size:     inherit;
+  --pu-text-color:         inherit;
+  --pu-text-line-height:   inherit;
+  --pu-text-font-weight:   inherit;
+
+  // --- Implementation ---
+  font-family:   var(--pu-text-font-family);
+  font-size:     var(--pu-text-font-size);
+  color:         var(--pu-text-color);
+  line-height:   var(--pu-text-line-height);
+  font-weight:   var(--pu-text-font-weight);
+
+  // ─── Sizes — to add a new size: add a modifier here + the mobile mirror below ───
+  &--size-sm { --pu-text-font-size: 0.875rem; }
+  &--size-md { --pu-text-font-size: 1rem; }
+  &--size-lg { --pu-text-font-size: 1.125rem; }
+  &--size-xl { --pu-text-font-size: 1.25rem; }
+
+  // ─── Weights — to add a new weight: add a modifier here ───
+  &--weight-light   { --pu-text-font-weight: 300; }
+  &--weight-regular { --pu-text-font-weight: 400; }
+  &--weight-medium  { --pu-text-font-weight: 500; }
+  &--weight-bold    { --pu-text-font-weight: 700; }
+
+  // ─── Mobile sizes (≤ 768px) — mirrors sizes exactly ───
+  @media (max-width: 768px) {
+    &--mobile-sm { --pu-text-font-size: 0.875rem; }
+    &--mobile-md { --pu-text-font-size: 1rem; }
+    &--mobile-lg { --pu-text-font-size: 1.125rem; }
+    &--mobile-xl { --pu-text-font-size: 1.25rem; }
+  }
+}

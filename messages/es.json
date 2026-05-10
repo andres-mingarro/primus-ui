@@ -25,7 +25,8 @@
     "step4": "Para personalizar tokens, sobreescribí las variables CSS en tu propio CSS — sin tocar el source.",
     "componentsSection": "Componentes",
     "empty": "No hay componentes todavía.",
-    "emptyHint": "Agregá el primero en components-library/"
+    "emptyHint": "Agregá el primero en components-library/",
+    "drupalThemeNote": "En los snippets de Drupal, reemplazá <code>THEME-NAME</code> por el machine name de tu tema o módulo (ej: <code>my_theme:button</code>)."
   },
   "component": {
     "examples": "Ejemplos",

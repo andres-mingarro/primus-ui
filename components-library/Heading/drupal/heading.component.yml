@@ -1,0 +1,46 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Heading
+status: experimental
+description: A semantic heading element (h1–h6) with overridable typography tokens.
+props:
+  type: object
+  required:
+    - variant
+  properties:
+    variant:
+      type: string
+      title: Variant
+      description: HTML heading level to render.
+      enum:
+        - h1
+        - h2
+        - h3
+        - h4
+        - h5
+        - h6
+    weight:
+      type: string
+      title: Font weight
+      description: 'thin, normal (default), or bold.'
+      enum:
+        - thin
+        - normal
+        - bold
+      default: normal
+    text:
+      type: string
+      title: Text
+      description: Plain text content. Alternative to the content slot for simple strings.
+    translate_enabled:
+      type: boolean
+      title: Enable translation
+      description: "Apply Drupal t() to the text prop. Set false when the text already comes translated from the CMS (e.g. a field with separate EN/ES values)."
+      default: true
+    addClassName:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element.
+slots:
+  content:
+    title: Content
+    description: Content to render inside the heading. Accepts markup. Use instead of the text prop when you need inline HTML.

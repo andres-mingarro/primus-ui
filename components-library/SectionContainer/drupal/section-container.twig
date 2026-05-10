@@ -1,0 +1,48 @@
+{#
+  THEME-NAME:section-container — 1.0.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  large container (default)
+  {{ include('THEME-NAME:section-container', {}, false) }}
+
+  small container
+  {{ include('THEME-NAME:section-container', { container: 'small' }, false) }}
+
+  full width
+  {{ include('THEME-NAME:section-container', { container: 'full' }, false) }}
+
+  no vertical gap
+  {{ include('THEME-NAME:section-container', { gap: false }, false) }}
+
+  Drupal field as content slot
+  {% embed 'THEME-NAME:section-container' %}
+    {% block content %}
+      {{ content.field_body }}
+    {% endblock %}
+  {% endembed %}
+#}
+{%
+  set resolved_tag = tag|default('section') in ['section', 'div', 'article', 'main']
+    ? tag|default('section')
+    : 'section'
+%}
+{%
+  set classes = [
+    'pu-section-container',
+    'pu-section-container--' ~ (container|default('large')),
+    addClassName ?? '',
+  ]
+%}
+{%
+  set inner_classes = [
+    'pu-section-container__inner',
+    gap is same as(false) ? 'pu-section-container__inner--no-gap' : 'pu-section-container__inner--gap',
+    mobile_gap == 'large' ? 'pu-section-container__inner--mobile-large' : '',
+    mobile_gap == 'none' ? 'pu-section-container__inner--mobile-none' : '',
+  ]
+%}
+<{{ resolved_tag }} {{ attributes.addClass(classes) }}>
+  <div class="{{ inner_classes|join(' ')|trim }}">
+    {{ content }}
+  </div>
+</{{ resolved_tag }}>

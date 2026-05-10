@@ -28,4 +28,18 @@ export const components: ComponentEntry[] = [
     tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
     version: '1.0.0',
   },
+  {
+    name: 'Heading',
+    slug: 'heading',
+    description: 'A polymorphic heading element (h1–h6) with weight variants and optional HTML rendering.',
+    tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
+    version: '1.0.0',
+  },
+  {
+    name: 'SectionContainer',
+    slug: 'section-container',
+    description: 'A section wrapper with configurable max-width and horizontal padding. Safe to nest — inner margin collapses automatically.',
+    tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
+    version: '1.0.0',
+  },
 ]

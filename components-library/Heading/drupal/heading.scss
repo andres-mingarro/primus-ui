@@ -1,0 +1,45 @@
+.pu-heading {
+  // --- Overridable tokens (safe to override in your project) ---
+  --pu-heading-font-family:    inherit;
+  --pu-heading-color:          inherit;
+  --pu-heading-line-height:    1.2;
+  --pu-heading-font-weight:    400;
+  --pu-heading-margin:         0;
+
+  // h1 defaults
+  --pu-heading-h1-font-size:   2.25rem;
+
+  // h2 defaults
+  --pu-heading-h2-font-size:   1.875rem;
+
+  // h3 defaults
+  --pu-heading-h3-font-size:   1.5rem;
+
+  // h4 defaults
+  --pu-heading-h4-font-size:   1.25rem;
+
+  // h5 defaults
+  --pu-heading-h5-font-size:   1.125rem;
+
+  // h6 defaults
+  --pu-heading-h6-font-size:   1rem;
+
+  // --- Implementation ---
+  font-family:   var(--pu-heading-font-family);
+  color:         var(--pu-heading-color);
+  line-height:   var(--pu-heading-line-height);
+  font-weight:   var(--pu-heading-font-weight);
+  margin:        var(--pu-heading-margin);
+
+  // ─── Variant — sets the per-level font-size token ───
+  &--h1 { font-size: var(--pu-heading-h1-font-size); }
+  &--h2 { font-size: var(--pu-heading-h2-font-size); }
+  &--h3 { font-size: var(--pu-heading-h3-font-size); }
+  &--h4 { font-size: var(--pu-heading-h4-font-size); }
+  &--h5 { font-size: var(--pu-heading-h5-font-size); }
+  &--h6 { font-size: var(--pu-heading-h6-font-size); }
+
+  // ─── Weight modifiers ───
+  &--thin { --pu-heading-font-weight: 300; }
+  &--bold { --pu-heading-font-weight: 700; }
+}

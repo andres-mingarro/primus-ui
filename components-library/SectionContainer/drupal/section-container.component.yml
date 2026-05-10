@@ -1,0 +1,35 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Section Container
+status: experimental
+description: A layout wrapper that constrains content width and manages vertical gap between sections.
+props:
+  type: object
+  properties:
+    container:
+      type: string
+      title: Container
+      description: 'Width constraint: small, large, or full'
+      default: large
+    gap:
+      type: boolean
+      title: Gap
+      description: Adds vertical padding to the inner container
+      default: true
+    mobile_gap:
+      type: string
+      title: Mobile gap
+      description: 'Vertical padding on mobile: small (default), large, or none'
+      default: small
+    tag:
+      type: string
+      title: Tag
+      description: 'HTML element to render: section, div, article, or main'
+      default: section
+    addClassName:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element
+slots:
+  content:
+    title: Content
+    description: Elements rendered inside the section

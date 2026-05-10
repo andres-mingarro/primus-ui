@@ -1,0 +1,27 @@
+export const ComponentMeta = {
+  name: 'Heading',
+  slug: 'heading',
+  version: '1.0.0',
+  description: 'A polymorphic heading element (h1–h6) with weight variants and optional HTML rendering.',
+  props: [
+    { name: 'variant', type: "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'", required: true, default: undefined, description: 'HTML heading tag to render' },
+    { name: 'children', type: 'ReactNode', required: false, default: undefined, description: 'Content to render inside the heading' },
+    { name: 'weight', type: "'normal' | 'thin' | 'bold'", required: false, default: 'normal', description: 'Font weight of the heading' },
+    { name: 'html', type: 'boolean', required: false, default: false, description: 'When true, renders children as HTML via dangerouslySetInnerHTML, stripping <p> tags first' },
+    { name: 'addClassName', type: 'string', required: false, default: undefined, description: 'Extra classes appended to the root element' },
+  ],
+  cssVars: [
+    { name: '--pu-heading-color',         default: 'inherit',   description: 'Text color' },
+    { name: '--pu-heading-font-family',   default: 'inherit',   description: 'Font family' },
+    { name: '--pu-heading-line-height',   default: 'inherit',   description: 'Line height' },
+    { name: '--pu-heading-weight-normal', default: '400',       description: 'Font weight for the normal variant' },
+    { name: '--pu-heading-weight-thin',   default: '300',       description: 'Font weight for the thin variant' },
+    { name: '--pu-heading-weight-bold',   default: '700',       description: 'Font weight for the bold variant' },
+    { name: '--pu-heading-h1-size',       default: '2.25rem',   description: 'Font size for h1' },
+    { name: '--pu-heading-h2-size',       default: '1.875rem',  description: 'Font size for h2' },
+    { name: '--pu-heading-h3-size',       default: '1.5rem',    description: 'Font size for h3' },
+    { name: '--pu-heading-h4-size',       default: '1.25rem',   description: 'Font size for h4' },
+    { name: '--pu-heading-h5-size',       default: '1.125rem',  description: 'Font size for h5' },
+    { name: '--pu-heading-h6-size',       default: '1rem',      description: 'Font size for h6' },
+  ],
+}

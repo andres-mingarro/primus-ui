@@ -1,0 +1,31 @@
+.pu-section-container {
+  // --- Overridable tokens (safe to override in your project) ---
+  --pu-sc-width-large:       1280px;
+  --pu-sc-width-small:       768px;
+  --pu-sc-gap:               1rem;
+  --pu-sc-gap-mobile:        1rem;
+  --pu-sc-gap-mobile-large:  1.5rem;
+  --pu-sc-margin-bottom:     2rem;
+
+  // --- Implementation ---
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: var(--pu-sc-margin-bottom);
+
+  &--large { max-width: var(--pu-sc-width-large); }
+  &--small { max-width: var(--pu-sc-width-small); }
+  &--full  { max-width: none; }
+
+  // Anula margin cuando está anidado dentro de otro section-container
+  .pu-section-container { margin-bottom: 0; }
+
+  &__inner {
+    &--gap    { padding: 0 var(--pu-sc-gap); }
+    &--no-gap { padding: 0; }
+
+    @media (max-width: 768px) {
+      &--mobile-large { padding: 0 var(--pu-sc-gap-mobile-large); }
+      &--mobile-none  { padding: 0; }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{#
+  THEME-NAME:heading — 1.0.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  include (text prop — plain text, translated)
+  {% include 'THEME-NAME:heading' with {
+    variant: 'h2', text: 'Título de sección',
+    weight: 'bold', translate_enabled: true,
+  } only %}
+
+  include (text prop — field value, already translated by CMS)
+  {{ include('THEME-NAME:heading', {
+    variant: 'h1', text: node.title.value, translate_enabled: false,
+  }, false) }}
+
+  embed (slot — markup from a field, e.g. text_with_summary)
+  {% embed 'THEME-NAME:heading' with { variant: 'h3', weight: 'thin' } only %}
+    {% block content %}{{ content.field_section_title }}{% endblock %}
+  {% endembed %}
+
+  static label in template
+  {{ include('THEME-NAME:heading', {
+    variant: 'h4', text: 'Related articles', translate_enabled: true,
+    addClassName: 'sidebar__heading',
+  }, false) }}
+#}
+{% set _text = text ? (translate_enabled is same as(false) ? text : text|t) : null %}
+{%
+  set classes = [
+    'pu-heading',
+    'pu-heading--' ~ variant,
+    weight is defined and weight is not same as('normal') ? 'pu-heading--' ~ weight : '',
+    addClassName ?? '',
+  ]
+%}
+{% if variant == 'h1' %}
+  <h1 {{ attributes.addClass(classes) }}>
+    {%- if content %}{{ content }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </h1>
+{% elseif variant == 'h2' %}
+  <h2 {{ attributes.addClass(classes) }}>
+    {%- if content %}{{ content }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </h2>
+{% elseif variant == 'h3' %}
+  <h3 {{ attributes.addClass(classes) }}>
+    {%- if content %}{{ content }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </h3>
+{% elseif variant == 'h4' %}
+  <h4 {{ attributes.addClass(classes) }}>
+    {%- if content %}{{ content }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </h4>
+{% elseif variant == 'h5' %}
+  <h5 {{ attributes.addClass(classes) }}>
+    {%- if content %}{{ content }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </h5>
+{% else %}
+  <h6 {{ attributes.addClass(classes) }}>
+    {%- if content %}{{ content }}{%- elseif _text %}{{ _text }}{%- endif %}
+  </h6>
+{% endif %}

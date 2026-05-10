@@ -1,0 +1,36 @@
+.pu-heading {
+  // --- Overridable tokens (safe to override in your project) ---
+  --pu-heading-color:               inherit;
+  --pu-heading-font-family:         inherit;
+  --pu-heading-line-height:         inherit;
+
+  --pu-heading-weight-normal:       400;
+  --pu-heading-weight-thin:         300;
+  --pu-heading-weight-bold:         700;
+
+  --pu-heading-h1-size:             2.25rem;
+  --pu-heading-h2-size:             1.875rem;
+  --pu-heading-h3-size:             1.5rem;
+  --pu-heading-h4-size:             1.25rem;
+  --pu-heading-h5-size:             1.125rem;
+  --pu-heading-h6-size:             1rem;
+
+  // --- Implementation ---
+  color:       var(--pu-heading-color);
+  font-family: var(--pu-heading-font-family);
+  line-height: var(--pu-heading-line-height);
+  font-weight: var(--pu-heading-weight-normal);
+  margin:      0;
+
+  // ─── Variant sizes ───
+  &--h1 { font-size: var(--pu-heading-h1-size); }
+  &--h2 { font-size: var(--pu-heading-h2-size); }
+  &--h3 { font-size: var(--pu-heading-h3-size); }
+  &--h4 { font-size: var(--pu-heading-h4-size); }
+  &--h5 { font-size: var(--pu-heading-h5-size); }
+  &--h6 { font-size: var(--pu-heading-h6-size); }
+
+  // ─── Weights ───
+  &--thin { font-weight: var(--pu-heading-weight-thin); }
+  &--bold { font-weight: var(--pu-heading-weight-bold); }
+}

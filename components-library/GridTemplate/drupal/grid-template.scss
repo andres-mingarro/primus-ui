@@ -1,0 +1,27 @@
+.pu-grid-template {
+  // --- Overridable tokens ---
+  --pu-grid-template-cols:    3;
+  --pu-grid-template-cols-md: 2;
+  --pu-grid-template-cols-sm: 1;
+  --pu-grid-template-gap:     1.5rem;
+
+  // --- Implementation ---
+  display: grid;
+  grid-template-columns: repeat(var(--pu-grid-template-cols), 1fr);
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(var(--pu-grid-template-cols-md), 1fr);
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(var(--pu-grid-template-cols-sm), 1fr);
+  }
+
+  &--gap {
+    gap: var(--pu-grid-template-gap);
+  }
+
+  &--no-gap {
+    gap: 0;
+  }
+}

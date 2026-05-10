@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "docs": "Documentación",
+    "intro": "Introducción",
+    "components": "Componentes",
+    "github": "GitHub"
+  },
+  "home": {
+    "title": "Introducción",
+    "version": "v0.1.0",
+    "tagline": "Primus UI es una librería de componentes copy-paste, no un paquete npm. Cada componente es una carpeta autocontenida que copiás en tu proyecto. Sin dependencias en runtime, sin version lock, sin capa de abstracción entre vos y el markup.",
+    "howToUse": "Cómo usar",
+    "howToUseP1": "Los componentes están en components-library/. Cada carpeta es independiente: copiala en tu proyecto y funciona sola, sin que necesites nada más de este repo.",
+    "howToUseP2": "Elegí la versión que mejor se adapta a tu stack. Podés mezclar versiones por componente sin ningún problema.",
+    "flavorTailwindTitle": "React + Tailwind",
+    "flavorTailwindDesc": "Un solo archivo .tsx con clases Tailwind. Cero archivos CSS, cero @apply. Editá las clases directamente.",
+    "flavorScssTitle": "React + SCSS",
+    "flavorScssDesc": "Un .tsx que usa clases pu-* con variables CSS sobreescribibles. No requiere Tailwind.",
+    "flavorDrupalTitle": "Drupal SDC",
+    "flavorDrupalDesc": "Single Directory Component con template Twig, schema .component.yml y los mismos tokens SCSS.",
+    "quickStart": "Quick start",
+    "step1": "Abrí la página del componente que querés y elegí la versión (Tailwind, SCSS o Drupal).",
+    "step2": "Copiá la carpeta components-library/[ComponentName]/ en tu proyecto.",
+    "step3": "Importá y usá. Si usás la versión SCSS, importá el .scss una vez en el entry de tu app.",
+    "step4": "Para personalizar tokens, sobreescribí las variables CSS en tu propio CSS — sin tocar el source.",
+    "componentsSection": "Componentes",
+    "empty": "No hay componentes todavía.",
+    "emptyHint": "Agregá el primero en components-library/"
+  },
+  "component": {
+    "examples": "Ejemplos",
+    "props": "Props",
+    "cssVars": "Variables CSS (versión SCSS)",
+    "code": "Código",
+    "prop": "Prop",
+    "type": "Tipo",
+    "default": "Default",
+    "description": "Descripción",
+    "variable": "Variable"
+  }
+}

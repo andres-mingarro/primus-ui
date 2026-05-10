@@ -7,7 +7,9 @@
   --brand-900: color-mix(in srgb, var(--brand) 40%, black);
   --brand-500: color-mix(in srgb, var(--brand) 55%, white);
   --brand-200: color-mix(in srgb, var(--brand) 30%, white);
+  --brand-100: color-mix(in srgb, var(--brand) 20%, white);
   --brand-50:  color-mix(in srgb, var(--brand) 12%, white);
+  --surface:   color-mix(in srgb, var(--brand) 2%, white);
 }
 
 @theme {
@@ -19,5 +21,7 @@
   --color-brand-700: var(--brand);
   --color-brand-500: var(--brand-500);
   --color-brand-200: var(--brand-200);
+  --color-brand-100: var(--brand-100);
   --color-brand-50:  var(--brand-50);
+  --color-surface:   var(--surface);
 }

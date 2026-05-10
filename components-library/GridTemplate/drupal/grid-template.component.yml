@@ -1,0 +1,35 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Grid Template
+status: experimental
+description: A responsive CSS grid wrapper with configurable column counts per breakpoint.
+slots:
+  items:
+    title: Items
+    description: Grid items content
+props:
+  type: object
+  properties:
+    cols:
+      type: integer
+      title: Columns (large)
+      description: Number of columns at large screens (≥769px)
+      default: 3
+    cols_medium:
+      type: integer
+      title: Columns (medium)
+      description: Number of columns at medium screens (481px–768px)
+      default: 2
+    cols_small:
+      type: integer
+      title: Columns (small)
+      description: Number of columns at small screens (≤480px)
+      default: 1
+    gap:
+      type: boolean
+      title: Gap
+      description: Enable gap between cells
+      default: true
+    addClassName:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element

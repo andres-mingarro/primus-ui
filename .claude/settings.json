@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "fp=$(jq -r '.tool_input.file_path // empty'); if echo \"$fp\" | grep -q 'components-library/'; then echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"ask\",\"permissionDecisionReason\":\"Write to components-library/ — approve only if this is a Next.js or Drupal agent write (see CLAUDE.md § Development Workflow)\"}}'; fi",
+            "statusMessage": "Checking component library write guard..."
+          }
+        ]
+      }
+    ]
+  }
+}

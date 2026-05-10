@@ -1,0 +1,13 @@
+{%
+  set classes = [
+    'pu-grid-template',
+    gap ? 'pu-grid-template--gap' : 'pu-grid-template--no-gap',
+    addClassName ?? '',
+  ]
+%}
+<div
+  {{ attributes.addClass(classes) }}
+  style="--pu-grid-template-cols: {{ cols|default(3) }}; --pu-grid-template-cols-md: {{ cols_medium|default(2) }}; --pu-grid-template-cols-sm: {{ cols_small|default(1) }};"
+>
+  {{ items }}
+</div>

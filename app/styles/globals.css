@@ -3,6 +3,14 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-brand-700);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
 .showcase-grid {
   background-image: radial-gradient(circle, #d1d5dbb0 1px, transparent 1px);
   background-size: 20px 20px;

@@ -77,6 +77,107 @@ Copy from `react/[component-name].scss` as the base and adjust if Drupal needs i
 
 Only class-building and simple conditionals. No business logic in templates.
 
+### 5. Drupal `t()` — requerido en componentes con texto visible
+
+Todo componente que tenga **props de texto visible al usuario** (labels, placeholders, mensajes de error, texto de botones, etc.) debe:
+
+1. Declarar la prop `translate_enabled` de tipo `boolean` con `default: true` en `.component.yml`.
+2. Envolver cada string con `t()` cuando `translate_enabled` es `true`, dejarlo crudo cuando es `false`.
+
+**Cuándo aplica esta regla:**
+- Aplica cuando el componente recibe texto como **prop de tipo string** que se renderiza directamente en el HTML (ej: `label`, `placeholder`, `error_message`, `title`, `helper_text`).
+- **No aplica** a: slots (el contenido del slot ya viene traducido desde el template que lo llama), clases CSS, valores técnicos (orientación, variante, etc.).
+
+**`.component.yml`** — agregar siempre que haya al menos una prop de texto:
+
+```yaml
+props:
+  type: object
+  properties:
+    label:
+      type: string
+      title: Label
+      description: Button text
+    translate_enabled:
+      type: boolean
+      title: Enable translation
+      description: Wrap text props with Drupal t(). Disable when the caller already provides translated strings.
+      default: true
+```
+
+**`.twig`** — patrón obligatorio:
+
+```twig
+{# Resolve each text prop once at the top #}
+{% set _label = translate_enabled ? label|t : label %}
+
+<button {{ attributes.addClass(classes) }}>
+  {{ _label }}
+</button>
+```
+
+Reglas de implementación:
+- Resolver **todas** las props de texto al principio del template con variables prefijadas `_` (ej: `_label`, `_placeholder`), nunca inline dentro del HTML.
+- Usar el filtro Twig `|t` (equivalente a `t()` en PHP): `label|t`.
+- Si la prop es opcional y puede ser nula, guardar con fallback: `{% set _label = translate_enabled ? (label ?? '')|t : (label ?? '') %}`.
+- `translate_enabled` es `true` por defecto — el comportamiento seguro es siempre traducir.
+
+**Ejemplo completo — Button:**
+
+```yaml
+# button.component.yml
+props:
+  type: object
+  properties:
+    label:
+      type: string
+      title: Label
+    variant:
+      type: string
+      default: primary
+    disabled:
+      type: boolean
+      default: false
+    translate_enabled:
+      type: boolean
+      title: Enable translation
+      description: Wrap text props with Drupal t(). Disable when the caller already provides translated strings.
+      default: true
+    addClassName:
+      type: string
+      title: Additional classes
+```
+
+```twig
+{# button.twig #}
+{% set _label = translate_enabled ? label|t : label %}
+{%
+  set classes = [
+    'pu-button',
+    variant ? 'pu-button--' ~ variant : 'pu-button--primary',
+    disabled ? 'pu-button--disabled' : '',
+    addClassName ?? '',
+  ]
+%}
+<button
+  {{ attributes.addClass(classes) }}
+  {% if disabled %}disabled{% endif %}
+>
+  {{ _label }}
+</button>
+```
+
+**Uso desde otro template:**
+
+```twig
+{# Caso normal — translate_enabled: true (default) #}
+{% include 'primus-ui:button' with { label: 'Submit' } %}
+
+{# El caller ya traduce — translate_enabled: false #}
+{% set my_label = 'Submit'|t %}
+{% include 'primus-ui:button' with { label: my_label, translate_enabled: false } %}
+```
+
 ---
 
 ## SDC file structure
@@ -178,6 +279,38 @@ Then clear Drupal's cache and use it:
 ```
 
 Machine name format: `primus-ui:[component-name]`
+
+---
+
+## Adapting reference components from the user's personal projects
+
+When the user says **"agregar"** and provides reference files, the React adaptation is done by the Next.js agent. Your job is to translate the **already-adapted** library spec into Drupal SDC format.
+
+### Source of truth
+
+Always read from the library files, not the original reference:
+
+- Props contract → `components-library/[ComponentName]/meta.ts`
+- Class names and CSS tokens → `components-library/[ComponentName]/[component-name].scss`
+- Visual behavior → `components-library/[ComponentName]/[ComponentName].tsx`
+
+### Mapping React props → Drupal
+
+| React pattern | Drupal SDC equivalent |
+|---|---|
+| `children: ReactNode` | Slot in `.component.yml` + `{{ slots.content }}` in Twig |
+| `addClassName?: string` | `addClassName` prop, appended last in the classes array |
+| Boolean conditional class | Conditional in Twig: `disabled ? 'pu-x--disabled' : ''` |
+| Inline `style` for CSS vars (Tailwind version) | CSS variables set via `style` attribute in Twig if dynamic |
+| String prop rendered as visible text (e.g. `label`, `placeholder`) | Add `translate_enabled` prop + resolve with `{% set _label = translate_enabled ? label\|t : label %}` |
+
+### Accessibility in Twig
+
+The reference may lack proper ARIA. Fix during adaptation:
+
+- Pass-through attributes via `{{ attributes.addClass(classes) }}` — always on the root element so Drupal can inject its own ARIA attributes
+- Never hard-code `aria-*` values that depend on runtime state — leave those to the consuming template
+- Static ARIA (e.g., `role="separator"` on a divider) → hard-code in Twig
 
 ---
 

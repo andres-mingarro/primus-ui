@@ -112,7 +112,49 @@ User override — no source edit needed:
 .my-section { --pu-button-radius: 9999px; }
 ```
 
-### 4. Tailwind version is a completely separate file
+### 4. Accessibility — mandatory, non-negotiable
+
+Every component and every page in this repo must meet WCAG 2.1 AA. These rules apply equally to `components-library/` and `app/`.
+
+#### Focus indicators
+
+- Every interactive element must have a visible `:focus-visible` style. Never use `outline: none` without a replacement.
+- The global focus style is defined in `app/styles/globals.css`. Components that need custom focus (e.g., inside a dark code block) must add their own `focus-visible:` Tailwind variant.
+
+#### Color contrast
+
+- Normal text (< 18px regular or < 14px bold): minimum 4.5:1 contrast ratio against its background.
+- Large text (≥ 18px regular or ≥ 14px bold): minimum 3:1.
+- `text-brand-500` on `bg-white` or `bg-surface` fails AA. Use `text-brand-700` for secondary/muted text in light mode.
+- Decorative elements (borders, dividers, icons that are redundant with text) are exempt.
+
+#### Semantic HTML
+
+- Use the correct element for the job: `<button>` for actions, `<a>` for navigation, `<nav>`, `<main>`, `<header>`, `<section>`, `<article>`, landmark elements.
+- Never use `<div>` or `<span>` for interactive elements.
+- Heading hierarchy must be sequential — no jumping from `<h1>` to `<h3>`.
+- Tables must have `<th scope="col">` (or `scope="row"`) on all header cells.
+
+#### ARIA
+
+- Add `aria-label` or `aria-labelledby` to any interactive element whose purpose is not clear from its visible text (icon-only buttons, toggle buttons, compound widgets).
+- Tab widgets (`role="tablist"`, `role="tab"`, `role="tabpanel"`) must implement the full ARIA Authoring Practices pattern including arrow-key navigation and `aria-selected`.
+- Use `aria-hidden="true"` only on truly decorative elements. Never suppress content that carries meaning.
+
+#### Images and icons
+
+- Meaningful images: `alt` text that describes the content or function.
+- Decorative images and icons that duplicate adjacent text: `alt=""` or `aria-hidden="true"`.
+
+#### Touch targets
+
+- All interactive elements must be at least 44×44px. Use padding to expand touch area without affecting visual size if needed.
+
+#### Drupal SDC
+
+- Same rules apply to Twig templates. Use `{{ attributes }}` to pass through ARIA attributes. Never hard-code `aria-*` in Twig unless the value is always static.
+
+### 5. Tailwind version is a completely separate file
 
 `[ComponentName].tailwind.tsx` must **not** import the SCSS file. It is 100% self-contained with Tailwind utility classes. No `@apply`, no CSS variable references.
 
@@ -154,12 +196,93 @@ export const ComponentMeta = {
 - Theme toggle: system default + manual toggle stored in `localStorage`
 - Each component page: props table + CSS vars table + code tabs (Tailwind / SCSS / Drupal)
 
-## Development Workflow
+## Internacionalización (i18n) — MANDATORY
 
-1. Agree on component name and props
-2. Next.js agent → creates React versions + landing page entry
-3. Drupal agent → creates SDC version from the React spec
-4. Both agents update `meta.ts` and the landing route
+La app está traducida al **español** y al **inglés** usando **next-intl**. Toda string visible al usuario debe venir de los archivos de mensajes — nunca hardcodear texto en los componentes.
+
+### Locales
+
+| Locale | Ruta base | Archivo de mensajes |
+| ------ | --------- | ------------------- |
+| `en`   | `/en/*`   | `messages/en.json`  |
+| `es`   | `/es/*`   | `messages/es.json`  |
+
+El locale por defecto es `en`. El proxy (`proxy.ts`) detecta el idioma del browser y redirige `/` automáticamente.
+
+### Estructura de archivos
+
+```text
+messages/
+  en.json          # strings en inglés
+  es.json          # strings en español
+i18n/
+  routing.ts       # define locales y defaultLocale
+  request.ts       # configura next-intl por request
+proxy.ts           # detección de locale y redirect (Next.js 16+)
+app/
+  [locale]/        # TODAS las páginas viven aquí
+    layout.tsx     # inyecta NextIntlClientProvider + lang={locale}
+    page.tsx
+    [component]/
+      page.tsx
+```
+
+### Cómo usar traducciones
+
+**Server Components y páginas** — `useTranslations` (importar desde `next-intl`):
+
+```tsx
+import { useTranslations } from 'next-intl'
+
+export default function MyPage() {
+  const t = useTranslations('component')
+  return <h2>{t('examples')}</h2>
+}
+```
+
+**Client Components** — igual, `useTranslations` funciona en ambos contextos gracias al `NextIntlClientProvider` del layout.
+
+### Namespaces en los JSON
+
+| Namespace    | Uso                                              |
+| ------------ | ------------------------------------------------ |
+| `nav`        | Labels del sidebar y header                      |
+| `home`       | Todo el contenido de la página de introducción   |
+| `component`  | Headers de sección en páginas de componentes     |
+
+### Qué se traduce y qué no
+
+| Se traduce ✅                                 | No se traduce ❌                              |
+| --------------------------------------------- | --------------------------------------------- |
+| Labels de navegación y secciones              | Nombres de componentes (`Divider`, `Button`)  |
+| Texto explicativo del homepage                | Nombres de props y variables CSS              |
+| Headers de tablas (Props, Type, Description)  | Snippets de código                            |
+| Headers de sección (Examples, Code)           | Nombres de archivos                           |
+
+### Agregar una nueva string
+
+1. Añadir la key en `messages/en.json` bajo el namespace correspondiente.
+2. Añadir la traducción en `messages/es.json` con la misma key.
+3. Usar `t('key')` en el componente.
+
+### Agregar un nuevo locale
+
+1. Añadir el locale al array en `i18n/routing.ts`.
+2. Crear `messages/[locale].json` con todas las keys.
+3. El proxy y el switcher lo detectan automáticamente.
+
+## Development Workflow — MANDATORY
+
+**NEVER create component files directly in the main conversation.**
+Writing to `components-library/` or `app/[slug]/` without going through the agents below is a violation of this workflow.
+
+Always follow this sequence:
+
+1. Agree on component name and props with the user
+2. Spawn the **Next.js agent** → creates `.tsx`, `.tailwind.tsx`, `meta.ts`, `app/[slug]/page.tsx`, and registers the component in `app/page.tsx`
+3. Spawn the **Drupal agent** → creates `drupal/` files (`.component.yml`, `.twig`, `.scss`) from the React spec produced in step 2
+
+Each agent also updates `README.md` and `meta.ts` for its scope.
 
 ## Conventions
 

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ThemeToggle } from '@/ui/ThemeToggle'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function Header() {
   return (
@@ -11,15 +12,16 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center gap-3">
           <a
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-brand-500 transition-colors hover:text-brand-700 dark:text-brand-200 dark:hover:text-brand-50"
+            className="text-sm text-brand-700 transition-colors hover:text-brand-900 dark:text-brand-200 dark:hover:text-brand-50"
           >
             GitHub
           </a>
+          <LanguageSwitcher />
           <ThemeToggle />
         </nav>
       </div>

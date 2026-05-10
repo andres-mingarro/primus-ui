@@ -168,7 +168,102 @@ Demos render inside `<ShowcaseFrame>` from `@/ui/ShowcaseFrame` — neutral back
 
 ---
 
-## When creating a new component
+## Adapting reference components from the user's personal projects
+
+When the user says **"agregar"** (or "add to the library") and provides one or more reference files, follow this exact process. The reference file is the source of truth for **props and behavior**; the library spec is the source of truth for **structure and output**.
+
+### Always produce all three output formats
+
+**No matter what format the reference arrives in** — React/SCSS, React/Tailwind, Drupal Twig, CSS Modules, or anything else — the output is always the full set:
+
+1. `[ComponentName].tailwind.tsx` — React, Tailwind only
+2. `[ComponentName].tsx` + `[component-name].scss` — React, SCSS/CSS variables
+3. `drupal/` — SDC: `.component.yml` + `.twig` + `.scss`
+
+Never skip a format because "the reference already is in that style." The point of the library is that users get all three. Delegate the Drupal files to the Drupal agent once the React spec is done.
+
+### Reference format detection
+
+Identify what the user passed and how to read it:
+
+| Reference format | What to extract |
+|---|---|
+| React + CSS Modules | Props interface, children/slots, visual intent from class names |
+| React + Tailwind | Props interface, visual intent from utility classes — map to SCSS tokens |
+| React + SCSS | Props interface, existing CSS vars (reuse names if well-named, prefix with `pu-`) |
+| Drupal Twig + SCSS | Props/slots from `.component.yml`, styles from `.scss` — build the React versions |
+| Plain HTML/CSS | Visual structure and intent — infer props from whatever is variable |
+
+### Step 1 — Read and understand the reference
+
+Read every file the user provides. Extract:
+
+- **Component name** — use the reference name unless it conflicts with existing components; PascalCase for the folder
+- **Props** — map each prop to its type, default, and purpose
+- **Children/slots** — note if the component wraps arbitrary content
+- **Visual intent** — what does it look like, what layout does it create
+- **State/interactivity** — any client-side behavior that needs `'use client'`
+
+Do not copy the reference code directly. Treat it as a spec.
+
+### Step 2 — Map to library requirements
+
+| Reference pattern | Library equivalent |
+|---|---|
+| `className?: string` | `addClassName?: string` (rename always) |
+| CSS Modules (`styles.xxx`) | `pu-` SCSS classes + CSS variables |
+| Inline `style` with CSS vars | CSS variables scoped to the root class in `.scss` |
+| `children: ReactNode` | Keep as `children` — no rename needed |
+| External utility imports | Inline the logic — no shared utilities between components |
+
+### Step 3 — Create all files
+
+Run the standard creation flow, using the reference as the behavioral spec:
+
+1. `components-library/[ComponentName]/[ComponentName].tailwind.tsx`
+2. `components-library/[ComponentName]/[ComponentName].tsx`
+3. `components-library/[ComponentName]/[component-name].scss`
+4. `components-library/[ComponentName]/meta.ts`
+5. `components-library/[ComponentName]/README.md`
+6. `app/[slug]/page.tsx`
+7. Update `app/page.tsx` component card list
+
+### Step 4 — Accessibility (mandatory)
+
+The reference component may not be accessible. Fix it during adaptation:
+
+- Interactive elements → correct semantic HTML (`<button>`, `<a>`, etc.)
+- Icon-only elements → `aria-label`
+- Keyboard navigation → if the reference uses click-only patterns, add keyboard support
+- Focus indicators → rely on the global `:focus-visible` style in `globals.css`; don't override without replacement
+- Touch targets → minimum 44×44px
+
+The accessibility rules in CLAUDE.md section 4 are non-negotiable even when adapting external code.
+
+### Step 5 — Infer missing SCSS tokens
+
+If the reference uses inline styles or hardcoded values, convert every visual decision into an overridable CSS variable:
+
+```scss
+// Reference had: style={{ '--cols': cols }}
+// Library SCSS:
+.pu-grid-template {
+  --pu-grid-template-cols:        3;
+  --pu-grid-template-cols-medium: 2;
+  --pu-grid-template-cols-small:  1;
+  --pu-grid-template-gap:         1.5rem;
+
+  display: grid;
+  grid-template-columns: repeat(var(--pu-grid-template-cols), 1fr);
+  gap: var(--pu-grid-template-gap);
+}
+```
+
+The Tailwind version receives those values as props and applies them via inline `style` (acceptable in the Tailwind version only — not in the SCSS version).
+
+---
+
+## When creating a new component (from scratch)
 
 1. Read `CLAUDE.md` for current conventions
 2. Create `components-library/[ComponentName]/[ComponentName].tailwind.tsx`

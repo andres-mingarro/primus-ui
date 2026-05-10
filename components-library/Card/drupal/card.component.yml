@@ -1,0 +1,75 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Card
+status: experimental
+description: A content card with optional image, title link, body slot, and action buttons. Supports light, dark, and high-contrast style variants plus vertical and horizontal layouts.
+props:
+  type: object
+  required:
+    - title
+  properties:
+    title:
+      type: string
+      title: Title
+      description: Card heading text.
+    url:
+      type: string
+      title: URL
+      description: When provided, wraps the title in an anchor tag.
+    style:
+      type: string
+      title: Style variant
+      description: 'Visual style: light (default), high-contrast, or dark.'
+      enum:
+        - light
+        - high-contrast
+        - dark
+      default: light
+    direction:
+      type: string
+      title: Direction
+      description: 'Layout direction: vertical (default), horizontal, or horizontal-reverse.'
+      enum:
+        - vertical
+        - horizontal
+        - horizontal-reverse
+      default: vertical
+    image_src:
+      type: string
+      title: Image source
+      description: Image URL. When omitted the image area is hidden.
+    image_alt:
+      type: string
+      title: Image alt text
+      description: Alt text for the card image. Use an empty string for decorative images.
+      default: ''
+    button_primary:
+      type: string
+      title: Primary button label
+      description: Label for the primary CTA button. Button is hidden when omitted.
+    button_primary_url:
+      type: string
+      title: Primary button URL
+      description: Href for the primary button.
+      default: '#'
+    button_secondary:
+      type: string
+      title: Secondary button label
+      description: Label for the secondary CTA button. Button is hidden when omitted.
+    button_secondary_url:
+      type: string
+      title: Secondary button URL
+      description: Href for the secondary button.
+      default: '#'
+    translate_enabled:
+      type: boolean
+      title: Enable translation
+      description: "Apply Drupal t() to text props (title, button labels). Set false when the caller already provides translated strings."
+      default: true
+    add_class_name:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element.
+slots:
+  body:
+    title: Body
+    description: Main card content. Accepts arbitrary markup. Rendered inside .pu-card__body.

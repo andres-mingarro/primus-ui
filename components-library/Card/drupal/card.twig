@@ -1,0 +1,106 @@
+{#
+  THEME-NAME:card — 1.0.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  Basic vertical card
+  {{ include('THEME-NAME:card', { title: 'Card title', style: 'light' }, false) }}
+
+  Card with image and link
+  {{ include('THEME-NAME:card', { title: 'News item', url: '/news/item', image_src: '/img/photo.jpg', image_alt: 'Photo description' }, false) }}
+
+  Horizontal card with buttons
+  {{ include('THEME-NAME:card', { title: 'Resource', direction: 'horizontal', button_primary: 'Read more', button_primary_url: '/resource', button_secondary: 'Share' }, false) }}
+
+  Dark card with body slot
+  {% embed 'THEME-NAME:card' with { title: 'Article', style: 'dark' } %}
+    {% block body %}<p>Card body content here.</p>{% endblock %}
+  {% endembed %}
+
+  High-contrast card — field values already translated by CMS
+  {{ include('THEME-NAME:card', { title: node.title.value, url: node.field_url.uri, style: 'high-contrast', translate_enabled: false }, false) }}
+
+  Horizontal card with Drupal image field
+  {% embed 'THEME-NAME:card' with { title: node.title.value, direction: 'horizontal', image_src: node.field_image.entity.uri.value|file_url, image_alt: node.field_image.alt, translate_enabled: false } %}
+    {% block body %}{{ content.body }}{% endblock %}
+  {% endembed %}
+#}
+{# Resolve text props once — never inline inside HTML #}
+{% set _title          = translate_enabled is same as(false) ? title          : title|t %}
+{% set _button_primary = translate_enabled is same as(false) ? button_primary : (button_primary ?? '')|t %}
+{% set _button_secondary = translate_enabled is same as(false) ? button_secondary : (button_secondary ?? '')|t %}
+
+{% set style_map = {
+  'light':         'pu-card--light',
+  'high-contrast': 'pu-card--high-contrast',
+  'dark':          'pu-card--dark',
+} %}
+{% set direction_map = {
+  'vertical':           'pu-card--vertical',
+  'horizontal':         'pu-card--horizontal',
+  'horizontal-reverse': 'pu-card--horizontal-reverse',
+} %}
+
+{%
+  set classes = [
+    'pu-card',
+    style_map[style|default('light')]|default('pu-card--light'),
+    direction_map[direction|default('vertical')]|default('pu-card--vertical'),
+    add_class_name ?? '',
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="pu-card__layout">
+
+    {% if image_src|default('') is not empty %}
+      <div class="pu-card__header">
+        <img
+          class="pu-card__image"
+          src="{{ image_src }}"
+          alt="{{ image_alt|default('') }}"
+          loading="lazy"
+        />
+      </div>
+    {% endif %}
+
+    <div class="pu-card__content">
+      <div class="pu-card__body-area">
+
+        {% if _title %}
+          <h2 class="pu-card__title">
+            {% if url|default('') is not empty %}
+              <a class="pu-card__title-link" href="{{ url }}">{{ _title }}</a>
+            {% else %}
+              {{ _title }}
+            {% endif %}
+          </h2>
+        {% endif %}
+
+        {% if body is defined %}
+          <div class="pu-card__body">
+            {{ body }}
+          </div>
+        {% endif %}
+
+      </div>
+
+      {% if _button_primary is not empty or _button_secondary is not empty %}
+        <div class="pu-card__footer">
+          {% if _button_primary is not empty %}
+            <a
+              class="pu-card__btn pu-card__btn--primary"
+              href="{{ button_primary_url|default('#') }}"
+            >{{ _button_primary }}</a>
+          {% endif %}
+          {% if _button_secondary is not empty %}
+            <a
+              class="pu-card__btn pu-card__btn--secondary"
+              href="{{ button_secondary_url|default('#') }}"
+            >{{ _button_secondary }}</a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</article>

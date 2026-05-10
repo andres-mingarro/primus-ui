@@ -42,4 +42,11 @@ export const components: ComponentEntry[] = [
     tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
     version: '1.0.0',
   },
+  {
+    name: 'Card',
+    slug: 'card',
+    description: 'Content card with style variants (light, dark, high-contrast), layout directions, image, and action buttons.',
+    tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
+    version: '1.0.0',
+  },
 ]

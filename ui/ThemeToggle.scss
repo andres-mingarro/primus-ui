@@ -1,0 +1,40 @@
+.ThemeToggle {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--app-color-line);
+  color: var(--app-color-ink);
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  min-height: 40px;
+  min-width: 40px;
+  transition:
+    background-color var(--app-motion-fast) var(--app-ease),
+    box-shadow var(--app-motion-fast) var(--app-ease),
+    color var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+  width: 40px;
+}
+
+.ThemeToggle:hover {
+  background: var(--app-color-orange);
+  box-shadow: 3px 3px 0 var(--app-color-line);
+  color: var(--app-color-white);
+  transform: translate(-1px, -1px);
+}
+
+.ThemeToggle:focus-visible {
+  outline: 3px solid var(--app-color-orange);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ThemeToggle {
+    transition: none;
+  }
+
+  .ThemeToggle:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,98 @@
+.ComponentsPage {
+  display: grid;
+  gap: var(--app-space-6);
+}
+
+.ComponentsPage__hero,
+.ComponentsPage__card {
+  animation: app-fade-up var(--app-motion-slow) var(--app-ease) both;
+}
+
+.ComponentsPage__hero {
+  background: var(--app-color-ivory);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow-hard-large);
+  padding: var(--app-space-5);
+}
+
+.ComponentsPage__eyebrow,
+.ComponentsPage__cardMeta {
+  color: var(--app-color-gold);
+  font-family: var(--app-font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ComponentsPage__title {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  line-height: 0.92;
+  margin: var(--app-space-4) 0;
+}
+
+.ComponentsPage__description {
+  color: var(--app-color-ink-soft);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 740px;
+}
+
+.ComponentsPage__grid {
+  display: grid;
+  gap: var(--app-space-4);
+}
+
+.ComponentsPage__card {
+  background: var(--app-color-paper);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow-hard);
+  display: grid;
+  gap: var(--app-space-3);
+  padding: var(--app-space-4);
+  transition:
+    background var(--app-motion-fast) var(--app-ease),
+    box-shadow var(--app-motion-fast) var(--app-ease),
+    color var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.ComponentsPage__card:hover {
+  background: var(--app-color-orange);
+  box-shadow: var(--app-shadow-hard-large);
+  color: var(--app-color-white);
+  transform: translate(-3px, -3px);
+}
+
+.ComponentsPage__card:hover * {
+  color: var(--app-color-white);
+}
+
+.ComponentsPage__cardTitle {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.ComponentsPage__cardDescription {
+  color: var(--app-color-ink-soft);
+}
+
+@media (min-width: 960px) {
+  .ComponentsPage {
+    gap: var(--app-space-7);
+  }
+
+  .ComponentsPage__hero {
+    padding: var(--app-space-7);
+  }
+
+  .ComponentsPage__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

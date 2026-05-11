@@ -1,267 +1,68 @@
-@import "tailwindcss";
 @import "./tokens.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-/* ── Smooth scrolling ── */
-:root {
+html {
+  min-height: 100%;
   scroll-behavior: smooth;
+  background: var(--app-color-cream);
 }
 
-@layer base {
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--color-ring);
-    outline-offset: 2px;
-    border-radius: 2px;
-  }
+body {
+  min-height: 100%;
+  margin: 0;
+  background:
+    linear-gradient(90deg, rgba(42, 19, 12, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(42, 19, 12, 0.035) 1px, transparent 1px),
+    var(--app-color-cream);
+  background-size: 44px 44px;
+  color: var(--app-color-ink);
+  font-family: var(--app-font-body);
+  font-size: 16px;
+  line-height: 1.55;
 }
 
-/* ────────────────────────────────────────────
-   KEYFRAMES — Vibrant & Block-based warm patterns
-──────────────────────────────────────────────*/
-
-/* Animated warm dot grid for showcase frames */
-@keyframes dot-pulse {
-  0%   { background-position: 0 0; }
-  100% { background-position: 20px 20px; }
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-/* Animated diagonal stripe for hero — warm red tones */
-@keyframes stripe-shift {
-  0%   { background-position: 0 0; }
-  100% { background-position: 60px 60px; }
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
-/* Subtle warm grid drift for page background */
-@keyframes pattern-drift {
-  0%   { background-position: 0 0, 0 0; }
-  100% { background-position: 48px 48px, 24px 24px; }
+button {
+  cursor: pointer;
 }
 
-/* ────────────────────────────────────────────
-   KEYFRAMES — Motion-Driven entrance animations
-──────────────────────────────────────────────*/
+:focus-visible {
+  outline: 3px solid var(--app-color-orange);
+  outline-offset: 3px;
+}
 
-@keyframes fade-up {
+::selection {
+  background: var(--app-color-orange);
+  color: var(--app-color-white);
+}
+
+@keyframes app-fade-up {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(18px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scale-up {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* ────────────────────────────────────────────
-   SCROLL-REVEAL — Intersection Observer ready
-──────────────────────────────────────────────*/
-
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 400ms var(--animation-ease),
-    transform 400ms var(--animation-ease);
-  will-change: transform, opacity;
-}
-
-.scroll-reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.scroll-reveal-scale {
-  opacity: 0;
-  transform: scale(0.94);
-  transition:
-    opacity 350ms var(--animation-ease),
-    transform 350ms var(--animation-ease);
-  will-change: transform, opacity;
-}
-
-.scroll-reveal-scale.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Stagger delays for grid items */
-.scroll-reveal:nth-child(1) { transition-delay:   0ms; }
-.scroll-reveal:nth-child(2) { transition-delay:  60ms; }
-.scroll-reveal:nth-child(3) { transition-delay: 120ms; }
-.scroll-reveal:nth-child(4) { transition-delay: 180ms; }
-.scroll-reveal:nth-child(5) { transition-delay: 240ms; }
-.scroll-reveal:nth-child(6) { transition-delay: 300ms; }
-
-/* ────────────────────────────────────────────
-   BLOCK SECTION — Vibrant & Block-based layout
-──────────────────────────────────────────────*/
-
-.block-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--block-gap, 3rem);
-}
-
-/* ────────────────────────────────────────────
-   SHOWCASE FRAME — hover border upgrade
-──────────────────────────────────────────────*/
-
-.showcase-frame:hover {
-  border-color: var(--color-primary) !important;
-}
-
-/* ────────────────────────────────────────────
-   SHOWCASE GRID — animated warm dot pattern
-──────────────────────────────────────────────*/
-
-.showcase-grid {
-  background-color: var(--color-muted);
-  background-image: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-border) 80%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 20px 20px;
-  animation: dot-pulse 8s linear infinite;
-  will-change: background-position;
-}
-
-.dark .showcase-grid {
-  background-color: var(--color-muted);
-  background-image: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-border) 40%, transparent) 1px,
-    transparent 1px
-  );
-  animation: dot-pulse 8s linear infinite;
-}
-
-/* ────────────────────────────────────────────
-   HERO PATTERN — animated warm diagonal stripes
-──────────────────────────────────────────────*/
-
-.hero-pattern {
-  background-image:
-    repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 8px,
-      color-mix(in srgb, var(--color-primary) 5%, transparent) 8px,
-      color-mix(in srgb, var(--color-primary) 5%, transparent) 9px
-    );
-  animation: stripe-shift 14s linear infinite;
-  will-change: background-position;
-}
-
-.dark .hero-pattern {
-  background-image:
-    repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 8px,
-      color-mix(in srgb, var(--color-primary) 8%, transparent) 8px,
-      color-mix(in srgb, var(--color-primary) 8%, transparent) 9px
-    );
-}
-
-/* ────────────────────────────────────────────
-   HERO ENTRANCE ANIMATIONS
-──────────────────────────────────────────────*/
-
-.hero-label {
-  animation: fade-in 500ms var(--animation-ease) both;
-  animation-delay: 50ms;
-}
-
-.hero-title {
-  animation: fade-up 600ms var(--animation-ease) both;
-  animation-delay: 150ms;
-  will-change: transform, opacity;
-}
-
-.hero-tagline {
-  animation: fade-up 600ms var(--animation-ease) both;
-  animation-delay: 250ms;
-  will-change: transform, opacity;
-}
-
-.hero-meta {
-  animation: fade-up 500ms var(--animation-ease) both;
-  animation-delay: 350ms;
-  will-change: transform, opacity;
-}
-
-.hero-cta {
-  animation: fade-up 500ms var(--animation-ease) both;
-  animation-delay: 420ms;
-  will-change: transform, opacity;
-}
-
-.hero-card {
-  animation: scale-up 500ms var(--animation-ease) both;
-  will-change: transform, opacity;
-}
-
-.hero-card:nth-child(1) { animation-delay: 300ms; }
-.hero-card:nth-child(2) { animation-delay: 380ms; }
-.hero-card:nth-child(3) { animation-delay: 460ms; }
-
-/* ────────────────────────────────────────────
-   NAV ACTIVE INDICATOR
-──────────────────────────────────────────────*/
-
-.nav-active-bar {
-  position: relative;
-}
-
-.nav-active-bar::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2px;
-  height: 60%;
-  background: var(--color-primary);
-  border-radius: 1px;
-}
-
-/* ────────────────────────────────────────────
-   PREFERS-REDUCED-MOTION — disable everything
-──────────────────────────────────────────────*/
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -269,32 +70,7 @@
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .scroll-reveal,
-  .scroll-reveal-scale {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  .showcase-grid,
-  .dark .showcase-grid,
-  .hero-pattern,
-  .dark .hero-pattern {
-    animation: none;
-  }
-
-  .hero-label,
-  .hero-title,
-  .hero-tagline,
-  .hero-meta,
-  .hero-cta,
-  .hero-card {
-    animation: none;
-    opacity: 1;
-    transform: none;
+    transition-duration: 0.01ms !important;
   }
 }

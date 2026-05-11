@@ -1,0 +1,169 @@
+.ComponentDetailPage {
+  display: grid;
+  gap: var(--app-space-6);
+}
+
+.ComponentDetailPage__hero,
+.ComponentDetailPage__section {
+  animation: app-fade-up var(--app-motion-slow) var(--app-ease) both;
+}
+
+.ComponentDetailPage__hero {
+  background: var(--app-color-ivory);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow-hard-large);
+  padding: var(--app-space-5);
+}
+
+.ComponentDetailPage__eyebrow {
+  color: var(--app-color-gold);
+  font-family: var(--app-font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.ComponentDetailPage__title {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  line-height: 0.92;
+  margin: var(--app-space-4) 0;
+}
+
+.ComponentDetailPage__description {
+  color: var(--app-color-ink-soft);
+  font-size: 1.15rem;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 720px;
+}
+
+.ComponentDetailPage__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--app-space-3);
+  margin-top: var(--app-space-5);
+}
+
+.ComponentDetailPage__button {
+  align-items: center;
+  background: var(--app-color-paper);
+  border: var(--app-border);
+  color: var(--app-color-ink);
+  display: inline-flex;
+  font-weight: 700;
+  min-height: 48px;
+  padding: 0 var(--app-space-4);
+}
+
+.ComponentDetailPage__button--primary,
+.ComponentDetailPage__button:hover {
+  background: var(--app-color-orange);
+  box-shadow: 4px 4px 0 var(--app-color-line);
+  color: var(--app-color-white);
+}
+
+.ComponentDetailPage__section {
+  background: var(--app-color-paper);
+  border: var(--app-border);
+  padding: var(--app-space-5);
+}
+
+.ComponentDetailPage__sectionHeader {
+  align-items: center;
+  display: flex;
+  gap: var(--app-space-3);
+  margin-bottom: var(--app-space-5);
+}
+
+.ComponentDetailPage__sectionRule {
+  background: var(--app-color-orange);
+  display: block;
+  height: 3px;
+  width: 56px;
+}
+
+.ComponentDetailPage__sectionTitle {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1;
+  margin: 0;
+}
+
+.ComponentDetailPage__pathGrid {
+  display: grid;
+  gap: var(--app-space-4);
+}
+
+.ComponentDetailPage__pathCard {
+  background: var(--app-color-ivory);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow-hard);
+  padding: var(--app-space-4);
+}
+
+.ComponentDetailPage__pathTitle {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: 1.35rem;
+  margin: 0 0 var(--app-space-3);
+}
+
+.ComponentDetailPage__pathCode,
+.ComponentDetailPage__table code {
+  color: var(--app-color-orange-dark);
+  font-family: var(--app-font-mono);
+  font-size: 0.84rem;
+}
+
+.ComponentDetailPage__tableWrap {
+  border: var(--app-border);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.ComponentDetailPage__table {
+  border-collapse: collapse;
+  min-width: 760px;
+  width: 100%;
+}
+
+.ComponentDetailPage__table th,
+.ComponentDetailPage__table td {
+  border-bottom: 1px solid var(--app-color-line-soft);
+  padding: var(--app-space-3);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ComponentDetailPage__table th {
+  background: var(--app-color-brown);
+  color: var(--app-color-white);
+  font-family: var(--app-font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ComponentDetailPage__table tr:last-child td {
+  border-bottom: 0;
+}
+
+@media (min-width: 960px) {
+  .ComponentDetailPage {
+    gap: var(--app-space-7);
+  }
+
+  .ComponentDetailPage__hero,
+  .ComponentDetailPage__section {
+    padding: var(--app-space-7);
+  }
+
+  .ComponentDetailPage__pathGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

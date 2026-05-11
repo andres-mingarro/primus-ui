@@ -1,0 +1,115 @@
+.AppHeader {
+  align-items: center;
+  background: color-mix(in srgb, var(--app-color-ivory) 94%, transparent);
+  border: var(--app-border);
+  display: flex;
+  gap: var(--app-space-4);
+  justify-content: space-between;
+  left: var(--app-space-4);
+  min-height: 70px;
+  padding: var(--app-space-3) var(--app-space-4);
+  position: sticky;
+  right: var(--app-space-4);
+  top: var(--app-space-3);
+  z-index: var(--app-z-header);
+}
+
+.AppHeader__brand {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--app-space-3);
+  min-height: 44px;
+}
+
+.AppHeader__mark {
+  background: var(--app-color-orange);
+  border: 2px solid var(--app-color-line);
+  box-shadow: 3px 3px 0 var(--app-color-line);
+  display: inline-block;
+  height: 28px;
+  width: 18px;
+}
+
+.AppHeader__wordmark {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.AppHeader__nav {
+  align-items: center;
+  display: flex;
+  gap: var(--app-space-2);
+}
+
+.AppHeader__link,
+.AppHeader__theme,
+.AppHeader__locale {
+  background: transparent;
+  border: 1px solid var(--app-color-line);
+  color: var(--app-color-ink);
+  min-height: 40px;
+  padding: 0 var(--app-space-3);
+  transition:
+    background var(--app-motion-fast) var(--app-ease),
+    box-shadow var(--app-motion-fast) var(--app-ease),
+    color var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.AppHeader__link,
+.AppHeader__theme {
+  align-items: center;
+  display: inline-flex;
+  font-weight: 700;
+}
+
+.AppHeader__localeGroup {
+  display: flex;
+}
+
+.AppHeader__locale {
+  font-family: var(--app-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.AppHeader__locale + .AppHeader__locale {
+  border-left: 0;
+}
+
+.AppHeader__link:hover,
+.AppHeader__theme:hover,
+.AppHeader__locale:hover,
+.AppHeader__locale--active {
+  background: var(--app-color-orange);
+  box-shadow: 3px 3px 0 var(--app-color-line);
+  color: var(--app-color-white);
+  transform: translate(-1px, -1px);
+}
+
+@media (max-width: 959px) {
+  .AppHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    margin: var(--app-space-3);
+    position: relative;
+    top: auto;
+  }
+
+  .AppHeader__nav {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
+@media (min-width: 960px) {
+  .AppHeader {
+    margin: var(--app-space-4) auto 0;
+    max-width: 1200px;
+  }
+}

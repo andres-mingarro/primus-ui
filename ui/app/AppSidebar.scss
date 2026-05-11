@@ -1,0 +1,75 @@
+.AppSidebar {
+  align-self: start;
+  background: var(--app-color-ivory);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow-hard);
+  padding: var(--app-space-4);
+}
+
+.AppSidebar__section + .AppSidebar__section {
+  border-top: var(--app-border);
+  margin-top: var(--app-space-5);
+  padding-top: var(--app-space-5);
+}
+
+.AppSidebar__title {
+  color: var(--app-color-gold);
+  font-family: var(--app-font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 var(--app-space-3);
+  text-transform: uppercase;
+}
+
+.AppSidebar__nav {
+  display: grid;
+  gap: var(--app-space-2);
+}
+
+.AppSidebar__item {
+  align-items: center;
+  border: 1px solid transparent;
+  color: var(--app-color-ink);
+  display: flex;
+  font-weight: 700;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: var(--app-space-2) var(--app-space-3);
+  text-transform: capitalize;
+  transition:
+    background var(--app-motion-fast) var(--app-ease),
+    border-color var(--app-motion-fast) var(--app-ease),
+    box-shadow var(--app-motion-fast) var(--app-ease),
+    color var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.AppSidebar__item:hover,
+.AppSidebar__item--active {
+  background: var(--app-color-orange);
+  border-color: var(--app-color-line);
+  box-shadow: 3px 3px 0 var(--app-color-line);
+  color: var(--app-color-white);
+  transform: translate(-1px, -1px);
+}
+
+.AppSidebar__version {
+  font-family: var(--app-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+@media (max-width: 959px) {
+  .AppSidebar {
+    margin: var(--app-space-4) var(--app-space-3) 0;
+  }
+}
+
+@media (min-width: 960px) {
+  .AppSidebar {
+    position: sticky;
+    top: 112px;
+  }
+}

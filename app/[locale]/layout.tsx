@@ -1,14 +1,21 @@
 import type { Metadata } from 'next'
+import { Karla } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-import { AppHeader } from '@/ui/app/AppHeader'
-import { AppSidebar } from '@/ui/app/AppSidebar'
-import { AppMain } from '@/ui/app/AppMain'
+import { AppHeader } from '@/ui/components/segment/AppHeader/AppHeader'
+import { AppSidebar } from '@/ui/components/segment/AppSidebar/AppSidebar'
+import { AppMain } from '@/ui/components/segment/AppMain/AppMain'
 import '../styles/globals.css'
+
+const karla = Karla({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--app-font-karla',
+})
 
 export const metadata: Metadata = {
   title: 'Primus UI',
@@ -42,7 +49,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
       className={isDark ? 'dark' : ''}
     >
-      <body>
+      <body className={`${karla.variable} ${karla.className}`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <AppHeader />

@@ -1,0 +1,148 @@
+.app-component-card {
+  background: var(--app-color-paper);
+  border: var(--app-border);
+  box-shadow: 4px 4px 0 var(--app-color-line);
+  color: var(--app-color-ink);
+  display: grid;
+  gap: var(--app-space-5);
+  grid-template-rows: auto 1fr auto;
+  min-height: 260px;
+  padding: var(--app-space-5);
+  position: relative;
+  transition:
+    background var(--app-motion-fast) var(--app-ease),
+    box-shadow var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.app-component-card__header {
+  display: grid;
+  min-height: 58px;
+  place-items: start center;
+}
+
+.app-component-card__name {
+  color: var(--app-color-ink);
+  display: block;
+  font-family: var(--app-font-display);
+  font-size: var(--app-font-size-lg);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  max-width: 18ch;
+  padding-top: var(--app-space-4);
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.app-component-card__name::before {
+  background:
+    linear-gradient(
+      90deg,
+      var(--app-color-line-soft) 0 calc(50% - 20px),
+      transparent calc(50% - 20px) calc(50% + 20px),
+      var(--app-color-line-soft) calc(50% + 20px) 100%
+    );
+  content: "";
+  height: 1px;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  transition: background var(--app-motion-fast) var(--app-ease);
+  width: min(180px, 76%);
+}
+
+.app-component-card__name::after {
+  background:
+    linear-gradient(var(--app-color-orange), var(--app-color-orange)) center / 2px 10px no-repeat,
+    linear-gradient(var(--app-color-orange), var(--app-color-orange)) left center / 8px 2px no-repeat,
+    linear-gradient(var(--app-color-orange), var(--app-color-orange)) right center / 8px 2px no-repeat;
+  content: "";
+  height: 12px;
+  inset-block-start: -5px;
+  inset-inline-start: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  transition: background var(--app-motion-fast) var(--app-ease);
+  width: 20px;
+}
+
+.app-component-card__description {
+  align-self: start;
+  color: var(--app-color-ink-soft);
+  display: block;
+  font-size: var(--app-font-size-base);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.app-component-card__footer {
+  align-items: center;
+  border-top: 1px solid var(--app-color-line-soft);
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--app-space-3);
+}
+
+.app-component-card__meta {
+  color: var(--app-color-gold);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.app-component-card__arrow {
+  block-size: 11px;
+  border-block-start: 2px solid var(--app-color-orange);
+  border-inline-end: 2px solid var(--app-color-orange);
+  inline-size: 11px;
+  transform: rotate(45deg);
+  transition:
+    border-color var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.app-component-card:hover {
+  background: var(--app-color-orange);
+  box-shadow: 7px 7px 0 var(--app-color-line);
+  transform: translate(-3px, -3px);
+}
+
+.app-component-card:hover .app-component-card__name::before {
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--app-color-orange) 54%, transparent) 0 calc(50% - 20px),
+      transparent calc(50% - 20px) calc(50% + 20px),
+      color-mix(in srgb, var(--app-color-orange) 54%, transparent) calc(50% + 20px) 100%
+    );
+}
+
+.app-component-card:hover .app-component-card__arrow {
+  transform: rotate(45deg) translate(3px, -3px);
+}
+
+.app-component-card:hover .app-component-card__name,
+.app-component-card:hover .app-component-card__description,
+.app-component-card:hover .app-component-card__meta {
+  color: var(--app-color-white);
+}
+
+.app-component-card:hover .app-component-card__footer {
+  border-color: color-mix(in srgb, var(--app-color-white) 42%, transparent);
+}
+
+.app-component-card:hover .app-component-card__name::after {
+  background:
+    linear-gradient(var(--app-color-white), var(--app-color-white)) center / 2px 10px no-repeat,
+    linear-gradient(var(--app-color-white), var(--app-color-white)) left center / 8px 2px no-repeat,
+    linear-gradient(var(--app-color-white), var(--app-color-white)) right center / 8px 2px no-repeat;
+}
+
+.app-component-card:hover .app-component-card__arrow {
+  border-color: var(--app-color-white);
+}

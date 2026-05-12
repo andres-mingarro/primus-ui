@@ -13,17 +13,20 @@ html {
 }
 
 body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   min-height: 100%;
   margin: 0;
   background:
-    linear-gradient(90deg, rgba(42, 19, 12, 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(42, 19, 12, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, var(--app-grid-line) 1px, transparent 1px),
+    linear-gradient(180deg, var(--app-grid-line) 1px, transparent 1px),
     var(--app-color-cream);
   background-size: 44px 44px;
   color: var(--app-color-ink);
   font-family: var(--app-font-body);
-  font-size: 16px;
+  font-size: var(--app-font-size-base);
   line-height: 1.55;
+  text-rendering: optimizeLegibility;
 }
 
 a {

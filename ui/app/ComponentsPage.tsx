@@ -1,27 +1,33 @@
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { components } from '@/lib/components-registry'
+import { GridTemplate } from '@/ui/components/basics/GridTemplate/GridTemplate'
+import { ComponentCard } from '@/ui/components/feature/ComponentCard/ComponentCard'
 import './ComponentsPage.scss'
 
 export function ComponentsPage({ locale }: { locale: string }) {
+  const t = useTranslations('componentsPage')
+  const tc = useTranslations('componentDescriptions')
+
   return (
     <article className="ComponentsPage">
       <header className="ComponentsPage__hero">
-        <p className="ComponentsPage__eyebrow">Component registry</p>
-        <h1 className="ComponentsPage__title">Components</h1>
-        <p className="ComponentsPage__description">
-          Browse the documented Primus UI primitives. Each page explains usage
-          paths, props, SCSS variables, and implementation notes.
-        </p>
+        <p className="ComponentsPage__eyebrow">{t('eyebrow')}</p>
+        <h1 className="ComponentsPage__title">{t('title')}</h1>
+        <p className="ComponentsPage__description">{t('description')}</p>
       </header>
 
-      <section className="ComponentsPage__grid" aria-label="Component list">
-        {components.map((component) => (
-          <Link className="ComponentsPage__card" href={`/${locale}/components/${component.slug}`} key={component.slug}>
-            <span className="ComponentsPage__cardTitle">{component.name}</span>
-            <span className="ComponentsPage__cardDescription">{component.description}</span>
-            <span className="ComponentsPage__cardMeta">v{component.version}</span>
-          </Link>
-        ))}
+      <section aria-label={t('listLabel')}>
+        <GridTemplate cols={2} colsMedium={2} colsSmall={1}>
+          {components.map((component) => (
+            <ComponentCard
+              description={tc(component.slug)}
+              href={`/${locale}/components/${component.slug}`}
+              key={component.slug}
+              name={component.name}
+              version={component.version}
+            />
+          ))}
+        </GridTemplate>
       </section>
     </article>
   )

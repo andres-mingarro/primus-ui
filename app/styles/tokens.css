@@ -17,10 +17,22 @@
   --app-color-brown-2: #4a2114;
   --app-color-success: #1f7a4d;
   --app-color-danger: #b42318;
+  --app-grid-line: rgba(42, 19, 12, 0.035);
 
   --app-font-display: Georgia, "Times New Roman", serif;
-  --app-font-body: Arial, Helvetica, sans-serif;
+  --app-font-body: var(--app-font-karla), Karla, sans-serif;
   --app-font-mono: "Courier New", Courier, monospace;
+
+  --app-font-size-xs: 0.75rem;
+  --app-font-size-sm: 0.875rem;
+  --app-font-size-base: 1.2rem;
+  --app-font-size-lg: 1.125rem;
+  --app-font-size-xl: 1.25rem;
+  --app-font-size-2xl: 1.5rem;
+  --app-font-size-3xl: 1.875rem;
+  --app-font-size-4xl: 2.25rem;
+  --app-font-size-5xl: 3rem;
+  --app-font-size-6xl: 3.75rem;
 
   --app-space-1: 0.25rem;
   --app-space-2: 0.5rem;
@@ -51,18 +63,21 @@
 }
 
 .dark {
-  --app-color-cream: #24120c;
-  --app-color-ivory: #30170e;
-  --app-color-paper: #3b1d11;
-  --app-color-white: #ffffff;
-  --app-color-ink: #fff6e7;
-  --app-color-ink-soft: #f2d9bf;
-  --app-color-muted: #c7a68c;
-  --app-color-line: #fff2dc;
-  --app-color-line-soft: #6d3d2a;
-  --app-color-orange: #ff7048;
-  --app-color-orange-dark: #ff9a7c;
-  --app-color-gold: #d59a36;
-  --app-color-brown: #160905;
-  --app-color-brown-2: #210d08;
+  --app-color-cream: #17100d;
+  --app-color-ivory: #211713;
+  --app-color-paper: #281c17;
+  --app-color-white: #ead8c3;
+  --app-color-ink: #ead8c3;
+  --app-color-ink-soft: #c9ad94;
+  --app-color-muted: #9d7d68;
+  --app-color-line: #8f563c;
+  --app-color-line-soft: #3f2d26;
+  --app-color-orange: #a83d25;
+  --app-color-orange-dark: #f08b68;
+  --app-color-gold: #bc8231;
+  --app-color-brown: #100a08;
+  --app-color-brown-2: #1b110e;
+  --app-color-success: #6da77f;
+  --app-color-danger: #e06b5f;
+  --app-grid-line: rgba(234, 216, 195, 0.045);
 }

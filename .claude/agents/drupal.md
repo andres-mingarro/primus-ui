@@ -171,11 +171,11 @@ props:
 
 ```twig
 {# Caso normal — translate_enabled: true (default) #}
-{% include 'THEME-NAME:button' with { label: 'Submit' } %}
+{{ include('THEME-NAME:button', { label: 'Submit' }, false) }}
 
 {# El caller ya traduce — translate_enabled: false #}
 {% set my_label = 'Submit'|t %}
-{% include 'THEME-NAME:button' with { label: my_label, translate_enabled: false } %}
+{{ include('THEME-NAME:button', { label: my_label, translate_enabled: false }, false) }}
 ```
 
 ---
@@ -266,8 +266,10 @@ Reglas:
 - Primera línea del archivo, antes de cualquier lógica Twig.
 - Header: `THEME-NAME:[name] — [version]`, sin palabras extra.
 - Un título corto en inglés por caso de uso, seguido del snippet. Sin tablas de props, sin separadores `───`, sin explicaciones largas.
+- Usar siempre `{{ include('THEME-NAME:[component-name]', { ... }, false) }}` en docblocks, README y landing code tabs.
 - El tercer argumento `false` en `include` siempre presente — desactiva el aislamiento de variables.
-- Si el componente tiene slots, incluir un caso con `embed`.
+- No usar `{% include ... with ... %}` en documentación.
+- No usar `{% embed %}` en documentación. Si el componente tiene slots, pasar el markup/render array como la clave del slot (`items`, `content`, `body`, etc.) dentro del objeto de `include`.
 - Todo el texto en inglés.
 
 **Ejemplo — componente sin slot:**
@@ -293,21 +295,17 @@ Reglas:
 {#
   THEME-NAME:text — 1.3.0
 
-  include (text prop)
+  text prop
   {{ include('THEME-NAME:text', { tag: 'p', text: 'Example', size: 'lg', weight: 'medium', translate_enabled: false, addClassName: '' }, false) }}
 
-  embed (markup / slot)
-  {% embed 'THEME-NAME:text' with { tag: 'p', size: 'lg' } %}
-    {% block items %}Text with <strong>markup</strong>.{% endblock %}
-  {% endembed %}
+  markup slot
+  {{ include('THEME-NAME:text', { tag: 'p', size: 'lg', items: 'Text with <strong>markup</strong>.' }, false) }}
 
   plain text field
   {{ include('THEME-NAME:text', { tag: 'p', text: node.field_subtitle.value, translate_enabled: false, size: 'lg' }, false) }}
 
   field with markup (body, text_long)
-  {% embed 'THEME-NAME:text' with { tag: 'div', size: 'md' } %}
-    {% block items %}{{ content.field_body }}{% endblock %}
-  {% endembed %}
+  {{ include('THEME-NAME:text', { tag: 'div', size: 'md', items: content.field_body }, false) }}
 
   static label in template
   {{ include('THEME-NAME:text', { tag: 'label', text: 'Email address', translate_enabled: true, size: 'sm', weight: 'medium' }, false) }}
@@ -338,10 +336,10 @@ Drop the entire `drupal/` folder into your theme:
 Then clear Drupal's cache and use it:
 
 ```twig
-{% include 'THEME-NAME:[component-name]' with {
+{{ include('THEME-NAME:[component-name]', {
   label: 'Click me',
   variant: 'primary',
-} %}
+}, false) }}
 ```
 
 Machine name format: `THEME-NAME:[component-name]`

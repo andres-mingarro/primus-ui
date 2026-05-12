@@ -1,0 +1,29 @@
+.app-grid-template {
+  --app-grid-template-cols: 3;
+  --app-grid-template-cols-md: 2;
+  --app-grid-template-cols-sm: 1;
+  --app-grid-template-gap: var(--app-space-4);
+
+  display: grid;
+  grid-template-columns: repeat(var(--app-grid-template-cols), minmax(0, 1fr));
+}
+
+.app-grid-template--gap {
+  gap: var(--app-grid-template-gap);
+}
+
+.app-grid-template--no-gap {
+  gap: 0;
+}
+
+@media (max-width: 768px) {
+  .app-grid-template {
+    grid-template-columns: repeat(var(--app-grid-template-cols-md), minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .app-grid-template {
+    grid-template-columns: repeat(var(--app-grid-template-cols-sm), minmax(0, 1fr));
+  }
+}

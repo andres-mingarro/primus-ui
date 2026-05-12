@@ -1,0 +1,44 @@
+@use "../../../../app/styles/media";
+
+.app-section-header {
+  align-items: center;
+  display: flex;
+  gap: var(--app-space-3);
+  margin-bottom: var(--app-space-5);
+}
+
+.app-section-header__rule {
+  background: var(--app-color-orange);
+  display: block;
+  height: 3px;
+  width: 56px;
+}
+
+.app-section-header__title {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: clamp(var(--app-font-size-2xl), 5vw, var(--app-font-size-4xl));
+  line-height: 1;
+  margin: 0;
+}
+
+.app-section-header--dark .app-section-header__title {
+  color: var(--app-color-white);
+}
+
+.app-section {
+  animation: app-fade-up var(--app-motion-slow) var(--app-ease) both;
+  background: var(--app-color-ivory);
+  padding: var(--app-space-5);
+  border-radius: 7px;
+}
+
+.app-section--paper {
+  background: var(--app-color-paper);
+}
+
+.app-section--dark {
+  background: var(--app-color-brown);
+  color: var(--app-color-white);
+}
+

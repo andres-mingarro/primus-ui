@@ -93,7 +93,7 @@ Sidebar sections:
   - Next.js Tailwind
   - Drupal
 - `Componentes`
-  - Component list
+  - components-library
   - Component detail pages
   - Variants
   - Props/API
@@ -110,12 +110,22 @@ Home page should include:
 - Tokens/design system section.
 - CTA into documentation and components.
 
+Component detail pages should include:
+
+- Implementation tabs for `React + CSS`, `React + Tailwind`, and `Drupal`.
+- Tab composition from `Tabs`, `TabsItems`, `TabItem`, `TabsContent`, and `TabPanel`.
+- Route/description first in each implementation tab, followed by example, visual demo, props, and tokens.
+- Tab panel content must not animate on tab changes.
+- `SectionHeader` uses a `div.app-section-header` wrapper with an `h2`; never render these blocks as `<header>`.
+- Drupal examples must use `{{ include('THEME-NAME:[component-name]', { ... }, false) }}`. Do not show `{% embed %}` or `{% include ... with ... %}` in docs.
+
 ## Visual Language
 
 - Warm cream/ivory background.
 - Dark brown or warm near-black text.
 - Vivid orange primary action color.
 - Red-brown/tan support colors.
+- Dark mode is not an inverted light palette: no pure white in `.dark`, use warm low-light browns, muted parchment text, softened copper/brown borders, and subdued orange/gold accents.
 - Rectangular surfaces.
 - Low radius: `0px` to `8px`.
 - Visible borders.

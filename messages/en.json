@@ -2,8 +2,20 @@
   "nav": {
     "docs": "Documentation",
     "intro": "Introduction",
+    "installation": "Installation",
+    "usage": "Usage",
+    "tokens": "Theming / Tokens",
+    "next": "Next.js",
+    "tailwind": "Next.js Tailwind",
+    "drupal": "Drupal",
     "components": "Components",
-    "github": "GitHub"
+    "componentList": "components-library",
+    "github": "GitHub",
+    "language": "Language",
+    "globalNavigation": "Global navigation",
+    "homeLabel": "Primus UI home",
+    "light": "Light",
+    "dark": "Dark"
   },
   "home": {
     "title": "Introduction",
@@ -18,6 +30,8 @@
     "flavorScssDesc": "A .tsx that uses pu-* classes with overridable CSS variables. No Tailwind required.",
     "flavorDrupalTitle": "Drupal SDC",
     "flavorDrupalDesc": "A Single Directory Component with Twig template, .component.yml schema, and the same SCSS tokens.",
+    "stacks": "Stacks",
+    "outputs": "Outputs",
     "quickStart": "Quick start",
     "step1": "Open the component page you want and pick a version (Tailwind, SCSS, or Drupal).",
     "step2": "Copy the components-library/[ComponentName]/ folder into your project.",
@@ -29,6 +43,14 @@
     "drupalThemeNote": "In Drupal snippets, replace <code>THEME-NAME</code> with your theme or module machine name (e.g. <code>my_theme:button</code>)."
   },
   "component": {
+    "eyebrow": "Component / v{version}",
+    "allComponents": "All components",
+    "usagePaths": "Usage paths",
+    "reactScss": "React + SCSS",
+    "reactCss": "React + CSS",
+    "reactTailwind": "React + Tailwind",
+    "drupalSdc": "Drupal SDC",
+    "scssTokens": "SCSS tokens",
     "examples": "Examples",
     "props": "Props",
     "cssVars": "CSS Variables (SCSS version)",
@@ -38,5 +60,38 @@
     "default": "Default",
     "description": "Description",
     "variable": "Variable"
+  },
+  "componentsPage": {
+    "eyebrow": "Component registry",
+    "title": "Components",
+    "description": "Browse the documented Primus UI primitives. Each page explains usage paths, props, SCSS variables, and implementation notes.",
+    "listLabel": "components-library"
+  },
+  "docsPage": {
+    "eyebrow": "Documentation",
+    "title": "Build with Primus UI",
+    "description": "Primus UI is documented as a source-first component system for Next.js, Next.js Tailwind, and Drupal SDC. Pick the output that matches your project, copy the folder, then own the code.",
+    "installation": "Installation",
+    "installationBody": "There is no runtime package to install for the library workflow. Each component is a self-contained folder under <code>components-library/</code>.",
+    "folder": "folder",
+    "usage": "Usage",
+    "usageScss": "Copy the TSX and SCSS pair, then import the SCSS once where the component is used.",
+    "usageTailwind": "Copy the Tailwind TSX version when the consuming product already owns Tailwind.",
+    "usageDrupal": "Copy the Drupal directory for Twig, component schema, and SCSS token overrides.",
+    "tokens": "Theming / Tokens",
+    "tokensBody": "SCSS outputs expose CSS variables so consuming apps can theme without editing component internals.",
+    "css": "css",
+    "outputs": "Supported outputs",
+    "outputNext": "Source components with explicit styling and local ownership.",
+    "outputTailwind": "Utility-class components for Tailwind-native products.",
+    "outputDrupal": "Single Directory Components for Drupal theme integration."
+  },
+  "componentDescriptions": {
+    "divider": "A horizontal or vertical line for separating content sections.",
+    "grid-template": "A responsive CSS grid wrapper with configurable column counts per breakpoint.",
+    "text": "A polymorphic text element that renders a configurable HTML tag with overridable typography tokens.",
+    "heading": "A polymorphic heading element (h1-h6) with weight variants and optional HTML rendering.",
+    "section-container": "A section wrapper with configurable max-width and horizontal padding. Safe to nest because inner margin collapses automatically.",
+    "card": "Content card with style variants, layout directions, image, and action buttons."
   }
 }

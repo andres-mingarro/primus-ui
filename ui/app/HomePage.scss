@@ -1,160 +1,8 @@
+@use "../../app/styles/media";
+
 .HomePage {
   display: grid;
   gap: var(--app-space-6);
-}
-
-.HomePage__hero,
-.HomePage__band {
-  animation: app-fade-up var(--app-motion-slow) var(--app-ease) both;
-}
-
-.HomePage__hero {
-  background: var(--app-color-ivory);
-  border: var(--app-border);
-  box-shadow: var(--app-shadow-hard-large);
-  display: grid;
-  gap: var(--app-space-6);
-  overflow: hidden;
-  padding: var(--app-space-5);
-  position: relative;
-}
-
-.HomePage__hero::before {
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      transparent 0 14px,
-      color-mix(in srgb, var(--app-color-orange) 22%, transparent) 14px 16px
-    );
-  content: "";
-  inset: 0;
-  opacity: 0.25;
-  pointer-events: none;
-  position: absolute;
-}
-
-.HomePage__heroCopy,
-.HomePage__heroPanel {
-  position: relative;
-}
-
-.HomePage__eyebrow,
-.HomePage__panelLabel,
-.HomePage__componentMeta,
-.FlavorCard__file {
-  color: var(--app-color-gold);
-  font-family: var(--app-font-mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.HomePage__title {
-  color: var(--app-color-ink);
-  font-family: var(--app-font-display);
-  font-size: clamp(3.2rem, 11vw, 7.5rem);
-  line-height: 0.92;
-  margin: var(--app-space-4) 0;
-  max-width: 760px;
-}
-
-.HomePage__tagline {
-  color: var(--app-color-ink-soft);
-  font-size: 1.12rem;
-  line-height: 1.65;
-  margin: 0;
-  max-width: 680px;
-}
-
-.HomePage__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--app-space-3);
-  margin-top: var(--app-space-5);
-}
-
-.HomePage__button {
-  align-items: center;
-  background: var(--app-color-paper);
-  border: var(--app-border);
-  color: var(--app-color-ink);
-  display: inline-flex;
-  font-weight: 700;
-  min-height: 48px;
-  padding: 0 var(--app-space-4);
-  transition:
-    background var(--app-motion-fast) var(--app-ease),
-    box-shadow var(--app-motion-fast) var(--app-ease),
-    color var(--app-motion-fast) var(--app-ease),
-    transform var(--app-motion-fast) var(--app-ease);
-}
-
-.HomePage__button--primary,
-.HomePage__button:hover {
-  background: var(--app-color-orange);
-  box-shadow: 4px 4px 0 var(--app-color-line);
-  color: var(--app-color-white);
-  transform: translate(-2px, -2px);
-}
-
-.HomePage__heroPanel {
-  background: var(--app-color-brown);
-  border: var(--app-border);
-  box-shadow: var(--app-shadow-hard);
-  color: var(--app-color-white);
-  display: grid;
-  gap: var(--app-space-3);
-  padding: var(--app-space-4);
-}
-
-.HomePage__stack {
-  background: var(--app-color-orange);
-  border: 1px solid var(--app-color-white);
-  color: var(--app-color-white);
-  font-weight: 700;
-  padding: var(--app-space-3);
-}
-
-.HomePage__band {
-  background: var(--app-color-ivory);
-  border: var(--app-border);
-  padding: var(--app-space-5);
-}
-
-.HomePage__band--dark {
-  background: var(--app-color-brown);
-  color: var(--app-color-white);
-}
-
-.HomePage__band--paper {
-  background: var(--app-color-paper);
-}
-
-.SectionHeader {
-  align-items: center;
-  display: flex;
-  gap: var(--app-space-3);
-  margin-bottom: var(--app-space-5);
-}
-
-.SectionHeader__rule {
-  background: var(--app-color-orange);
-  display: block;
-  height: 3px;
-  width: 56px;
-}
-
-.SectionHeader__title {
-  color: var(--app-color-ink);
-  font-family: var(--app-font-display);
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  line-height: 1;
-  margin: 0;
-}
-
-.SectionHeader--dark .SectionHeader__title {
-  color: var(--app-color-white);
 }
 
 .HomePage__copyGrid,
@@ -166,7 +14,7 @@
 
 .HomePage__copyGrid p {
   color: color-mix(in srgb, currentColor 82%, transparent);
-  font-size: 1.05rem;
+  font-size: var(--app-font-size-base);
   line-height: 1.7;
   margin: 0;
 }
@@ -201,70 +49,9 @@
   width: 42px;
 }
 
-.FlavorCard,
-.HomePage__componentCard {
-  background: var(--app-color-paper);
-  border: var(--app-border);
-  box-shadow: var(--app-shadow-hard);
-  padding: var(--app-space-4);
-}
-
-.FlavorCard__title,
-.HomePage__componentName {
-  color: var(--app-color-ink);
-  display: block;
-  font-family: var(--app-font-display);
-  font-size: 1.45rem;
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-.FlavorCard__body,
-.HomePage__componentDescription {
-  color: var(--app-color-ink-soft);
-  display: block;
-  margin-top: var(--app-space-3);
-}
-
-.HomePage__componentCard {
-  transition:
-    background var(--app-motion-fast) var(--app-ease),
-    box-shadow var(--app-motion-fast) var(--app-ease),
-    transform var(--app-motion-fast) var(--app-ease);
-}
-
-.HomePage__componentCard:hover {
-  background: var(--app-color-orange);
-  box-shadow: var(--app-shadow-hard-large);
-  transform: translate(-3px, -3px);
-}
-
-.HomePage__componentCard:hover * {
-  color: var(--app-color-white);
-}
-
-@media (min-width: 960px) {
+@include media.large {
   .HomePage {
     gap: var(--app-space-7);
-  }
-
-  .HomePage__hero {
-    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
-    min-height: 580px;
-    padding: var(--app-space-7);
-  }
-
-  .HomePage__heroCopy {
-    align-self: center;
-  }
-
-  .HomePage__heroPanel {
-    align-self: center;
-    transform: rotate(1deg);
-  }
-
-  .HomePage__band {
-    padding: var(--app-space-7);
   }
 
   .HomePage__copyGrid,

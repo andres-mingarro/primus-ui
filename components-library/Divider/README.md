@@ -59,7 +59,7 @@ import { Divider } from './Divider'
 Copy the `drupal/` folder into `[your-theme]/components/divider/` and clear cache.
 
 ```twig
-{% include 'primus-ui:divider' %}
-{% include 'primus-ui:divider' with { orientation: 'vertical' } %}
-{% include 'primus-ui:divider' with { assistive_hidden: true } %}
+{{ include('primus-ui:divider', {}, false) }}
+{{ include('primus-ui:divider', { orientation: 'vertical' }, false) }}
+{{ include('primus-ui:divider', { assistive_hidden: true }, false) }}
 ```

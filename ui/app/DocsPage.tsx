@@ -1,26 +1,29 @@
+import { useTranslations } from 'next-intl'
+import { CodeBlock } from '@/ui/components/basics/CodeBlock/CodeBlock'
+import { SectionHeader } from '@/ui/components/basics/SectionHeader/SectionHeader'
+import { PathCard } from '@/ui/components/feature/PathCard/PathCard'
 import './DocsPage.scss'
 
 export function DocsPage() {
+  const t = useTranslations('docsPage')
+
   return (
     <article className="DocsPage">
       <header className="DocsPage__hero">
-        <p className="DocsPage__eyebrow">Documentation</p>
-        <h1 className="DocsPage__title">Build with Primus UI</h1>
-        <p className="DocsPage__description">
-          Primus UI is documented as a source-first component system for Next.js,
-          Next.js Tailwind, and Drupal SDC. Pick the output that matches your
-          project, copy the folder, then own the code.
-        </p>
+        <p className="DocsPage__eyebrow">{t('eyebrow')}</p>
+        <h1 className="DocsPage__title">{t('title')}</h1>
+        <p className="DocsPage__description">{t('description')}</p>
       </header>
 
-      <section className="DocsPage__section" id="installation">
-        <SectionTitle label="Installation" />
+      <section className="app-section app-section--paper" id="installation">
+        <SectionHeader label={t('installation')} />
         <p className="DocsPage__body">
-          There is no runtime package to install for the library workflow. Each
-          component is a self-contained folder under <code>components-library/</code>.
+          {t.rich('installationBody', {
+            code: (chunks) => <code>{chunks}</code>,
+          })}
         </p>
         <CodeBlock
-          label="folder"
+          label={t('folder')}
           code={`components-library/
   Card/
   Divider/
@@ -31,23 +34,20 @@ export function DocsPage() {
         />
       </section>
 
-      <section className="DocsPage__section" id="usage">
-        <SectionTitle label="Usage" />
+      <section className="app-section app-section--paper" id="usage">
+        <SectionHeader label={t('usage')} />
         <div className="DocsPage__grid">
-          <PathCard title="Next.js + SCSS" description="Copy the TSX and SCSS pair, then import the SCSS once where the component is used." />
-          <PathCard title="Next.js Tailwind" description="Copy the Tailwind TSX version when the consuming product already owns Tailwind." />
-          <PathCard title="Drupal SDC" description="Copy the Drupal directory for Twig, component schema, and SCSS token overrides." />
+          <PathCard title="Next.js + SCSS" description={t('usageScss')} />
+          <PathCard title="Next.js Tailwind" description={t('usageTailwind')} />
+          <PathCard title="Drupal SDC" description={t('usageDrupal')} />
         </div>
       </section>
 
-      <section className="DocsPage__section" id="tokens">
-        <SectionTitle label="Theming / Tokens" />
-        <p className="DocsPage__body">
-          SCSS outputs expose CSS variables so consuming apps can theme without
-          editing component internals.
-        </p>
+      <section className="app-section app-section--paper" id="tokens">
+        <SectionHeader label={t('tokens')} />
+        <p className="DocsPage__body">{t('tokensBody')}</p>
         <CodeBlock
-          label="css"
+          label={t('css')}
           code={`:root {
   --pu-card-background: var(--app-color-paper);
   --pu-card-border-color: var(--app-color-line);
@@ -56,43 +56,14 @@ export function DocsPage() {
         />
       </section>
 
-      <section className="DocsPage__section" id="outputs">
-        <SectionTitle label="Supported outputs" />
+      <section className="app-section app-section--paper" id="outputs">
+        <SectionHeader label={t('outputs')} />
         <div className="DocsPage__grid">
-          <PathCard title="Next.js" description="Source components with explicit styling and local ownership." />
-          <PathCard title="Next.js Tailwind" description="Utility-class components for Tailwind-native products." />
-          <PathCard title="Drupal" description="Single Directory Components for Drupal theme integration." />
+          <PathCard title="Next.js" description={t('outputNext')} />
+          <PathCard title="Next.js Tailwind" description={t('outputTailwind')} />
+          <PathCard title="Drupal" description={t('outputDrupal')} />
         </div>
       </section>
     </article>
-  )
-}
-
-function SectionTitle({ label }: { label: string }) {
-  return (
-    <header className="DocsPage__sectionHeader">
-      <span className="DocsPage__sectionRule" aria-hidden="true" />
-      <h2 className="DocsPage__sectionTitle">{label}</h2>
-    </header>
-  )
-}
-
-function PathCard({ title, description }: { title: string; description: string }) {
-  return (
-    <article className="DocsPage__pathCard">
-      <h3 className="DocsPage__pathTitle">{title}</h3>
-      <p className="DocsPage__pathDescription">{description}</p>
-    </article>
-  )
-}
-
-function CodeBlock({ label, code }: { label: string; code: string }) {
-  return (
-    <div className="DocsPage__codeBlock">
-      <div className="DocsPage__codeLabel">{label}</div>
-      <pre className="DocsPage__pre">
-        <code>{code}</code>
-      </pre>
-    </div>
   )
 }

@@ -2,11 +2,7 @@
 
 .DocsPage {
   display: grid;
-  gap: var(--app-space-6);
-}
-
-.DocsPage__hero {
-  animation: app-fade-up var(--app-motion-slow) var(--app-ease) both;
+  gap: var(--app-space-8);
 }
 
 .DocsPage__hero {
@@ -14,7 +10,6 @@
   border: var(--app-border);
   box-shadow: var(--app-shadow-hard-large);
   padding: var(--app-space-5);
-  border-radius: 15px;
 }
 
 .DocsPage__eyebrow {
@@ -44,24 +39,148 @@
 }
 
 .DocsPage__description {
-  max-width: 740px;
+  max-width: 760px;
+}
+
+.DocsPage__section {
+  border-top: var(--app-border);
+  display: grid;
+  gap: var(--app-space-5);
+  padding-top: var(--app-space-5);
+}
+
+.DocsPage__section--featured {
+  background: var(--app-color-ivory);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow-hard);
+  padding: var(--app-space-5);
+}
+
+.DocsPage__sectionHeader {
+  min-width: 0;
+}
+
+.DocsPage__sectionHeader .app-section-header {
+  margin-bottom: 0;
+}
+
+.DocsPage__sectionHeader .app-section-header__title {
+  font-size: var(--app-font-size-2xl);
+}
+
+.DocsPage__sectionBody {
+  display: grid;
+  gap: var(--app-space-5);
+  min-width: 0;
+}
+
+.DocsPage__lead {
+  color: var(--app-color-ink);
+  font-size: var(--app-font-size-lg);
+}
+
+.DocsPage__body code {
+  color: var(--app-color-orange-dark);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-sm);
+  font-weight: 700;
+}
+
+.DocsPage__body a {
+  color: var(--app-color-orange-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+.DocsPage__references {
+  border-left: 3px solid var(--app-color-orange);
+  padding-left: var(--app-space-4);
+}
+
+.DocsPage__installers {
+  display: grid;
+  gap: var(--app-space-7);
+}
+
+.DocsPage__installer {
+  border-top: 1px solid var(--app-color-line-soft);
+  display: grid;
+  gap: var(--app-space-4);
+  padding-top: var(--app-space-4);
+}
+
+.DocsPage__installerTitle {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: var(--app-font-size-xl);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.DocsPage__steps {
+  border-left: 3px solid var(--app-color-line-soft);
+  color: var(--app-color-ink);
+  counter-reset: docs-step;
+  display: grid;
+  gap: var(--app-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--app-space-4);
+}
+
+.DocsPage__steps li {
+  align-items: start;
+  counter-increment: docs-step;
+  display: grid;
+  gap: var(--app-space-3);
+  grid-template-columns: auto 1fr;
+  line-height: 1.55;
+}
+
+.DocsPage__steps li::before {
+  align-items: center;
+  background: var(--app-color-orange);
+  color: var(--app-color-white);
+  content: counter(docs-step);
+  display: inline-flex;
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
 }
 
 .DocsPage__grid {
   display: grid;
-  gap: var(--app-space-4);
+  gap: var(--app-space-5);
 }
 
 @include media.large {
   .DocsPage {
-    gap: var(--app-space-7);
+    gap: var(--app-space-9);
   }
 
   .DocsPage__hero {
     padding: var(--app-space-7);
   }
 
+  .DocsPage__section {
+    grid-template-columns: 240px minmax(0, 1fr);
+    padding-top: var(--app-space-6);
+  }
+
+  .DocsPage__section--featured {
+    padding: var(--app-space-6);
+  }
+
   .DocsPage__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .DocsPage__grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

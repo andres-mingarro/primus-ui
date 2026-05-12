@@ -36,12 +36,10 @@ export function ComponentDetailPage({
         <p className="ComponentDetailPage__description">{td(doc.slug)}</p>
         <div className="ComponentDetailPage__actions">
           <AppButton href={`/${locale}/components`}>{t('allComponents')}</AppButton>
-          <AppButton href="#usage" variant="primary">{t('usagePaths')}</AppButton>
         </div>
       </header>
 
       <section className="" id="usage">
-        <SectionHeader label={t('usagePaths')} />
         <Tabs defaultValue="react-css" label={t('usagePaths')}>
           <TabsItems>
             <TabItem value="react-css">{t('reactCss')}</TabItem>

@@ -6,10 +6,6 @@
 }
 
 .ComponentDetailPage__hero {
-  animation: app-fade-up var(--app-motion-slow) var(--app-ease) both;
-}
-
-.ComponentDetailPage__hero {
   background: var(--app-color-ivory);
   border: var(--app-border);
   box-shadow: var(--app-shadow-hard-large);

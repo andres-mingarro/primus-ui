@@ -2,7 +2,7 @@
   --app-grid-template-cols: 3;
   --app-grid-template-cols-md: 2;
   --app-grid-template-cols-sm: 1;
-  --app-grid-template-gap: var(--app-space-4);
+  --app-grid-template-gap: var(--app-space-6);
 
   display: grid;
   grid-template-columns: repeat(var(--app-grid-template-cols), minmax(0, 1fr));

@@ -138,6 +138,7 @@ Dark mode palette rules:
 - Dark borders should be softened brown/copper lines, never bright cream outlines.
 - Keep orange and gold accents slightly muted in dark mode so active states feel warm, not neon.
 - `--app-grid-line` controls the background grid; tune it per mode instead of hardcoding rgba values in `globals.css`.
+- Dark mode backgrounds must cover the full canvas: keep explicit `html.dark` and `html.dark body` background rules in `globals.css`, not only component-level dark surfaces.
 - Demo frame grids such as `.ComponentDetailPage__demo` must stay very subtle in both light and dark mode so they never compete with the component being shown.
 - Code examples must stay readable in dark mode: code text should use muted parchment/tan tokens such as `--app-color-white` or `--app-color-ink`, never background tokens such as `--app-color-cream`.
 - Demo frames may override component CSS variables locally when a library component's default token is not legible against the documentation background.

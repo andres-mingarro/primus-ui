@@ -1,6 +1,7 @@
 'use client'
 
 import { useTheme } from '@/providers/ThemeProvider'
+import './ThemeToggle.scss'
 
 export function ThemeToggle() {
   const { theme, toggle } = useTheme()
@@ -9,24 +10,9 @@ export function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="theme-toggle-btn flex h-9 w-9 items-center justify-center rounded-sm transition-all duration-200"
-      style={{
-        color: 'color-mix(in srgb, var(--color-on-primary) 75%, transparent)',
-        minWidth: '36px',
-        minHeight: '36px',
-      }}
+      className="ThemeToggle"
     >
       {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-      <style>{`
-        .theme-toggle-btn:hover {
-          background-color: color-mix(in srgb, var(--color-on-primary) 15%, transparent);
-          color: var(--color-on-primary);
-        }
-        .theme-toggle-btn:focus-visible {
-          outline: 2px solid var(--color-on-primary);
-          outline-offset: 2px;
-        }
-      `}</style>
     </button>
   )
 }

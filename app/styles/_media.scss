@@ -1,0 +1,20 @@
+$app-breakpoint-large: 960px;
+$app-breakpoint-small-max: 959px;
+
+@mixin large {
+  @media (min-width: $app-breakpoint-large) {
+    @content;
+  }
+}
+
+@mixin small-only {
+  @media (max-width: $app-breakpoint-small-max) {
+    @content;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

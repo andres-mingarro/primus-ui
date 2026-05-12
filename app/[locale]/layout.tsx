@@ -1,21 +1,25 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Karla } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-import { Header } from '@/ui/layout/Header'
-import { Sidebar } from '@/ui/layout/Sidebar'
+import { AppHeader } from '@/ui/components/segment/AppHeader/AppHeader'
+import { AppSidebar } from '@/ui/components/segment/AppSidebar/AppSidebar'
+import { AppMain } from '@/ui/components/segment/AppMain/AppMain'
 import '../styles/globals.css'
 
-const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] })
-const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] })
+const karla = Karla({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--app-font-karla',
+})
 
 export const metadata: Metadata = {
-  title: 'Primus UI — Copy-paste components',
-  description: 'Reusable components for Next.js and Drupal SDC. Tailwind and SCSS versions.',
+  title: 'Primus UI',
+  description: 'Copy-paste components for Next.js, Next.js Tailwind, and Drupal.',
 }
 
 export function generateStaticParams() {
@@ -43,27 +47,15 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased${isDark ? ' dark' : ''}`}
+      className={isDark ? 'dark' : ''}
     >
-      <body
-        className="min-h-full"
-        style={{
-          backgroundColor: 'var(--color-background)',
-          color: 'var(--color-foreground)',
-        }}
-      >
+      <body className={`${karla.variable} ${karla.className}`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <Header />
-            <div className="mx-auto flex max-w-6xl">
-              <Sidebar />
-              <main
-                id="main-content"
-                className="min-w-0 flex-1 overflow-hidden px-6 py-12 lg:px-10"
-                tabIndex={-1}
-              >
-                {children}
-              </main>
+            <AppHeader />
+            <div className="AppLayout">
+              <AppSidebar />
+              <AppMain>{children}</AppMain>
             </div>
           </ThemeProvider>
         </NextIntlClientProvider>

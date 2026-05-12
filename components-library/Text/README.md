@@ -75,4 +75,36 @@ Override tokens in your CSS:
 
 ### Drupal
 
-See `drupal/` folder. Copy to `[your-theme]/components/text/` then clear the Drupal cache.
+Copy the `drupal/` folder into `[your-theme]/components/text/` and clear cache.
+
+```twig
+{{ include('primus-ui:text', {
+  tag: 'span',
+  text: 'Default span'
+}, false) }}
+
+{{ include('primus-ui:text', {
+  tag: 'p',
+  text: 'A paragraph',
+  size: 'lg',
+  weight: 'medium'
+}, false) }}
+
+{{ include('primus-ui:text', {
+  tag: 'label',
+  text: 'Email address',
+  size: 'sm',
+  weight: 'medium'
+}, false) }}
+
+{{ include('primus-ui:text', {
+  tag: 'div',
+  items: 'Text with <strong>emphasis</strong> and a <a href="/path">link</a>.'
+}, false) }}
+
+{{ include('primus-ui:text', {
+  tag: 'p',
+  text: node.field_subtitle.value,
+  translate_enabled: false
+}, false) }}
+```

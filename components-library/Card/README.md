@@ -120,18 +120,18 @@ import { Card } from './Card'
 ```twig
 {# Copy drupal/ folder to [your-theme]/components/card/ then clear cache #}
 
-{% include 'THEME-NAME:card' with {
+{{ include('THEME-NAME:card', {
   title: 'Card Title',
-  content: 'Body content goes here.',
-} %}
+  body: 'Body content goes here.',
+}, false) }}
 
-{% include 'THEME-NAME:card' with {
+{{ include('THEME-NAME:card', {
   title: 'Dark card',
   style: 'dark',
-  content: 'Content with dark background.',
-} %}
+  body: 'Content with dark background.',
+}, false) }}
 
-{% include 'THEME-NAME:card' with {
+{{ include('THEME-NAME:card', {
   title: node.title.value,
   url: node.path,
   style: 'light',
@@ -140,7 +140,7 @@ import { Card } from './Card'
   image_alt: node.field_image.alt,
   button_primary: 'Read more',
   button_primary_url: node.path,
-  content: node.body.value,
+  body: content.body,
   translate_enabled: false,
-} %}
+}, false) }}
 ```

@@ -75,16 +75,16 @@ import { GridTemplate } from './GridTemplate'
 Copy the `drupal/` folder into `[your-theme]/components/grid-template/` and clear cache.
 
 ```twig
-{% embed 'primus-ui:grid-template' with { cols: 3, cols_medium: 2, cols_small: 1 } %}
-  {% block items %}
-    <div>Item 1</div>
-    <div>Item 2</div>
-    <div>Item 3</div>
-  {% endblock %}
-{% endembed %}
+{{ include('primus-ui:grid-template', {
+  cols: 3,
+  cols_medium: 2,
+  cols_small: 1,
+  items: '<div>Item 1</div><div>Item 2</div><div>Item 3</div>'
+}, false) }}
 
 {# No gap #}
-{% embed 'primus-ui:grid-template' with { gap: false } %}
-  {% block items %}<div>A</div><div>B</div>{% endblock %}
-{% endembed %}
+{{ include('primus-ui:grid-template', {
+  gap: false,
+  items: '<div>A</div><div>B</div>'
+}, false) }}
 ```

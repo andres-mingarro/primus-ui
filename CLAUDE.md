@@ -56,10 +56,11 @@ primus-ui/
 
 ## Agents
 
-| Agent      | File                          | Trigger                                                 |
-| ---------- | ----------------------------- | ------------------------------------------------------- |
-| Next.js    | `.claude/agents/nextjs.md`    | React components, landing page, Tailwind                |
-| Drupal SDC | `.claude/agents/drupal.md`    | Drupal SDC files (.twig, .component.yml, .scss)         |
+| Agent       | File                              | Trigger                                                              |
+| ----------- | --------------------------------- | -------------------------------------------------------------------- |
+| Next.js     | `.claude/agents/nextjs.md`        | React components, landing page, Tailwind                             |
+| Drupal SDC  | `.claude/agents/drupal.md`        | Drupal SDC files (.twig, .component.yml, .scss)                      |
+| ui-desinger | `.claude/agents/ui-desinger.md`   | APP layout, styles, UX, navigation, documentation pages, responsive  |
 
 ## Existing Components
 
@@ -262,19 +263,150 @@ Every `.twig` file must begin with a docblock. Exact format — no variations:
 #}
 ```
 
-Rules: short English title per case, code snippet, no prose explanations, no props tables. Include `embed` cases when the component has slots. Show Drupal field connection examples when relevant.
+Rules: short English title per case, code snippet, no prose explanations, no props tables. Always use `{{ include('THEME-NAME:[component-name]', { ... }, false) }}` in docblocks, README snippets, and app code examples. Never document `{% embed %}` or `{% include ... with ... %}`. For slot content, pass the slot key (`items`, `content`, `body`, etc.) inside the include object. Show Drupal field connection examples when relevant.
 
 ---
 
-## Landing Page Conventions
+## Documentation App — Design & Architecture
 
-- Framework: **Next.js App Router** with i18n via `next-intl`
-- All pages live under `app/[locale]/` — never create pages at `app/[slug]/`
-- Styling: **Tailwind CSS** — dark/light mode via `dark:` classes
+The `ui/` tree and `app/` pages form the **documentation application** — the site that introduces Primus UI and documents each component. This is separate from the component library in `components-library/`.
+
+Spawn the **ui-desinger** agent for any APP layout, style, UX, navigation, or page work.
+
+### Scope
+
+**Can touch:** `app/`, `ui/`, `providers/` (only when required for APP presentation), `messages/` (only for APP navigation or documentation labels).
+
+**Cannot touch unless explicitly requested:** `components-library/`, component public APIs, component `meta.ts`, component `README.md`, Drupal component files, package/config files unrelated to APP styling. If an APP change seems to require touching `components-library/`, stop and ask.
+
+### Technical Rules — Non-Negotiable
+
+- **Tailwind is prohibited in the APP.** Use SCSS only.
+- Every APP component must have its own `.tsx` file and a matching `.scss` file.
+- Every APP component lives in one of:
+  - `ui/components/basics/ComponentName/` — small reusable primitives (buttons, badges, callouts, tables, code blocks, section headers)
+  - `ui/components/feature/ComponentName/` — reusable product/documentation components (component cards, grids, previews, token swatches, docs navigation, search)
+  - `ui/components/segment/ComponentName/` — larger page sections and layout pieces (app shell, header, sidebar, main, footer, hero sections)
+- Each component folder contains the `.tsx` and matching `.scss`; add an `index.ts` only when it improves imports.
+- Framework: **Next.js App Router** with i18n via `next-intl`. All pages under `app/[locale]/` — never `app/[slug]/`.
+
+### Class Naming
+
+Use global `app-` kebab-case classes for reusable UI pieces:
+
+```css
+.app-button          .app-button--primary    .app-code-block
+.app-component-card  .app-data-table         .app-flavor-card
+.app-path-card       .app-section            .app-section-header
+.app-stack-badge     .app-tabs               .app-tabs__header
+```
+
+Use page/component-scoped BEM only for structure unique to that component:
+
+```css
+.HomePage  .HomePage__copyGrid  .AppSidebar__group  .ComponentName--state
+```
+
+If two visual blocks share the same surface, border, padding, or behavior, give them a shared `app-` class instead of duplicating page-scoped names.
+
+Do not use anonymous utility class soup. Do not use raw hex values when a token exists.
+
+### Breakpoints
+
+The APP has only two breakpoints. Use the shared SCSS mixins from `app/styles/_media.scss`:
+
+- `@include media.small-only` — base/mobile-first
+- `@include media.large` — desktop/documentation layout
+- `@include media.reduced-motion`
+
+Never hardcode `@media (min-width: ...)` inside component SCSS. Never introduce medium/tablet/xl breakpoints unless explicitly approved.
+
+On `small`: navigation can become a top nav, drawer, or compact index.  
+On `large`: persistent documentation sidebar and main reading area.
+
+### Visual System
+
+Design direction: **editorial block-based documentation** inspired by a warm restaurant demo — not a restaurant, but using the same rhythm, palette, and typography confidence.
+
+| Element    | Rule                                                                    |
+| ---------- | ----------------------------------------------------------------------- |
+| Background | Warm cream or ivory                                                     |
+| Text       | Warm near-black / dark brown                                            |
+| Accent     | Vivid orange for primary actions and active states                      |
+| Cards      | Rectangular, light surface, visible border, hard offset shadow          |
+| Buttons    | Rectangular, strong border, orange fill for primary, hard shadow        |
+| Radius     | 0px–8px maximum. Keep it low.                                           |
+| Header     | Bordered, editorial, not sticky. Content in `.AppHeader__inner`.        |
+| Footer     | Dark brown editorial band                                               |
+
+Dark mode:
+
+- Use a dedicated warm low-light palette, not an inverted/high-contrast copy of light mode.
+- Do not use pure white (`#fff` / `#ffffff`) in `.dark` tokens.
+- Use espresso/charcoal brown backgrounds, muted parchment/tan text, softened brown/copper borders, and controlled orange/gold accents.
+- The body grid color comes from `--app-grid-line`; do not hardcode separate rgba grid colors in `globals.css`.
+
+Typography:
+
+- Display/headings: `Playfair Display SC` via `--app-font-display`
+- Body/UI: `Karla, sans-serif` via `--app-font-body`
+- Code/technical labels: monospace
+- Font sizes: use tokens from `app/styles/tokens.css` (`--app-font-size-xs` through `--app-font-size-6xl`). Do not hardcode `1.05rem`, `0.78rem`, or raw `clamp()` when a token exists.
+- Do not add per-component font smoothing; it comes from `app/styles/globals.css`.
+
+Motion: 150–300ms transitions for hover, focus, active, drawer, and section reveals. Disable decorative motion under `prefers-reduced-motion`. Prefer CSS transitions/keyframes over JS animation libraries.
+
+### Information Architecture
+
+Primary shell — three segment components assembled by the layout route:
+
+- `AppHeader` — top brand/navigation area, full width, bottom border only, not sticky
+- `AppSidebar` — documentation and component navigation, stretches full height on `large`
+- `AppMain` — main content wrapper, reading width, spacing, and page content slot
+
+Layout rule: the route/layout file composes the three components; it does not contain their markup inline.
+
+Sidebar structure:
+
+- One parent item `Introduction` → animated subitems: `Installation`, `Usage`, `Theming / Tokens`, `Next.js`, `Next.js Tailwind`, `Drupal`
+- One parent item `components-library` → animated subitems per component
+- Subitems are indented, connected by a line, animated in with `prefers-reduced-motion` support
+
+### Component Detail Pages
+
+- Framework: Next.js App Router with i18n via `next-intl`
 - Component demos: rendered inside `<ShowcaseFrame>` (gray border, dot-grid background)
 - Theme toggle: system default + manual toggle stored in `localStorage`
-- Each component page: props table + CSS vars table + code tabs (Tailwind / SCSS / Drupal)
+- Implementation outputs as three tabs: `React + CSS`, `React + Tailwind`, and `Drupal`
+- Tabs composed from `Tabs`, `TabsItems`, `TabItem`, `TabsContent`, `TabPanel` in `ui/components/basics/Tabs/`. Do not animate tab panel content on tab changes.
+- `SectionHeader` renders a non-semantic `div.app-section-header` + `h2` — never `<header>`
 - Section headers use `useTranslations('component')` — never hardcode English strings
+- Drupal snippets use `{{ include('THEME-NAME:[component-name]', { ... }, false) }}` — never `{% embed %}` or `{% include ... with ... %}`
+
+### Preferred APP Components
+
+```text
+AppHeader     AppSidebar    AppFooter     AppMain       HomeHero
+AppButton     Tabs          TabsItems     TabItem       TabsContent
+TabPanel      SectionHeader ComponentCard CodeBlock     DataTable
+TokenSwatch   StackBadge    Callout       FlavorCard    PathCard
+SearchBox
+```
+
+### Anti-Patterns
+
+Never produce in the APP:
+
+- Generic SaaS blue/purple landing page
+- Restaurant copy, food metaphors, menu metaphors
+- Tailwind classes in APP components
+- shadcn-style generic rounded card grids
+- Glassmorphism, gradient orbs, decorative blobs, bokeh backgrounds
+- Overly rounded dashboard UI
+- Monolithic APP pages without component extraction
+- Hidden keyboard focus or hover-only interactions
+- Unscoped global CSS hacks
+- New breakpoints beyond `small` and `large`
 
 ---
 

@@ -1,0 +1,30 @@
+.app-flavor-card {
+  background: var(--app-color-paper);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow-hard);
+  padding: var(--app-space-4);
+}
+
+.app-flavor-card__title {
+  color: var(--app-color-ink);
+  display: block;
+  font-family: var(--app-font-display);
+  font-size: var(--app-font-size-xl);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.app-flavor-card__file {
+  color: var(--app-color-gold);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.app-flavor-card__body {
+  color: var(--app-color-ink-soft);
+  display: block;
+  margin-top: var(--app-space-3);
+}

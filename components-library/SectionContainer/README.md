@@ -55,4 +55,24 @@ import { SectionContainer } from './SectionContainer'
 
 ### Drupal
 
-See `drupal/` folder for the SDC version (`.component.yml`, `.twig`, `.scss`).
+Copy the `drupal/` folder into `[your-theme]/components/section-container/` and clear cache.
+
+```twig
+{{ include('primus-ui:section-container', {
+  container: 'large',
+  content: '<p>Content here</p>'
+}, false) }}
+
+{{ include('primus-ui:section-container', {
+  container: 'small',
+  gap: false,
+  content: '<p>Content here</p>'
+}, false) }}
+
+{{ include('primus-ui:section-container', {
+  tag: 'main',
+  container: 'full',
+  mobile_gap: 'large',
+  content: content.field_body
+}, false) }}
+```

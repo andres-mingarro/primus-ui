@@ -1,0 +1,115 @@
+@use "../../../../app/styles/media";
+
+.AppHeader {
+  background: color-mix(in srgb, var(--app-color-ivory) 94%, transparent);
+  border-bottom: var(--app-border);
+  min-height: 70px;
+  padding: var(--app-space-3);
+  z-index: var(--app-z-header);
+}
+
+.AppHeader__inner {
+  align-items: center;
+  display: flex;
+  gap: var(--app-space-4);
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.AppHeader__brand {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--app-space-3);
+  min-height: 44px;
+}
+
+.AppHeader__mark {
+  background: var(--app-color-orange);
+  border: 2px solid var(--app-color-line);
+  box-shadow: 3px 3px 0 var(--app-color-line);
+  display: inline-block;
+  height: 28px;
+  width: 18px;
+}
+
+.AppHeader__wordmark {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: var(--app-font-size-2xl);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.AppHeader__nav {
+  align-items: center;
+  display: flex;
+  gap: var(--app-space-2);
+}
+
+.AppHeader__link,
+.AppHeader__theme,
+.AppHeader__locale {
+  background: transparent;
+  border: 1px solid var(--app-color-line);
+  color: var(--app-color-ink);
+  min-height: 40px;
+  padding: 0 var(--app-space-3);
+  transition:
+    background var(--app-motion-fast) var(--app-ease),
+    box-shadow var(--app-motion-fast) var(--app-ease),
+    color var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.AppHeader__link,
+.AppHeader__theme {
+  align-items: center;
+  display: inline-flex;
+  font-weight: 700;
+}
+
+.AppHeader__localeGroup {
+  display: flex;
+}
+
+.AppHeader__locale {
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.AppHeader__locale + .AppHeader__locale {
+  border-left: 0;
+}
+
+.AppHeader__link:hover,
+.AppHeader__theme:hover,
+.AppHeader__locale:hover,
+.AppHeader__locale--active {
+  background: var(--app-color-orange);
+  box-shadow: 3px 3px 0 var(--app-color-line);
+  color: var(--app-color-white);
+  transform: translate(-1px, -1px);
+}
+
+@include media.small-only {
+  .AppHeader__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .AppHeader__nav {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
+@include media.large {
+  .AppHeader {
+    padding-inline: var(--app-space-4);
+  }
+}

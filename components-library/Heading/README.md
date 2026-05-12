@@ -65,7 +65,32 @@ import { Heading } from './Heading'
 
 ### Drupal
 
-See `drupal/README` or `CLAUDE.md`.
+Copy the `drupal/` folder into `[your-theme]/components/heading/` and clear cache.
+
+```twig
+{{ include('primus-ui:heading', {
+  variant: 'h1',
+  text: 'Page Title'
+}, false) }}
+
+{{ include('primus-ui:heading', {
+  variant: 'h2',
+  weight: 'thin',
+  text: 'Section Title'
+}, false) }}
+
+{{ include('primus-ui:heading', {
+  variant: 'h3',
+  weight: 'bold',
+  content: 'Card <strong>Heading</strong>'
+}, false) }}
+
+{{ include('primus-ui:heading', {
+  variant: 'h1',
+  text: node.title.value,
+  translate_enabled: false
+}, false) }}
+```
 
 ## Notes
 

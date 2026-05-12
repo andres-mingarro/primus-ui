@@ -1,0 +1,66 @@
+@use "../../app/styles/media";
+
+.HomePage {
+  display: grid;
+  gap: var(--app-space-6);
+}
+
+.HomePage__copyGrid,
+.HomePage__flavors,
+.HomePage__componentGrid {
+  display: grid;
+  gap: var(--app-space-4);
+}
+
+.HomePage__copyGrid p {
+  color: color-mix(in srgb, currentColor 82%, transparent);
+  font-size: var(--app-font-size-base);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.HomePage__steps {
+  counter-reset: steps;
+  display: grid;
+  gap: var(--app-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.HomePage__step {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--app-space-3);
+}
+
+.HomePage__stepNumber {
+  align-items: center;
+  background: var(--app-color-orange);
+  border: var(--app-border);
+  box-shadow: 3px 3px 0 var(--app-color-line);
+  color: var(--app-color-white);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-family: var(--app-font-mono);
+  font-weight: 700;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+@include media.large {
+  .HomePage {
+    gap: var(--app-space-7);
+  }
+
+  .HomePage__copyGrid,
+  .HomePage__flavors,
+  .HomePage__componentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .HomePage__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

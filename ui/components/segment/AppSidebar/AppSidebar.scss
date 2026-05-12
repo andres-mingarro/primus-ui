@@ -1,0 +1,173 @@
+@use "../../../../app/styles/media";
+
+.AppSidebar {
+  align-self: stretch;
+  background: var(--app-color-ivory);
+  padding: var(--app-space-4);
+  border-right: 3px solid var(--app-color-line);
+}
+
+.AppSidebar__section + .AppSidebar__section {
+  border-top: var(--app-border);
+  margin-top: var(--app-space-5);
+  padding-top: var(--app-space-5);
+}
+
+.AppSidebar__title {
+  color: var(--app-color-gold);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 var(--app-space-3);
+  text-transform: uppercase;
+}
+
+.AppSidebar__nav {
+  display: grid;
+  gap: var(--app-space-2);
+}
+
+.AppSidebar__item {
+  align-items: center;
+  border: 1px solid transparent;
+  color: var(--app-color-ink);
+  display: flex;
+  font-weight: 700;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: var(--app-space-2) var(--app-space-3);
+  text-transform: capitalize;
+  transition:
+    background var(--app-motion-fast) var(--app-ease),
+    border-color var(--app-motion-fast) var(--app-ease),
+    box-shadow var(--app-motion-fast) var(--app-ease),
+    color var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.AppSidebar__item--parent {
+  position: relative;
+}
+
+.AppSidebar__item--parent::before {
+  background: var(--app-color-orange);
+  content: "";
+  height: 10px;
+  left: calc(var(--app-space-3) * -1);
+  position: absolute;
+  width: 10px;
+}
+
+.AppSidebar__item:hover,
+.AppSidebar__item--active {
+  background: var(--app-color-orange);
+  border-color: var(--app-color-line);
+  box-shadow: 3px 3px 0 var(--app-color-line);
+  color: var(--app-color-white);
+  transform: translate(-1px, -1px);
+}
+
+.AppSidebar__subnav {
+  border-left: 2px solid var(--app-color-line-soft);
+  display: grid;
+  gap: var(--app-space-1);
+  margin-left: var(--app-space-4);
+  padding: var(--app-space-1) 0 var(--app-space-1) var(--app-space-3);
+}
+
+.AppSidebar__subitem {
+  align-items: center;
+  animation: app-sidebar-subitem-in var(--app-motion) var(--app-ease) both;
+  color: var(--app-color-muted);
+  display: flex;
+  font-size: var(--app-font-size-sm);
+  font-weight: 700;
+  justify-content: space-between;
+  min-height: 34px;
+  padding: var(--app-space-1) var(--app-space-2);
+  position: relative;
+  transition:
+    background var(--app-motion-fast) var(--app-ease),
+    color var(--app-motion-fast) var(--app-ease),
+    padding-left var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.AppSidebar__subitem::before {
+  background: var(--app-color-line-soft);
+  content: "";
+  height: 2px;
+  left: calc((var(--app-space-3) + 2px) * -1);
+  position: absolute;
+  width: var(--app-space-3);
+}
+
+.AppSidebar__subitem:hover,
+.AppSidebar__subitem--active {
+  background: color-mix(in srgb, var(--app-color-orange) 12%, transparent);
+  color: var(--app-color-ink);
+  padding-left: var(--app-space-3);
+  transform: translateX(2px);
+}
+
+.AppSidebar__subitem:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+.AppSidebar__subitem:nth-child(3) {
+  animation-delay: 80ms;
+}
+
+.AppSidebar__subitem:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+.AppSidebar__subitem:nth-child(5) {
+  animation-delay: 160ms;
+}
+
+.AppSidebar__subitem:nth-child(6) {
+  animation-delay: 200ms;
+}
+
+.AppSidebar__version {
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+@keyframes app-sidebar-subitem-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@include media.reduced-motion {
+  .AppSidebar__subitem {
+    animation: none;
+  }
+
+  .AppSidebar__subitem:hover {
+    transform: none;
+  }
+}
+
+@include media.small-only {
+  .AppSidebar {
+    margin: var(--app-space-4) var(--app-space-3) 0;
+  }
+}
+
+@include media.large {
+  .AppSidebar {
+    min-height: 100%;
+  }
+}

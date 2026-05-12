@@ -1,0 +1,49 @@
+@use "../../app/styles/media";
+
+.ComponentsPage {
+  display: grid;
+  gap: var(--app-space-6);
+}
+
+.ComponentsPage__hero {
+  animation: app-fade-up var(--app-motion-slow) var(--app-ease) both;
+  background: var(--app-color-ivory);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow-hard-large);
+  padding: var(--app-space-5);
+}
+
+.ComponentsPage__eyebrow {
+  color: var(--app-color-gold);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ComponentsPage__title {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: clamp(var(--app-font-size-3xl), 8vw, var(--app-font-size-6xl));
+  line-height: 0.92;
+  margin: var(--app-space-4) 0;
+}
+
+.ComponentsPage__description {
+  color: var(--app-color-ink-soft);
+  font-size: var(--app-font-size-base);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 740px;
+}
+
+@include media.large {
+  .ComponentsPage {
+    gap: var(--app-space-7);
+  }
+
+  .ComponentsPage__hero {
+    padding: var(--app-space-7);
+  }
+}

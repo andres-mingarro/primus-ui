@@ -2,8 +2,20 @@
   "nav": {
     "docs": "Documentación",
     "intro": "Introducción",
+    "installation": "Instalación",
+    "usage": "Uso",
+    "tokens": "Theming / Tokens",
+    "next": "Next.js",
+    "tailwind": "Next.js Tailwind",
+    "drupal": "Drupal",
     "components": "Componentes",
-    "github": "GitHub"
+    "componentList": "components-library",
+    "github": "GitHub",
+    "language": "Idioma",
+    "globalNavigation": "Navegación global",
+    "homeLabel": "Inicio de Primus UI",
+    "light": "Claro",
+    "dark": "Oscuro"
   },
   "home": {
     "title": "Introducción",
@@ -18,6 +30,8 @@
     "flavorScssDesc": "Un .tsx que usa clases pu-* con variables CSS sobreescribibles. No requiere Tailwind.",
     "flavorDrupalTitle": "Drupal SDC",
     "flavorDrupalDesc": "Single Directory Component con template Twig, schema .component.yml y los mismos tokens SCSS.",
+    "stacks": "Stacks",
+    "outputs": "Salidas",
     "quickStart": "Quick start",
     "step1": "Abrí la página del componente que querés y elegí la versión (Tailwind, SCSS o Drupal).",
     "step2": "Copiá la carpeta components-library/[ComponentName]/ en tu proyecto.",
@@ -29,6 +43,14 @@
     "drupalThemeNote": "En los snippets de Drupal, reemplazá <code>THEME-NAME</code> por el machine name de tu tema o módulo (ej: <code>my_theme:button</code>)."
   },
   "component": {
+    "eyebrow": "Componente / v{version}",
+    "allComponents": "Todos los componentes",
+    "usagePaths": "Rutas de uso",
+    "reactScss": "React + SCSS",
+    "reactCss": "React + CSS",
+    "reactTailwind": "React + Tailwind",
+    "drupalSdc": "Drupal SDC",
+    "scssTokens": "Tokens SCSS",
     "examples": "Ejemplos",
     "props": "Props",
     "cssVars": "Variables CSS (versión SCSS)",
@@ -38,5 +60,38 @@
     "default": "Default",
     "description": "Descripción",
     "variable": "Variable"
+  },
+  "componentsPage": {
+    "eyebrow": "Registro de componentes",
+    "title": "Componentes",
+    "description": "Explorá los primitivos documentados de Primus UI. Cada página explica rutas de uso, props, variables SCSS y notas de implementación.",
+    "listLabel": "components-library"
+  },
+  "docsPage": {
+    "eyebrow": "Documentación",
+    "title": "Construí con Primus UI",
+    "description": "Primus UI se documenta como un sistema de componentes source-first para Next.js, Next.js Tailwind y Drupal SDC. Elegí la salida que coincide con tu proyecto, copiá la carpeta y quedate con el código.",
+    "installation": "Instalación",
+    "installationBody": "No hay paquete runtime para instalar en este flujo de librería. Cada componente es una carpeta autocontenida dentro de <code>components-library/</code>.",
+    "folder": "carpeta",
+    "usage": "Uso",
+    "usageScss": "Copiá el par TSX y SCSS, y después importá el SCSS una vez donde uses el componente.",
+    "usageTailwind": "Copiá la versión TSX con Tailwind cuando el producto consumidor ya trabaja con Tailwind.",
+    "usageDrupal": "Copiá el directorio Drupal para Twig, schema del componente y overrides de tokens SCSS.",
+    "tokens": "Theming / Tokens",
+    "tokensBody": "Las salidas SCSS exponen variables CSS para que las apps consumidoras puedan theme-ar sin editar internals del componente.",
+    "css": "css",
+    "outputs": "Salidas soportadas",
+    "outputNext": "Componentes fuente con estilos explícitos y ownership local.",
+    "outputTailwind": "Componentes con utility classes para productos nativos de Tailwind.",
+    "outputDrupal": "Single Directory Components para integración con themes de Drupal."
+  },
+  "componentDescriptions": {
+    "divider": "Una línea horizontal o vertical para separar secciones de contenido.",
+    "grid-template": "Un wrapper de CSS grid responsive con cantidad de columnas configurable por breakpoint.",
+    "text": "Un elemento de texto polimórfico que renderiza una etiqueta HTML configurable con tokens tipográficos sobreescribibles.",
+    "heading": "Un heading polimórfico (h1-h6) con variantes de peso y renderizado HTML opcional.",
+    "section-container": "Un wrapper de sección con max-width y padding horizontal configurables. Es seguro anidarlo porque el margen interno colapsa automáticamente.",
+    "card": "Card de contenido con variantes visuales, direcciones de layout, imagen y botones de acción."
   }
 }

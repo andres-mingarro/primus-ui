@@ -1,88 +1,83 @@
 :root {
-  /* ── Restaurant/Food Service palette — UI PRO MAX #34 ── */
-  /* Appetizing red + warm gold */
+  --app-breakpoint-large: 960px;
 
-  --color-primary:          #DC2626;
-  --color-on-primary:       #FFFFFF;
-  --color-secondary:        #F87171;
-  --color-on-secondary:     #0F172A;
-  --color-accent:           #A16207;
-  --color-on-accent:        #FFFFFF;
-  --color-background:       #FEF2F2;
-  --color-foreground:       #450A0A;
-  --color-card:             #FFFFFF;
-  --color-card-foreground:  #450A0A;
-  --color-muted:            #F0EDF1;
-  --color-muted-foreground: #64748B;
-  --color-border:           #FECACA;
-  --color-ring:             #DC2626;
+  --app-color-cream: #fff7ea;
+  --app-color-ivory: #fffaf1;
+  --app-color-paper: #ffffff;
+  --app-color-white: #ffffff;
+  --app-color-ink: #2a130c;
+  --app-color-ink-soft: #5f3a2c;
+  --app-color-muted: #8a6b5f;
+  --app-color-line: #2a130c;
+  --app-color-line-soft: #dec8b3;
+  --app-color-orange: #ff5b2e;
+  --app-color-orange-dark: #c83b17;
+  --app-color-gold: #b97818;
+  --app-color-brown: #35190f;
+  --app-color-brown-2: #4a2114;
+  --app-color-success: #1f7a4d;
+  --app-color-danger: #b42318;
+  --app-grid-line: rgba(42, 19, 12, 0.035);
 
-  /* Derived tints */
-  --color-primary-hover:    #B91C1C;
-  --color-primary-subtle:   #FEE2E2;
-  --color-primary-faint:    #FEF2F2;
-  --color-accent-subtle:    #FEF3C7;
-  --color-foreground-muted: #7C2020;
+  --app-font-display: Georgia, "Times New Roman", serif;
+  --app-font-body: var(--app-font-karla), Karla, sans-serif;
+  --app-font-mono: "Courier New", Courier, monospace;
 
-  /* ── Dark mode overrides ── */
-  /* Applied via .dark class on <html> */
+  --app-font-size-xs: 0.75rem;
+  --app-font-size-sm: 0.875rem;
+  --app-font-size-base: 1.2rem;
+  --app-font-size-lg: 1.125rem;
+  --app-font-size-xl: 1.25rem;
+  --app-font-size-2xl: 1.5rem;
+  --app-font-size-3xl: 1.875rem;
+  --app-font-size-4xl: 2.25rem;
+  --app-font-size-5xl: 3rem;
+  --app-font-size-6xl: 3.75rem;
 
-  /* ── Vibrant & Block-based layout ── */
-  --block-gap:          3rem;        /* 48px */
-  --display-size:       2.25rem;     /* 36px — scales up with clamp */
-  --animation-duration: 300ms;
-  --animation-ease:     cubic-bezier(0.4, 0, 0.2, 1);
-  --parallax-layers:    5;
+  --app-space-1: 0.25rem;
+  --app-space-2: 0.5rem;
+  --app-space-3: 0.75rem;
+  --app-space-4: 1rem;
+  --app-space-5: 1.5rem;
+  --app-space-6: 2rem;
+  --app-space-7: 3rem;
+  --app-space-8: 4rem;
+  --app-space-9: 6rem;
+
+  --app-radius-0: 0;
+  --app-radius-1: 4px;
+  --app-radius-2: 8px;
+
+  --app-shadow-hard: 5px 5px 0 var(--app-color-line);
+  --app-shadow-hard-large: 9px 9px 0 var(--app-color-line);
+  --app-border: 2px solid var(--app-color-line);
+  --app-border-soft: 1px solid var(--app-color-line-soft);
+
+  --app-motion-fast: 160ms;
+  --app-motion: 240ms;
+  --app-motion-slow: 320ms;
+  --app-ease: cubic-bezier(0.2, 0, 0, 1);
+
+  --app-z-header: 40;
+  --app-z-sidebar: 30;
 }
 
-/* ── Dark mode token overrides ── */
 .dark {
-  --color-primary:          #EF4444;
-  --color-on-primary:       #FFFFFF;
-  --color-secondary:        #FCA5A5;
-  --color-on-secondary:     #1A0000;
-  --color-accent:           #D97706;
-  --color-on-accent:        #FFFFFF;
-  --color-background:       #1A0505;
-  --color-foreground:       #FEF2F2;
-  --color-card:             #2D0A0A;
-  --color-card-foreground:  #FEF2F2;
-  --color-muted:            #3D1010;
-  --color-muted-foreground: #94A3B8;
-  --color-border:           #7F1D1D;
-  --color-ring:             #EF4444;
-
-  --color-primary-hover:    #DC2626;
-  --color-primary-subtle:   #3D0A0A;
-  --color-primary-faint:    #2D0A0A;
-  --color-accent-subtle:    #3D2000;
-  --color-foreground-muted: #FECACA;
-}
-
-@theme {
-  --font-sans:    var(--font-geist-sans);
-  --font-mono:    var(--font-geist-mono);
-  --font-display: var(--font-geist-sans);
-
-  /* Semantic palette — available as Tailwind utilities */
-  --color-primary:          var(--color-primary);
-  --color-on-primary:       var(--color-on-primary);
-  --color-secondary:        var(--color-secondary);
-  --color-on-secondary:     var(--color-on-secondary);
-  --color-accent:           var(--color-accent);
-  --color-on-accent:        var(--color-on-accent);
-  --color-background:       var(--color-background);
-  --color-foreground:       var(--color-foreground);
-  --color-card:             var(--color-card);
-  --color-card-foreground:  var(--color-card-foreground);
-  --color-muted:            var(--color-muted);
-  --color-muted-foreground: var(--color-muted-foreground);
-  --color-border:           var(--color-border);
-  --color-ring:             var(--color-ring);
-
-  --color-primary-hover:    var(--color-primary-hover);
-  --color-primary-subtle:   var(--color-primary-subtle);
-  --color-primary-faint:    var(--color-primary-faint);
-  --color-accent-subtle:    var(--color-accent-subtle);
-  --color-foreground-muted: var(--color-foreground-muted);
+  --app-color-cream: #17100d;
+  --app-color-ivory: #211713;
+  --app-color-paper: #281c17;
+  --app-color-white: #ead8c3;
+  --app-color-ink: #ead8c3;
+  --app-color-ink-soft: #c9ad94;
+  --app-color-muted: #9d7d68;
+  --app-color-line: #8f563c;
+  --app-color-line-soft: #3f2d26;
+  --app-color-orange: #a83d25;
+  --app-color-orange-dark: #f08b68;
+  --app-color-gold: #bc8231;
+  --app-color-brown: #100a08;
+  --app-color-brown-2: #1b110e;
+  --app-color-success: #6da77f;
+  --app-color-danger: #e06b5f;
+  --app-grid-line: rgba(234, 216, 195, 0.045);
 }

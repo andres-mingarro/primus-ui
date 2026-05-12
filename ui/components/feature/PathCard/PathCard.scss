@@ -1,0 +1,46 @@
+.app-path-card {
+  display: grid;
+  gap: var(--app-space-3);
+  padding-block: var(--app-space-2);
+  padding-inline-start: var(--app-space-4);
+  position: relative;
+}
+
+.app-path-card::before {
+  background: var(--app-color-orange);
+  content: "";
+  inline-size: 3px;
+  inset-block: var(--app-space-1);
+  inset-inline-start: 0;
+  position: absolute;
+}
+
+.app-path-card__title {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-display);
+  font-size: var(--app-font-size-lg);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.app-path-card__description {
+  color: var(--app-color-ink-soft);
+  font-size: var(--app-font-size-base);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 72ch;
+}
+
+.app-path-card__code {
+  align-items: center;
+  background: color-mix(in srgb, var(--app-color-orange) 14%, var(--app-color-paper));
+  color: var(--app-color-ink);
+  display: inline-flex;
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-sm);
+  line-height: 1.5;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  padding: var(--app-space-2) var(--app-space-3);
+  width: fit-content;
+}

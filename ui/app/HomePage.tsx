@@ -44,16 +44,16 @@ export function HomePage({ locale }: { locale: string }) {
         </ol>
       </section>
 
-      <section className="app-section" id="tokens">
+      <section className="app-section HomePage__stacks" id="tokens">
         <SectionHeader label={t('stacks')} />
         <div className="HomePage__flavors">
-          <FlavorCard title={t('flavorScssTitle')} file="Component.tsx + component.scss">
+          <FlavorCard marker="01" title={t('flavorScssTitle')} file="Component.tsx + component.scss">
             {t('flavorScssDesc')}
           </FlavorCard>
-          <FlavorCard title={t('flavorTailwindTitle')} file="Component.tailwind.tsx">
+          <FlavorCard marker="02" title={t('flavorTailwindTitle')} file="Component.tailwind.tsx">
             {t('flavorTailwindDesc')}
           </FlavorCard>
-          <FlavorCard title={t('flavorDrupalTitle')} file="drupal/component.twig">
+          <FlavorCard marker="03" title={t('flavorDrupalTitle')} file="drupal/component.twig">
             {t('flavorDrupalDesc')}
           </FlavorCard>
         </div>

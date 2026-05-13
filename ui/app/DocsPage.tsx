@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl'
 import { CodeBlock } from '@/ui/components/basics/CodeBlock/CodeBlock'
 import { SectionHeader } from '@/ui/components/basics/SectionHeader/SectionHeader'
+import { AppTabs } from '@/ui/components/feature/AppTabs/AppTabs'
 import { PathCard } from '@/ui/components/feature/PathCard/PathCard'
 import './DocsPage.scss'
 
@@ -25,16 +26,19 @@ export function DocsPage() {
               code: (chunks) => <code>{chunks}</code>,
             })}
           </p>
-          <div className="DocsPage__installers">
+          <AppTabs
+            ariaLabel={t('installation')}
+            labels={['Next.js', 'Next.js + Tailwind', 'Drupal']}
+          >
             <section className="DocsPage__installer">
-              <h3 className="DocsPage__installerTitle">React + CSS</h3>
+              <h3 className="DocsPage__installerTitle">Next.js + SCSS</h3>
               <ol className="DocsPage__steps">
                 <li>{t('installReactCssStep1')}</li>
                 <li>{t('installReactCssStep2')}</li>
                 <li>{t('installReactCssStep3')}</li>
               </ol>
               <CodeBlock
-                label="React + CSS"
+                label="Next.js + SCSS"
                 code={`components-library/Card/
   Card.tsx
   card.scss
@@ -44,14 +48,14 @@ export function DocsPage() {
             </section>
 
             <section className="DocsPage__installer">
-              <h3 className="DocsPage__installerTitle">React + Tailwind</h3>
+              <h3 className="DocsPage__installerTitle">Next.js + Tailwind</h3>
               <ol className="DocsPage__steps">
                 <li>{t('installTailwindStep1')}</li>
                 <li>{t('installTailwindStep2')}</li>
                 <li>{t('installTailwindStep3')}</li>
               </ol>
               <CodeBlock
-                label="React + Tailwind"
+                label="Next.js + Tailwind"
                 code={`components-library/Card/
   Card.tailwind.tsx
   meta.ts
@@ -74,7 +78,7 @@ export function DocsPage() {
   card.scss`}
               />
             </section>
-          </div>
+          </AppTabs>
         </div>
       </section>
 

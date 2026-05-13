@@ -1,30 +1,101 @@
+@use "../../../../app/styles/media";
+
 .app-flavor-card {
+  --app-flavor-card-accent: var(--app-color-orange);
+
   background: var(--app-color-paper);
   border: var(--app-border);
   box-shadow: var(--app-shadow-hard);
-  padding: var(--app-space-4);
+  display: grid;
+  gap: var(--app-space-5);
+  min-height: 260px;
+  overflow: hidden;
+  padding: var(--app-space-5);
+  position: relative;
+  transition:
+    box-shadow var(--app-motion-fast) var(--app-ease),
+    transform var(--app-motion-fast) var(--app-ease);
+}
+
+.app-flavor-card::before {
+  background: var(--app-flavor-card-accent);
+  border-right: var(--app-border);
+  content: "";
+  inset: 0 auto 0 0;
+  position: absolute;
+  width: 12px;
+}
+
+.app-flavor-card:hover {
+  box-shadow: var(--app-shadow-hard-large);
+  transform: translate(-2px, -2px);
+}
+
+.app-flavor-card__content {
+  align-self: start;
+  display: grid;
+  gap: var(--app-space-3);
+  padding-left: var(--app-space-3);
+  position: relative;
+  z-index: 1;
+}
+
+.app-flavor-card__marker {
+  color: color-mix(in srgb, var(--app-flavor-card-accent) 22%, transparent);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-5xl);
+  font-weight: 700;
+  line-height: 0.85;
+  position: absolute;
+  right: var(--app-space-4);
+  top: var(--app-space-4);
 }
 
 .app-flavor-card__title {
   color: var(--app-color-ink);
   display: block;
   font-family: var(--app-font-display);
-  font-size: var(--app-font-size-xl);
+  font-size: var(--app-font-size-2xl);
   font-weight: 700;
   line-height: 1.1;
+  margin: 0;
+  max-width: 11ch;
 }
 
 .app-flavor-card__file {
+  align-self: end;
+  background: var(--app-color-ivory);
+  border: var(--app-border);
   color: var(--app-color-gold);
+  display: inline-flex;
+  justify-self: start;
   font-family: var(--app-font-mono);
   font-size: var(--app-font-size-xs);
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
+  line-height: 1.35;
+  margin: 0 0 0 var(--app-space-3);
+  max-width: 100%;
+  padding: var(--app-space-2) var(--app-space-3);
+  position: relative;
   text-transform: uppercase;
+  z-index: 1;
 }
 
 .app-flavor-card__body {
   color: var(--app-color-ink-soft);
   display: block;
-  margin-top: var(--app-space-3);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 26rem;
+}
+
+@include media.reduced-motion {
+  .app-flavor-card {
+    transition: none;
+  }
+
+  .app-flavor-card:hover {
+    transform: none;
+  }
 }

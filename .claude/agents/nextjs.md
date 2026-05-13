@@ -396,3 +396,21 @@ export function Button({ label, variant = 'primary', disabled = false, onClick }
 - Props interface: `[ComponentName]Props`
 - No comments unless the why is non-obvious
 - Semver: minor for new props, patch for style fixes
+
+## Reporte de historial de tarea
+
+Al final de cada tarea donde este agente participe, sobrescribir `.claude/history/history-nextjs.md` con un reporte corto de última acción en español.
+
+Usar este formato:
+
+```md
+## YYYY-MM-DD HH:mm - Next.js
+
+- Tarea: una frase corta.
+- Archivos: archivos principales tocados.
+- Resultado: qué cambió.
+- Verificación: comando o revisión manual.
+- Notas: bloqueo, riesgo o `ninguna`.
+```
+
+No agregar contenido al final de este archivo. Siempre representa solo la última acción de Next.js.

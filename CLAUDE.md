@@ -56,11 +56,16 @@ primus-ui/
 
 ## Agents
 
+For any non-trivial repo task, start with `.claude/agents/leader.md`. The leader classifies the request, loads the relevant specialist instructions, and coordinates ownership across Next.js, Drupal SDC, and APP design work.
+
+If the environment supports subagents and the user has authorized delegation for the session, the leader may spawn the matching specialists. If delegation is unavailable or disallowed, load and follow the matching specialist files as mandatory project instructions in the main workflow.
+
 | Agent       | File                              | Trigger                                                              |
 | ----------- | --------------------------------- | -------------------------------------------------------------------- |
+| Leader      | `.claude/agents/leader.md`        | First stop for non-trivial repo tasks and cross-agent coordination   |
 | Next.js     | `.claude/agents/nextjs.md`        | React components, landing page, Tailwind                             |
 | Drupal SDC  | `.claude/agents/drupal.md`        | Drupal SDC files (.twig, .component.yml, .scss)                      |
-| ui-desinger | `.claude/agents/ui-desinger.md`   | APP layout, styles, UX, navigation, documentation pages, responsive  |
+| ui-designer | `.claude/agents/ui-designer.md`   | APP layout, styles, UX, navigation, documentation pages, responsive  |
 
 ## Existing Components
 
@@ -271,7 +276,7 @@ Rules: short English title per case, code snippet, no prose explanations, no pro
 
 The `ui/` tree and `app/` pages form the **documentation application** — the site that introduces Primus UI and documents each component. This is separate from the component library in `components-library/`.
 
-Spawn the **ui-desinger** agent for any APP layout, style, UX, navigation, or page work.
+Route APP layout, style, UX, navigation, or page work through **leader**, which should assign **ui-designer** ownership for that surface.
 
 ### Scope
 

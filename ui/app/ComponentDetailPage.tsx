@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
-import { Card } from '@/components-library/Card/Card'
+import { Card, type CardProps } from '@/components-library/Card/Card'
 import { Divider } from '@/components-library/Divider/Divider'
 import { GridTemplate } from '@/components-library/GridTemplate/GridTemplate'
 import { Heading } from '@/components-library/Heading/Heading'
@@ -163,31 +163,83 @@ function renderDemo(slug: string) {
 
   if (slug === 'heading') {
     return (
-      <div className="ComponentDetailPage__demo-stack">
-        <Heading variant="h2" weight="thin">Section Title</Heading>
-        <Heading variant="h3" weight="bold">Card Heading</Heading>
+      <div className="ComponentDetailPage__heading-demo">
+        {headingDemoItems.map(({ variant, weight }) => (
+          <div className="ComponentDetailPage__heading-demo-item" key={`${variant}-${weight}`}>
+            <span className="ComponentDetailPage__heading-demo-label">
+              {variant} / {weight}
+            </span>
+            <Heading variant={variant} weight={weight}>
+              {variant.toUpperCase()} heading
+            </Heading>
+          </div>
+        ))}
       </div>
     )
   }
 
   if (slug === 'section-container') {
     return (
-      <SectionContainer container="small" tag="div">
-        <div className="ComponentDetailPage__demo-band">Content here</div>
-      </SectionContainer>
+      <div className="ComponentDetailPage__section-container-demo">
+        {sectionContainerDemoItems.map((item) => (
+          <div className="ComponentDetailPage__section-container-demo-row" key={item.container}>
+            <span className="ComponentDetailPage__section-container-demo-label">
+              {item.container}
+            </span>
+            <div className="ComponentDetailPage__section-container-demo-track">
+              <SectionContainer
+                addClassName="ComponentDetailPage__section-container-demo-container"
+                container={item.container}
+                tag="div"
+              >
+                <div className="ComponentDetailPage__section-container-demo-fill">
+                  gap
+                </div>
+              </SectionContainer>
+              <SectionContainer
+                addClassName="ComponentDetailPage__section-container-demo-container"
+                container={item.container}
+                gap={false}
+                tag="div"
+              >
+                <div className="ComponentDetailPage__section-container-demo-fill ComponentDetailPage__section-container-demo-fill--no-gap">
+                  no-gap
+                </div>
+              </SectionContainer>
+            </div>
+          </div>
+        ))}
+      </div>
     )
   }
 
   if (slug === 'card') {
     return (
-      <Card
-        title="Card with Actions"
-        buttonPrimary="Read more"
-        buttonPrimaryUrl="#"
-        buttonSecondary="Save"
-      >
-        Card body text.
-      </Card>
+      <div className="ComponentDetailPage__card-demo-grid">
+        {cardDemoItems.map((item) => (
+          <div className="ComponentDetailPage__card-demo-item" key={item.direction}>
+            <span className="ComponentDetailPage__card-demo-label">
+              {item.direction}
+            </span>
+            <Card
+              title={item.title}
+              direction={item.direction}
+              url={item.url}
+              image={item.image}
+              buttonPrimary={item.buttonPrimary}
+              buttonPrimaryUrl={item.buttonPrimaryUrl}
+              buttonSecondary={item.buttonSecondary}
+              buttonSecondaryUrl={item.buttonSecondaryUrl}
+              addClassName={[
+                'ComponentDetailPage__card-demo-card',
+                item.direction === 'vertical' ? 'ComponentDetailPage__card-demo-card--vertical' : '',
+              ].filter(Boolean).join(' ')}
+            >
+              {item.body}
+            </Card>
+          </div>
+        ))}
+      </div>
     )
   }
 
@@ -316,11 +368,33 @@ import './text.scss'
 import './heading.scss'
 
 <Heading variant="h2" weight="thin">Section Title</Heading>
-<Heading variant="h3" weight="bold">Card Heading</Heading>`,
+<Heading variant="h3" weight="bold">Card Heading</Heading>
+
+<Heading variant="h1">H1 heading</Heading>
+<Heading variant="h2">H2 heading</Heading>
+<Heading variant="h3">H3 heading</Heading>
+<Heading variant="h4">H4 heading</Heading>
+<Heading variant="h5">H5 heading</Heading>
+<Heading variant="h6">H6 heading</Heading>
+
+<Heading variant="h3" weight="normal">Normal heading</Heading>
+<Heading variant="h3" weight="thin">Thin heading</Heading>
+<Heading variant="h3" weight="bold">Bold heading</Heading>`,
     reactTailwind: `import { Heading } from './Heading.tailwind'
 
 <Heading variant="h2" weight="thin">Section Title</Heading>
-<Heading variant="h3" weight="bold">Card Heading</Heading>`,
+<Heading variant="h3" weight="bold">Card Heading</Heading>
+
+<Heading variant="h1">H1 heading</Heading>
+<Heading variant="h2">H2 heading</Heading>
+<Heading variant="h3">H3 heading</Heading>
+<Heading variant="h4">H4 heading</Heading>
+<Heading variant="h5">H5 heading</Heading>
+<Heading variant="h6">H6 heading</Heading>
+
+<Heading variant="h3" weight="normal">Normal heading</Heading>
+<Heading variant="h3" weight="thin">Thin heading</Heading>
+<Heading variant="h3" weight="bold">Bold heading</Heading>`,
     drupal: `{{ include('THEME-NAME:heading', {
   variant: 'h2',
   weight: 'thin',
@@ -331,6 +405,54 @@ import './heading.scss'
   variant: 'h3',
   weight: 'bold',
   content: 'Card Heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h1',
+  text: 'H1 heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h2',
+  text: 'H2 heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h3',
+  text: 'H3 heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h4',
+  text: 'H4 heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h5',
+  text: 'H5 heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h6',
+  text: 'H6 heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h3',
+  weight: 'normal',
+  text: 'Normal heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h3',
+  weight: 'thin',
+  text: 'Thin heading'
+}, false) }}
+
+{{ include('THEME-NAME:heading', {
+  variant: 'h3',
+  weight: 'bold',
+  text: 'Bold heading'
 }, false) }}`,
   },
   'section-container': {
@@ -339,16 +461,59 @@ import './section-container.scss'
 
 <SectionContainer container="small" tag="div">
   <p>Content here</p>
+</SectionContainer>
+
+<SectionContainer container="large" tag="div">
+  <p>Content here</p>
+</SectionContainer>
+
+<SectionContainer container="full" tag="div">
+  <p>Content here</p>
+</SectionContainer>
+
+<SectionContainer container="small" gap={false} tag="div">
+  <p>No gap content</p>
 </SectionContainer>`,
     reactTailwind: `import { SectionContainer } from './SectionContainer.tailwind'
 
 <SectionContainer container="small" tag="div">
   <p>Content here</p>
+</SectionContainer>
+
+<SectionContainer container="large" tag="div">
+  <p>Content here</p>
+</SectionContainer>
+
+<SectionContainer container="full" tag="div">
+  <p>Content here</p>
+</SectionContainer>
+
+<SectionContainer container="small" gap={false} tag="div">
+  <p>No gap content</p>
 </SectionContainer>`,
     drupal: `{{ include('THEME-NAME:section-container', {
   container: 'small',
   tag: 'div',
   content: '<p>Content here</p>'
+}, false) }}
+
+{{ include('THEME-NAME:section-container', {
+  container: 'large',
+  tag: 'div',
+  content: '<p>Content here</p>'
+}, false) }}
+
+{{ include('THEME-NAME:section-container', {
+  container: 'full',
+  tag: 'div',
+  content: '<p>Content here</p>'
+}, false) }}
+
+{{ include('THEME-NAME:section-container', {
+  container: 'small',
+  gap: false,
+  tag: 'div',
+  content: '<p>No gap content</p>'
 }, false) }}`,
   },
   card: {
@@ -362,7 +527,11 @@ import './card.scss'
   buttonSecondary="Save"
 >
   Card body text.
-</Card>`,
+</Card>
+
+<Card title="Vertical card" direction="vertical" image={{ src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', alt: 'Orange placeholder' }}>Body text.</Card>
+<Card title="Horizontal card" direction="horizontal" image={{ src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', alt: 'Orange placeholder' }}>Body text.</Card>
+<Card title="Horizontal reverse card" direction="horizontal-reverse" image={{ src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', alt: 'Orange placeholder' }}>Body text.</Card>`,
     reactTailwind: `import { Card } from './Card.tailwind'
 
 <Card
@@ -372,14 +541,22 @@ import './card.scss'
   buttonSecondary="Save"
 >
   Card body text.
-</Card>`,
+</Card>
+
+<Card title="Vertical card" direction="vertical" image={{ src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', alt: 'Orange placeholder' }}>Body text.</Card>
+<Card title="Horizontal card" direction="horizontal" image={{ src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', alt: 'Orange placeholder' }}>Body text.</Card>
+<Card title="Horizontal reverse card" direction="horizontal-reverse" image={{ src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', alt: 'Orange placeholder' }}>Body text.</Card>`,
     drupal: `{{ include('THEME-NAME:card', {
   title: 'Card with Actions',
   button_primary: 'Read more',
   button_primary_url: '/article',
   button_secondary: 'Save',
   body: 'Card body text.'
-}, false) }}`,
+}, false) }}
+
+{{ include('THEME-NAME:card', { title: 'Vertical card', direction: 'vertical', image_src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', image_alt: 'Orange placeholder', body: 'Body text.' }, false) }}
+{{ include('THEME-NAME:card', { title: 'Horizontal card', direction: 'horizontal', image_src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', image_alt: 'Orange placeholder', body: 'Body text.' }, false) }}
+{{ include('THEME-NAME:card', { title: 'Horizontal reverse card', direction: 'horizontal-reverse', image_src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', image_alt: 'Orange placeholder', body: 'Body text.' }, false) }}`,
   },
 }
 
@@ -478,3 +655,79 @@ const articleDemoItems = [
   '<article>Item 2</article>',
   '<article>Item 3</article>',
 ]
+
+const sectionContainerDemoItems = [
+  { container: 'small' },
+  { container: 'large' },
+  { container: 'full' },
+] as const
+
+const headingDemoItems = [
+  { variant: 'h1', weight: 'normal' },
+  { variant: 'h1', weight: 'thin' },
+  { variant: 'h1', weight: 'bold' },
+  { variant: 'h2', weight: 'normal' },
+  { variant: 'h2', weight: 'thin' },
+  { variant: 'h2', weight: 'bold' },
+  { variant: 'h3', weight: 'normal' },
+  { variant: 'h3', weight: 'thin' },
+  { variant: 'h3', weight: 'bold' },
+  { variant: 'h4', weight: 'normal' },
+  { variant: 'h4', weight: 'thin' },
+  { variant: 'h4', weight: 'bold' },
+  { variant: 'h5', weight: 'normal' },
+  { variant: 'h5', weight: 'thin' },
+  { variant: 'h5', weight: 'bold' },
+  { variant: 'h6', weight: 'normal' },
+  { variant: 'h6', weight: 'thin' },
+  { variant: 'h6', weight: 'bold' },
+] as const
+
+type CardDemoItem = {
+  title: string
+  direction: NonNullable<CardProps['direction']>
+  body: string
+  url?: string
+  image?: NonNullable<CardProps['image']>
+  buttonPrimary?: string
+  buttonPrimaryUrl?: string
+  buttonSecondary?: string
+  buttonSecondaryUrl?: string
+}
+
+function getDummySolidImage(bgColor: string, textColor: string, alt: string) {
+  return {
+    src: `https://www.dummycontent.app/api/image/600x400/${bgColor}/${textColor}/Image`,
+    alt,
+  }
+}
+
+const cardDemoItems = [
+  {
+    title: 'Vertical card',
+    direction: 'vertical',
+    body: 'A stacked card with content flowing from top to bottom.',
+    image: getDummySolidImage('ff5b2e', '2a130c', 'Orange placeholder'),
+    buttonPrimary: 'Read more',
+    buttonPrimaryUrl: '#',
+    buttonSecondary: 'Save',
+    buttonSecondaryUrl: '#',
+  },
+  {
+    title: 'Horizontal card',
+    direction: 'horizontal',
+    body: 'Image-led content with the media placed before the copy.',
+    url: '#',
+    image: getDummySolidImage('ff5b2e', '2a130c', 'Orange placeholder'),
+    buttonPrimary: 'Open',
+    buttonPrimaryUrl: '#',
+  },
+  {
+    title: 'Horizontal reverse card',
+    direction: 'horizontal-reverse',
+    body: 'The same structure with media placed after the copy.',
+    image: getDummySolidImage('ff5b2e', '2a130c', 'Orange placeholder'),
+    buttonSecondary: 'Preview',
+    buttonSecondaryUrl: '#',
+  },
+] satisfies readonly CardDemoItem[]

@@ -393,3 +393,21 @@ The reference may lack proper ARIA. Fix during adaptation:
 - No JavaScript in SDC unless strictly necessary; if needed, add a `[component-name].js` Drupal behavior file
 - No default exports in `.ts` files (if any)
 - Semver: follow `meta.ts` version
+
+## Reporte de historial de tarea
+
+Al final de cada tarea donde este agente participe, sobrescribir `.claude/history/history-drupal.md` con un reporte corto de última acción en español.
+
+Usar este formato:
+
+```md
+## YYYY-MM-DD HH:mm - Drupal
+
+- Tarea: una frase corta.
+- Archivos: archivos principales tocados.
+- Resultado: qué cambió.
+- Verificación: comando o revisión manual.
+- Notas: bloqueo, riesgo o `ninguna`.
+```
+
+No agregar contenido al final de este archivo. Siempre representa solo la última acción de Drupal, así que cada nueva tarea Drupal reemplaza el reporte Drupal anterior.

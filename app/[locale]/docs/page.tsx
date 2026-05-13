@@ -1,5 +1,10 @@
-import { DocsPage } from '@/ui/app/DocsPage'
+import { redirect } from 'next/navigation'
 
-export default function Page() {
-  return <DocsPage />
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  redirect(`/${locale}`)
 }

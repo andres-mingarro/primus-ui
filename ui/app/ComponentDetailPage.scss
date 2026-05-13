@@ -8,6 +8,7 @@
 .ComponentDetailPage__hero {
   background: var(--app-color-ivory);
   border: var(--app-border);
+  border-radius: 15px;
   box-shadow: var(--app-shadow-hard-large);
   padding: var(--app-space-5);
 }
@@ -56,51 +57,6 @@
   gap: var(--app-space-3);
 }
 
-.ComponentDetailPage__section-title {
-  color: var(--app-color-ink);
-  font-family: var(--app-font-display);
-  font-size: var(--app-font-size-lg);
-  font-weight: 700;
-  justify-self: center;
-  letter-spacing: 0.02em;
-  line-height: 1.1;
-  margin: 0;
-  padding-top: var(--app-space-4);
-  position: relative;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.ComponentDetailPage__section-title::before {
-  background:
-    linear-gradient(
-      90deg,
-      var(--app-color-line-soft) 0 calc(50% - 22px),
-      transparent calc(50% - 22px) calc(50% + 22px),
-      var(--app-color-line-soft) calc(50% + 22px) 100%
-    );
-  content: "";
-  height: 1px;
-  inset-block-start: 0;
-  inset-inline-start: 50%;
-  position: absolute;
-  transform: translateX(-50%);
-  width: min(220px, 64vw);
-}
-
-.ComponentDetailPage__section-title::after {
-  background:
-    linear-gradient(var(--app-color-orange), var(--app-color-orange)) center / 2px 12px no-repeat,
-    linear-gradient(var(--app-color-orange), var(--app-color-orange)) left center / 9px 2px no-repeat,
-    linear-gradient(var(--app-color-orange), var(--app-color-orange)) right center / 9px 2px no-repeat;
-  content: "";
-  height: 14px;
-  inset-block-start: -6px;
-  inset-inline-start: 50%;
-  position: absolute;
-  transform: translateX(-50%);
-  width: 22px;
-}
 
 .ComponentDetailPage__demo {
   background:

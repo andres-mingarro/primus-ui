@@ -10,7 +10,6 @@ import type { ComponentDoc } from '@/lib/component-docs'
 import { AppButton } from '@/ui/components/basics/AppButton/AppButton'
 import { CodeBlock } from '@/ui/components/basics/CodeBlock/CodeBlock'
 import { DataTable } from '@/ui/components/basics/DataTable/DataTable'
-import { SectionHeader } from '@/ui/components/basics/SectionHeader/SectionHeader'
 import { TabItem, TabPanel, Tabs, TabsContent, TabsItems } from '@/ui/components/basics/Tabs/Tabs'
 import { PathCard } from '@/ui/components/feature/PathCard/PathCard'
 import './ComponentDetailPage.scss'
@@ -117,24 +116,24 @@ function FormatPanel({
       <PathCard title={title} description={summary} code={path} />
 
       <section className="ComponentDetailPage__format-section">
-        <h3 className="ComponentDetailPage__section-title">{t('examples')}</h3>
+        <h3 className="app-section-title">{t('examples')}</h3>
         <CodeBlock code={code} label={title} />
       </section>
 
       <section className="ComponentDetailPage__format-section">
-        <h3 className="ComponentDetailPage__section-title">Demo</h3>
+        <h3 className="app-section-title">Demo</h3>
         <div className="ComponentDetailPage__demo">
           {demo}
         </div>
       </section>
 
       <section className="ComponentDetailPage__format-section">
-        <h3 className="ComponentDetailPage__section-title">{t('props')}</h3>
+        <h3 className="app-section-title">{t('props')}</h3>
         <DataTable columns={[t('prop'), t('type'), t('default'), t('description')]} rows={propsRows} />
       </section>
 
       <section className="ComponentDetailPage__format-section">
-        <h3 className="ComponentDetailPage__section-title">{tokenTitle}</h3>
+        <h3 className="app-section-title">{tokenTitle}</h3>
         <DataTable columns={[t('variable'), t('default'), t('description')]} rows={tokenRows} />
       </section>
     </div>

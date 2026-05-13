@@ -1,4 +1,4 @@
-import { HomePage } from '@/ui/app/HomePage'
+import { DocsPage } from '@/ui/app/DocsPage'
 
 export default async function Page({
   params,
@@ -6,6 +6,5 @@ export default async function Page({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-
-  return <HomePage locale={locale} />
+  return <DocsPage locale={locale} />
 }

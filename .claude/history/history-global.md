@@ -81,7 +81,7 @@
 - Verificación: `bunx tsc --noEmit` y captura headless con Chrome.
 - Notas: ninguna.
 
-## 2026-05-12 19:16 - Leader + ui-designer
+## 2026-05-12 19:17 - Leader + ui-designer
 
 - Tarea: Aplicar border-radius de 15px a las Cards de demo.
 - Agentes: leader, ui-designer.
@@ -135,7 +135,7 @@
 - Verificación: `bunx tsc --noEmit` y captura headless con Chrome.
 - Notas: ninguna.
 
-## 2026-05-12 20:02 - Leader + ui-designer
+## 2026-05-12 20:03 - Leader + ui-designer
 
 - Tarea: Centrar texto en barras de SectionContainer.
 - Agentes: leader, ui-designer.
@@ -151,4 +151,22 @@
 - Archivos: `ui/app/HomePage.tsx`, `ui/app/HomePage.scss`, `ui/components/feature/FlavorCard/FlavorCard.tsx`, `ui/components/feature/FlavorCard/FlavorCard.scss`, `.claude/history/history-leader.md`, `.claude/history/history-ui-designer.md`.
 - Resultado: Stacks ahora usa una composición editorial con tres tarjetas numeradas, acentos visuales por stack y mejor ritmo responsive.
 - Verificación: `bunx tsc --noEmit` y capturas headless desktop/mobile con Chrome.
+- Notas: ninguna.
+
+## 2026-05-12 - Leader + inspector + ui-designer
+
+- Tarea: Reorganizar HomePage con tabs por stack (Next.js / Tailwind / Drupal).
+- Agentes: leader, inspector, ui-designer.
+- Archivos: `ui/app/HomePage.tsx`, `ui/app/HomePage.scss`, `.claude/history/history-inspector.md`, `.claude/history/history-ui-designer.md`.
+- Resultado: Las secciones "How to use", "Quick start" y "Stacks" colapsadas en un AppTabs de 3 paneles por stack. Inspector detectó bug de selectores `:nth-child` (corregido) y dead code `counter-reset` (eliminado). TypeScript limpio.
+- Verificación: `bunx tsc --noEmit`.
+- Notas: ninguna.
+
+## 2026-05-12 - Leader
+
+- Tarea: Crear el agente inspector.
+- Agentes: leader, inspector.
+- Archivos: `.claude/agents/inspector.md` (nuevo), `.claude/agents/leader.md`, `CLAUDE.md`, `.claude/history/history-inspector.md` (nuevo).
+- Resultado: Inspector definido con inventario inicial de 15 componentes APP (7 basics, 4 feature, 4 segment), protocolo pre/post work, integración con `impeccable` skill y reporte a leader. Leader y CLAUDE.md actualizados con las rutas al nuevo agente.
+- Verificación: revisión manual de archivos creados.
 - Notas: ninguna.

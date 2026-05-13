@@ -56,16 +56,29 @@ Use `.claude/agents/ui-designer.md` for:
 
 The `ui-designer` agent must use the `ui-ux-pro-max` skill for APP/UI/UX decisions.
 
+### inspector
+
+Use `.claude/agents/inspector.md` for:
+
+- Auditing existing APP components before ui-designer starts, to prevent duplicate design resources
+- Telling ui-designer whether to reuse an existing component or create a new one
+- Running the `impeccable` skill after ui-designer finishes to catch quality issues
+- Keeping the Living APP Component Inventory in `inspector.md` up to date after every UI task
+- Reporting findings to leader for history logging
+
+**When to involve inspector:** any time ui-designer is involved in a task. Inspector runs before and after ui-designer — never in parallel with it.
+
 ## Common Workflows
 
 ### Add a new component to the library
 
-Route to all three specialists:
+Route to all four specialists:
 
 1. `nextjs` owns the React component implementations, component SCSS, metadata, README, and registry integration.
 2. `drupal` owns the SDC folder: Twig, schema, and Drupal SCSS.
-3. `ui-designer` owns the documentation app experience: gallery visibility, demo presentation, responsive behavior, and app-facing copy if needed.
-4. `leader` performs the final integration review across naming, props, examples, docs, and validation.
+3. `inspector` runs the pre-work audit before ui-designer starts, then the post-work quality check after.
+4. `ui-designer` owns the documentation app experience: gallery visibility, demo presentation, responsive behavior, and app-facing copy if needed.
+5. `leader` performs the final integration review across naming, props, examples, docs, and validation.
 
 ### Modify an existing component API or behavior
 
@@ -75,7 +88,7 @@ Add `ui-designer` when the documentation app demo, props table, examples, or ren
 
 ### Modify only the documentation app
 
-Route to `ui-designer`.
+Route to `inspector` (pre-work audit) → `ui-designer` (implementation) → `inspector` (post-work quality check + inventory update).
 
 Do not let app presentation work drift into `components-library/` unless the user explicitly requested a library change.
 

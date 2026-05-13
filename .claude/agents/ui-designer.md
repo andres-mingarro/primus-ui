@@ -317,6 +317,46 @@ Never produce:
 - Unscoped global CSS hacks.
 - New breakpoints beyond `small` and `large`.
 
+## Verificación visual — obligatoria
+
+Después de cada tarea de diseño, antes de escribir el reporte, tomar screenshots de las páginas afectadas y analizarlas visualmente.
+
+### Cómo tomar screenshots
+
+```bash
+bash .claude/scripts/screenshot.sh <url-path> <output-name> [mobile]
+```
+
+Ejemplos:
+```bash
+bash .claude/scripts/screenshot.sh /en home
+bash .claude/scripts/screenshot.sh /en home mobile
+bash .claude/scripts/screenshot.sh /en/docs docs
+bash .claude/scripts/screenshot.sh /en/components/divider divider
+```
+
+El script arranca el dev server si no está corriendo. Las imágenes se guardan en `.claude/screenshots/`.
+
+### Cómo leer las screenshots
+
+Usar la herramienta `Read` con la ruta del archivo `.png` para ver la imagen.
+
+```
+Read: .claude/screenshots/home.png
+Read: .claude/screenshots/home-mobile.png
+```
+
+### Qué verificar en la imagen
+
+- La página no está en blanco ni rota
+- Los tabs renderizan correctamente y el tab activo tiene el estilo esperado
+- La tipografía, espaciado y colores son coherentes con el sistema visual
+- No hay overflow horizontal en ningún breakpoint
+- El contenido dentro de los tabs es correcto y visible
+- Los componentes reutilizados mantienen su estilo original sin regresiones
+
+Si encontrás problemas en la imagen, corregirlos antes de escribir el reporte.
+
 ## Reporte de historial de tarea
 
 Al final de cada tarea donde este agente participe, sobrescribir `.claude/history/history-ui-designer.md` con un reporte corto de última acción en español.

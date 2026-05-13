@@ -60,12 +60,13 @@ For any non-trivial repo task, start with `.claude/agents/leader.md`. The leader
 
 If the environment supports subagents and the user has authorized delegation for the session, the leader may spawn the matching specialists. If delegation is unavailable or disallowed, load and follow the matching specialist files as mandatory project instructions in the main workflow.
 
-| Agent       | File                              | Trigger                                                              |
-| ----------- | --------------------------------- | -------------------------------------------------------------------- |
-| Leader      | `.claude/agents/leader.md`        | First stop for non-trivial repo tasks and cross-agent coordination   |
-| Next.js     | `.claude/agents/nextjs.md`        | React components, landing page, Tailwind                             |
-| Drupal SDC  | `.claude/agents/drupal.md`        | Drupal SDC files (.twig, .component.yml, .scss)                      |
-| ui-designer | `.claude/agents/ui-designer.md`   | APP layout, styles, UX, navigation, documentation pages, responsive  |
+| Agent       | File                            | Trigger                                                                         |
+| ----------- | ------------------------------- | ------------------------------------------------------------------------------- |
+| Leader      | `.claude/agents/leader.md`      | First stop for non-trivial repo tasks and cross-agent coordination              |
+| Next.js     | `.claude/agents/nextjs.md`      | React components, landing page, Tailwind                                        |
+| Drupal SDC  | `.claude/agents/drupal.md`      | Drupal SDC files (.twig, .component.yml, .scss)                                 |
+| ui-designer | `.claude/agents/ui-designer.md` | APP layout, styles, UX, navigation, documentation pages, responsive             |
+| inspector   | `.claude/agents/inspector.md`   | Pre/post audit for APP UI tasks: duplicate prevention, quality check, inventory |
 
 ## Existing Components
 

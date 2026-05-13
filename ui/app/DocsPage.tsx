@@ -1,177 +1,126 @@
 import { useTranslations } from 'next-intl'
 import { CodeBlock } from '@/ui/components/basics/CodeBlock/CodeBlock'
-import { SectionHeader } from '@/ui/components/basics/SectionHeader/SectionHeader'
-import { AppTabs } from '@/ui/components/feature/AppTabs/AppTabs'
+import { TabItem, TabPanel, Tabs, TabsContent, TabsItems } from '@/ui/components/basics/Tabs/Tabs'
 import { PathCard } from '@/ui/components/feature/PathCard/PathCard'
+import { HomeHero } from '@/ui/components/segment/HomeHero/HomeHero'
 import './DocsPage.scss'
 
-export function DocsPage() {
+export function DocsPage({ locale }: { locale: string }) {
   const t = useTranslations('docsPage')
+  const th = useTranslations('home')
 
   return (
     <article className="DocsPage">
-      <header className="DocsPage__hero">
-        <p className="DocsPage__eyebrow">{t('eyebrow')}</p>
-        <h1 className="DocsPage__title">{t('title')}</h1>
-        <p className="DocsPage__description">{t('description')}</p>
-      </header>
+      <HomeHero
+        componentsHref={`/${locale}/components`}
+        componentsLabel={th('componentsSection')}
+        docsHref={`/${locale}#installation`}
+        eyebrow="Primus UI"
+        outputsLabel={th('outputs')}
+        primaryLabel={th('howToUse')}
+        tagline={th('tagline')}
+        title={th('title')}
+        version={th('version')}
+      />
 
       <section className="DocsPage__section" id="installation">
-        <div className="DocsPage__sectionHeader">
-          <SectionHeader label={t('installation')} />
-        </div>
+        <h2 className="app-section-title">{t('installation')}</h2>
         <div className="DocsPage__sectionBody">
           <p className="DocsPage__body">
             {t.rich('installationBody', {
               code: (chunks) => <code>{chunks}</code>,
             })}
           </p>
-          <AppTabs
-            ariaLabel={t('installation')}
-            labels={['Next.js', 'Next.js + Tailwind', 'Drupal']}
-          >
-            <section className="DocsPage__installer">
-              <h3 className="DocsPage__installerTitle">Next.js + SCSS</h3>
-              <ol className="DocsPage__steps">
-                <li>{t('installReactCssStep1')}</li>
-                <li>{t('installReactCssStep2')}</li>
-                <li>{t('installReactCssStep3')}</li>
-              </ol>
-              <CodeBlock
-                label="Next.js + SCSS"
-                code={`components-library/Card/
-  Card.tsx
-  card.scss
-  meta.ts
-  README.md`}
-              />
-            </section>
+          <Tabs defaultValue="next" label={t('installation')}>
+            <TabsItems>
+              <TabItem value="next">Next.js</TabItem>
+              <TabItem value="tailwind">Next.js + Tailwind</TabItem>
+              <TabItem value="drupal">Drupal</TabItem>
+            </TabsItems>
 
-            <section className="DocsPage__installer">
-              <h3 className="DocsPage__installerTitle">Next.js + Tailwind</h3>
-              <ol className="DocsPage__steps">
-                <li>{t('installTailwindStep1')}</li>
-                <li>{t('installTailwindStep2')}</li>
-                <li>{t('installTailwindStep3')}</li>
-              </ol>
-              <CodeBlock
-                label="Next.js + Tailwind"
-                code={`components-library/Card/
-  Card.tailwind.tsx
-  meta.ts
-  README.md`}
-              />
-            </section>
+            <TabsContent>
+              <TabPanel value="next">
+                <div className="DocsPage__installer">
+                  <ol className="DocsPage__steps">
+                    <li>{t('installReactCssStep1')}</li>
+                    <li>{t('installReactCssStep2')}</li>
+                    <li>{t('installReactCssStep3')}</li>
+                  </ol>
+                  <CodeBlock
+                    label="Next.js + SCSS"
+                    code={`components-library/Card/\n  Card.tsx\n  card.scss\n  meta.ts\n  README.md`}
+                  />
+                </div>
+              </TabPanel>
 
-            <section className="DocsPage__installer">
-              <h3 className="DocsPage__installerTitle">Drupal SDC</h3>
-              <ol className="DocsPage__steps">
-                <li>{t('installDrupalStep1')}</li>
-                <li>{t('installDrupalStep2')}</li>
-                <li>{t('installDrupalStep3')}</li>
-              </ol>
-              <CodeBlock
-                label="Drupal SDC"
-                code={`components-library/Card/drupal/
-  card.component.yml
-  card.twig
-  card.scss`}
-              />
-            </section>
-          </AppTabs>
-        </div>
-      </section>
+              <TabPanel value="tailwind">
+                <div className="DocsPage__installer">
+                  <ol className="DocsPage__steps">
+                    <li>{t('installTailwindStep1')}</li>
+                    <li>{t('installTailwindStep2')}</li>
+                    <li>{t('installTailwindStep3')}</li>
+                  </ol>
+                  <CodeBlock
+                    label="Next.js + Tailwind"
+                    code={`components-library/Card/\n  Card.tailwind.tsx\n  meta.ts\n  README.md`}
+                  />
+                </div>
+              </TabPanel>
 
-      <section className="DocsPage__section" id="usage">
-        <div className="DocsPage__sectionHeader">
-          <SectionHeader label={t('usage')} />
-        </div>
-        <div className="DocsPage__sectionBody">
-          <div className="DocsPage__grid">
-            <PathCard title="Next.js + SCSS" description={t('usageScss')} />
-            <PathCard title="Next.js Tailwind" description={t('usageTailwind')} />
-            <PathCard title="Drupal SDC" description={t('usageDrupal')} />
-          </div>
-        </div>
-      </section>
-
-      <section className="DocsPage__section DocsPage__section--featured" id="drupal-sdc">
-        <div className="DocsPage__sectionHeader">
-          <SectionHeader label={t('drupalSdcTitle')} />
-        </div>
-        <div className="DocsPage__sectionBody">
-          <p className="DocsPage__body DocsPage__lead">{t('drupalSdcBody')}</p>
-          <div className="DocsPage__grid DocsPage__grid--two">
-            <PathCard title={t('drupalFilesTitle')} description={t('drupalFilesBody')} />
-            <PathCard title={t('drupalRenderTitle')} description={t('drupalRenderBody')} />
-          </div>
-          <CodeBlock
-            label={t('drupalStructureLabel')}
-            code={`[your-theme]/
-  components/
-    grid-template/
-      grid-template.component.yml
-      grid-template.twig
-      grid-template.scss`}
-          />
-          <CodeBlock
-            label={t('drupalIncludeLabel')}
-            code={`{{ include('THEME-NAME:grid-template', {
-  cols: 3,
-  cols_medium: 2,
-  cols_small: 1,
-  items: '<article>Item 1</article><article>Item 2</article><article>Item 3</article>'
-}, false) }}`}
-          />
-          <p className="DocsPage__body DocsPage__references">
-            {t.rich('drupalDocsBody', {
-              sdc: (chunks) => (
-                <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components" rel="noreferrer" target="_blank">
-                  {chunks}
-                </a>
-              ),
-              create: (chunks) => (
-                <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components/creating-a-single-directory-component" rel="noreferrer" target="_blank">
-                  {chunks}
-                </a>
-              ),
-              api: (chunks) => (
-                <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components/api-for-single-directory-components" rel="noreferrer" target="_blank">
-                  {chunks}
-                </a>
-              ),
-            })}
-          </p>
+              <TabPanel value="drupal">
+                <div className="DocsPage__installer">
+                  <ol className="DocsPage__steps">
+                    <li>{t('installDrupalStep1')}</li>
+                    <li>{t('installDrupalStep2')}</li>
+                    <li>{t('installDrupalStep3')}</li>
+                  </ol>
+                  <CodeBlock
+                    label="Drupal SDC"
+                    code={`components-library/Card/drupal/\n  card.component.yml\n  card.twig\n  card.scss`}
+                  />
+                  <p className="DocsPage__body">{t('drupalSdcBody')}</p>
+                  <div className="DocsPage__grid DocsPage__grid--two">
+                    <PathCard title={t('drupalFilesTitle')} description={t('drupalFilesBody')} />
+                    <PathCard title={t('drupalRenderTitle')} description={t('drupalRenderBody')} />
+                  </div>
+                  <CodeBlock
+                    label={t('drupalIncludeLabel')}
+                    code={`{{ include('THEME-NAME:grid-template', {\n  cols: 3,\n  cols_medium: 2,\n  cols_small: 1,\n  items: '<article>Item 1</article><article>Item 2</article>'\n}, false) }}`}
+                  />
+                  <p className="DocsPage__body DocsPage__references">
+                    {t.rich('drupalDocsBody', {
+                      sdc: (chunks) => (
+                        <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components" rel="noreferrer" target="_blank">
+                          {chunks}
+                        </a>
+                      ),
+                      create: (chunks) => (
+                        <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components/creating-a-single-directory-component" rel="noreferrer" target="_blank">
+                          {chunks}
+                        </a>
+                      ),
+                      api: (chunks) => (
+                        <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components/api-for-single-directory-components" rel="noreferrer" target="_blank">
+                          {chunks}
+                        </a>
+                      ),
+                    })}
+                  </p>
+                </div>
+              </TabPanel>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
       <section className="DocsPage__section" id="tokens">
-        <div className="DocsPage__sectionHeader">
-          <SectionHeader label={t('tokens')} />
-        </div>
+        <h2 className="app-section-title">{t('tokens')}</h2>
         <div className="DocsPage__sectionBody">
           <p className="DocsPage__body">{t('tokensBody')}</p>
           <CodeBlock
             label={t('css')}
-            code={`:root {
-  --pu-card-background: var(--app-color-paper);
-  --pu-card-border-color: var(--app-color-line);
-  --pu-card-padding: var(--app-space-5);
-}`}
+            code={`:root {\n  --pu-card-background: var(--app-color-paper);\n  --pu-card-border-color: var(--app-color-line);\n  --pu-card-padding: var(--app-space-5);\n}`}
           />
-        </div>
-      </section>
-
-      <section className="DocsPage__section" id="outputs">
-        <div className="DocsPage__sectionHeader">
-          <SectionHeader label={t('outputs')} />
-        </div>
-        <div className="DocsPage__sectionBody">
-          <div className="DocsPage__grid">
-            <PathCard title="Next.js" description={t('outputNext')} />
-            <PathCard title="Next.js Tailwind" description={t('outputTailwind')} />
-            <PathCard title="Drupal" description={t('outputDrupal')} />
-          </div>
         </div>
       </section>
     </article>

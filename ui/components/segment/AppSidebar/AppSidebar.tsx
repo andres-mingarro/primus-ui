@@ -7,12 +7,8 @@ import { components } from '@/lib/components-registry'
 import './AppSidebar.scss'
 
 const docsChildren = [
-  { id: 'installation', href: '/docs#installation' },
-  { id: 'usage', href: '/docs#usage' },
-  { id: 'tokens', href: '/docs#tokens' },
-  { id: 'next', href: '/docs#outputs' },
-  { id: 'tailwind', href: '/docs#outputs' },
-  { id: 'drupal', href: '/docs#outputs' },
+  { id: 'installation', href: '#installation' },
+  { id: 'tokens', href: '#tokens' },
 ]
 
 export function AppSidebar() {
@@ -30,9 +26,9 @@ export function AppSidebar() {
             className={[
               'AppSidebar__item',
               'AppSidebar__item--parent',
-              pathname === `${base}/docs` ? 'AppSidebar__item--active' : '',
+              pathname === base ? 'AppSidebar__item--active' : '',
             ].filter(Boolean).join(' ')}
-            href={`${base}/docs`}
+            href={base}
           >
             {t('intro')}
           </Link>

@@ -43,7 +43,61 @@
 .DocsPage__references {
   background: var(--app-color-paper);
   border: var(--app-border);
+  display: grid;
+  gap: var(--app-space-3);
   padding: var(--app-space-4);
+}
+
+.DocsPage__refsLabel {
+  color: var(--app-color-ink-soft);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.DocsPage__refsList {
+  display: grid;
+  gap: var(--app-space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.DocsPage__refsList li {
+  padding-left: var(--app-space-5);
+  position: relative;
+}
+
+.DocsPage__refsList li::before {
+  background: var(--app-color-orange);
+  content: "";
+  height: 8px;
+  left: 0;
+  position: absolute;
+  top: 0.45em;
+  width: 8px;
+}
+
+.DocsPage__refsList a {
+  color: var(--app-color-ink);
+  font-size: var(--app-font-size-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+  transition: color var(--app-motion-fast) var(--app-ease);
+}
+
+.DocsPage__refsList a:hover {
+  color: var(--app-color-orange-dark);
+}
+
+.DocsPage__refsList a:focus-visible {
+  color: var(--app-color-orange-dark);
+  outline: 2px solid var(--app-color-orange);
+  outline-offset: 2px;
 }
 
 .DocsPage .app-tabs__content {
@@ -93,6 +147,57 @@
   gap: var(--app-space-5);
 }
 
+.DocsPage__usageGrid {
+  display: grid;
+  gap: var(--app-space-6);
+}
+
+.DocsPage__usageBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-space-4);
+}
+
+.DocsPage__usageBlock .app-code-block {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.DocsPage__usageBlock .app-code-block__pre {
+  flex: 1;
+}
+
+.DocsPage__usageTitle {
+  color: var(--app-color-ink);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-lg);
+  font-weight: 700;
+  margin: 0;
+}
+
+.DocsPage__nextLink {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+  transition: opacity var(--app-motion-fast) var(--app-ease);
+}
+
+.DocsPage__nextLink:hover {
+  opacity: 0.8;
+}
+
+.DocsPage__nextLink:focus-visible {
+  outline: 2px solid var(--app-color-orange);
+  outline-offset: 2px;
+}
+
+@include media.reduced-motion {
+  .DocsPage__nextLink {
+    transition: none;
+  }
+}
+
 @include media.large {
   .DocsPage {
     gap: var(--app-space-9);
@@ -116,5 +221,16 @@
 
   .DocsPage__grid--two {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .DocsPage__usageGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@include media.small-only {
+  .DocsPage__usageBlock + .DocsPage__usageBlock {
+    border-top: var(--app-border);
+    padding-top: var(--app-space-4);
   }
 }

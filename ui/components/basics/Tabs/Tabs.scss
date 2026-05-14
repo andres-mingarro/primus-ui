@@ -39,6 +39,7 @@
 }
 
 .app-tabs__content {
+  background: var(--app-color-paper);
   display: grid;
   border: var(--app-border);
   padding: var(--app-space-5);

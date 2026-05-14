@@ -153,6 +153,15 @@
 - Verificación: `bunx tsc --noEmit` y capturas headless desktop/mobile con Chrome.
 - Notas: ninguna.
 
+## 2026-05-13 15:30 - Leader + inspector + ui-designer
+
+- Tarea: mejorar jerarquía de información de DocsPage inspirada en fumadocs.dev.
+- Agentes: leader, inspector, ui-designer.
+- Archivos: `ui/app/DocsPage.tsx`, `ui/app/DocsPage.scss`, `ui/components/segment/AppSidebar/AppSidebar.tsx`, `messages/en.json`, `messages/es.json`.
+- Resultado: sidebar con 3 subitems bajo Introduction; sección Usage (addClassName + CSS vars); sección What's next (PathCards). Inspector corrigió side-stripe border prohibido, focus-visible faltante y reduced-motion en nextLink.
+- Verificación: screenshots desktop y mobile sin regresiones.
+- Notas: ninguna.
+
 ## 2026-05-12 - Leader + inspector + ui-designer
 
 - Tarea: Reorganizar HomePage con tabs por stack (Next.js / Tailwind / Drupal).

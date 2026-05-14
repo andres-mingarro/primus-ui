@@ -23,6 +23,7 @@
     "@types/react-dom": "^19.2.3",
     "eslint": "^10",
     "eslint-config-next": "16.2.6",
+    "puppeteer-core": "^24.43.1",
     "sass": "^1.99.0",
     "tailwindcss": "^4.3.0",
     "typescript": "^6"

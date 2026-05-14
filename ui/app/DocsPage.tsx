@@ -87,29 +87,55 @@ export function DocsPage({ locale }: { locale: string }) {
                     label={t('drupalIncludeLabel')}
                     code={`{{ include('THEME-NAME:grid-template', {\n  cols: 3,\n  cols_medium: 2,\n  cols_small: 1,\n  items: '<article>Item 1</article><article>Item 2</article>'\n}, false) }}`}
                   />
-                  <p className="DocsPage__body DocsPage__references">
-                    {t.rich('drupalDocsBody', {
-                      sdc: (chunks) => (
+                  <div className="DocsPage__references">
+                    <p className="DocsPage__refsLabel">{t('drupalRefsLabel')}</p>
+                    <ul className="DocsPage__refsList">
+                      <li>
                         <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components" rel="noreferrer" target="_blank">
-                          {chunks}
+                          Using Single-Directory Components
                         </a>
-                      ),
-                      create: (chunks) => (
+                      </li>
+                      <li>
                         <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components/creating-a-single-directory-component" rel="noreferrer" target="_blank">
-                          {chunks}
+                          Creating a single-directory component
                         </a>
-                      ),
-                      api: (chunks) => (
+                      </li>
+                      <li>
                         <a href="https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components/api-for-single-directory-components" rel="noreferrer" target="_blank">
-                          {chunks}
+                          API for Single-Directory Components
                         </a>
-                      ),
-                    })}
-                  </p>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </TabPanel>
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+
+      <section className="DocsPage__section" id="usage">
+        <h2 className="app-section-title">{t('usageTitle')}</h2>
+        <div className="DocsPage__sectionBody">
+          <p className="DocsPage__body">{t('usageBody')}</p>
+          <div className="DocsPage__usageGrid">
+            <div className="DocsPage__usageBlock">
+              <h3 className="DocsPage__usageTitle">{t('usageAddClassTitle')}</h3>
+              <p className="DocsPage__body">{t('usageAddClassBody')}</p>
+              <CodeBlock
+                label="React"
+                code={`<Button addClassName="my-extra-class" />`}
+              />
+            </div>
+            <div className="DocsPage__usageBlock">
+              <h3 className="DocsPage__usageTitle">{t('usageCssVarsTitle')}</h3>
+              <p className="DocsPage__body">{t('usageCssVarsBody')}</p>
+              <CodeBlock
+                label="css"
+                code={`.my-scope {\n  --pu-button-bg: #e44;\n  --pu-button-radius: 0;\n}`}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -121,6 +147,21 @@ export function DocsPage({ locale }: { locale: string }) {
             label={t('css')}
             code={`:root {\n  --pu-card-background: var(--app-color-paper);\n  --pu-card-border-color: var(--app-color-line);\n  --pu-card-padding: var(--app-space-5);\n}`}
           />
+        </div>
+      </section>
+
+      <section className="DocsPage__section" id="next">
+        <h2 className="app-section-title">{t('nextTitle')}</h2>
+        <div className="DocsPage__sectionBody">
+          <p className="DocsPage__body">{t('nextBody')}</p>
+          <div className="DocsPage__grid DocsPage__grid--two">
+            <a className="DocsPage__nextLink" href={`/${locale}/components`}>
+              <PathCard title={t('nextComponentsTitle')} description={t('nextComponentsBody')} />
+            </a>
+            <a className="DocsPage__nextLink" href="#tokens">
+              <PathCard title={t('nextTokensTitle')} description={t('nextTokensBody')} />
+            </a>
+          </div>
         </div>
       </section>
     </article>

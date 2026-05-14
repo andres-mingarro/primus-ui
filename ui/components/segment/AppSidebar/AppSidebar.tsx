@@ -8,6 +8,7 @@ import './AppSidebar.scss'
 
 const docsChildren = [
   { id: 'installation', href: '#installation' },
+  { id: 'usage', href: '#usage' },
   { id: 'tokens', href: '#tokens' },
 ]
 

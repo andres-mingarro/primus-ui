@@ -1,9 +1,9 @@
 # Inspector
 
-## 2026-05-12 - inspector
+## 2026-05-13 15:30 - inspector
 
-- Tarea: pre/post audit para reorganización de HomePage con tabs por stack.
-- Archivos: revisión de `ui/app/HomePage.tsx`, `ui/app/HomePage.scss`.
-- Resultado: pre-work confirmó 5 componentes reutilizables, 0 duplicados. Post-work detectó bug de selectores `:nth-child` (corregido con clases modificadoras) y dead code `counter-reset` (eliminado). Sin must-fix de accesibilidad. Inventario sin cambios (no se crearon componentes nuevos).
-- Verificación: `bunx tsc --noEmit` limpio + revisión manual de tokens y breakpoints.
+- Tarea: audit pre/post para mejora de jerarquía de información en DocsPage.
+- Archivos: ui/app/DocsPage.tsx, ui/app/DocsPage.scss, ui/components/segment/AppSidebar/AppSidebar.tsx.
+- Resultado: pre-audit sin duplicados; post-audit encontró 2 must-fix (side-stripe border en refsList + focus-visible faltante en links externos) y 1 polish (reduced-motion en nextLink). Los 3 fueron corregidos.
+- Verificación: screenshots desktop y mobile confirman layout correcto, 3 subitems en sidebar, sin overflow.
 - Notas: ninguna.

@@ -47,6 +47,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={isDark ? 'dark' : ''}
     >
       <body className={`${karla.variable} ${karla.className}`}>

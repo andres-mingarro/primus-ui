@@ -14,7 +14,7 @@ type TabPanelProps = {
 
 export function TabsContent({ children }: TabsContentProps) {
   return (
-    <div className="app-tabs__content app-section--paper ">
+    <div className="app-tabs__content">
       {children}
     </div>
   )

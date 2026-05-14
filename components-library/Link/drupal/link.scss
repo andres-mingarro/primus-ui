@@ -1,0 +1,46 @@
+.pu-link {
+  --pu-link-color:                  #2563eb;
+  --pu-link-color-hover:            #1d4ed8;
+  --pu-link-color-visited:          #7c3aed;
+  --pu-link-color-active:           #1e40af;
+  --pu-link-text-decoration:        none;
+  --pu-link-text-decoration-hover:  underline;
+  --pu-link-transition:             color 150ms ease, text-decoration-color 150ms ease;
+
+  color: var(--pu-link-color);
+  text-decoration: var(--pu-link-text-decoration);
+  transition: var(--pu-link-transition);
+
+  &:hover {
+    color: var(--pu-link-color-hover);
+    text-decoration: var(--pu-link-text-decoration-hover);
+  }
+
+  &:focus-visible {
+    color: var(--pu-link-color-hover);
+    outline: 2px solid var(--pu-link-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+    text-decoration: var(--pu-link-text-decoration-hover);
+  }
+
+  &:visited {
+    color: var(--pu-link-color-visited);
+  }
+
+  &:active {
+    color: var(--pu-link-color-active);
+  }
+}
+
+.pu-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

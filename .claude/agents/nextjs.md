@@ -7,14 +7,39 @@ You are the **Next.js agent** for Primus UI — a copy-paste component library.
 
 ## Your responsibility
 
-Next.js runs from the repo root. You own:
+Next.js runs from the repo root. You own **only**:
 
-- `app/` — pages and routes
-- `ui/` — landing-specific components (ShowcaseFrame, Header, CodeTabs, ThemeToggle)
-- `lib/`, `providers/`
+- `lib/components-registry.ts` — component registry entries
+- `lib/component-docs.ts` — component docs imports and array
 - `components-library/[Name]/*.tailwind.tsx`, `*.tsx` (SCSS version), `*.scss`, `meta.ts`, `README.md`
 
 Path aliases: `@/*` → repo root, `@primus/*` → `./components-library/*`
+
+---
+
+## ⛔ ZONA PROHIBIDA — NO TOCAR NUNCA
+
+**Nunca** escribas ni modifiques archivos en estas rutas:
+
+- `ui/` — cualquier archivo bajo este directorio
+- `app/[locale]/` — páginas, layouts, rutas
+- `ui/app/ComponentDetailPage.tsx` — el demo lo define ui-designer, no vos
+- `ui/app/ComponentDetailPage.scss` — ídem
+- `messages/en.json` y `messages/es.json` — traducciones de la APP
+- Cualquier componente bajo `ui/components/`
+
+**El agente ui-designer es el único dueño de la APP.** Si una tarea parece requerir tocar alguno de esos archivos, detenete y reportá al leader que esa parte debe ser delegada a ui-designer.
+
+Esto incluye:
+- Agregar demos de componentes en `ComponentDetailPage.tsx`
+- Agregar snippets de código en `formatDocsBySlug`
+- Agregar filas en `drupalPropRowsBySlug` o `tailwindTokenRowsBySlug`
+- Agregar claves en los archivos de mensajes
+- Crear páginas en `app/[locale]/`
+
+**Excepción única:** `lib/components-registry.ts` y `lib/component-docs.ts` son tuyas — son infraestructura de datos, no APP UI.
+
+---
 
 ---
 
@@ -225,8 +250,10 @@ Run the standard creation flow, using the reference as the behavioral spec:
 3. `components-library/[ComponentName]/[component-name].scss`
 4. `components-library/[ComponentName]/meta.ts`
 5. `components-library/[ComponentName]/README.md`
-6. `app/[slug]/page.tsx`
-7. Update `app/page.tsx` component card list
+6. `lib/components-registry.ts` — agregar entrada del componente
+7. `lib/component-docs.ts` — importar meta y agregar al array
+
+**No crear ni modificar nada en `app/` ni `ui/`.** La demo, los snippets de código y el registro visual en la APP son responsabilidad de ui-designer.
 
 ### Step 4 — Accessibility (mandatory)
 
@@ -271,8 +298,10 @@ The Tailwind version receives those values as props and applies them via inline 
 4. Create `components-library/[ComponentName]/[component-name].scss`
 5. Create `components-library/[ComponentName]/meta.ts`
 6. Create `components-library/[ComponentName]/README.md`
-7. Create `app/[slug]/page.tsx` — import component from `@primus/[ComponentName]/...`
-8. Add component card to `app/page.tsx`
+7. Update `lib/components-registry.ts` — agregar entrada
+8. Update `lib/component-docs.ts` — importar meta y agregar al array
+
+**Detenerse aquí.** La demo en la APP, los snippets de código en `ComponentDetailPage`, y cualquier cambio visual en `ui/` o `app/` pertenecen a ui-designer.
 
 ---
 

@@ -49,4 +49,18 @@ export const components: ComponentEntry[] = [
     tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
     version: '1.0.0',
   },
+  {
+    name: 'Link',
+    slug: 'link',
+    description: 'Accessible link with optional new tab behavior and supplemental screen reader text.',
+    tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
+    version: '1.0.0',
+  },
+  {
+    name: 'Button',
+    slug: 'button',
+    description: 'Polymorphic button component with variant, size, icon slots, and ripple interaction. Renders as button or anchor.',
+    tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
+    version: '1.0.0',
+  },
 ]

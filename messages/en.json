@@ -94,6 +94,8 @@
     "text": "A polymorphic text element that renders a configurable HTML tag with overridable typography tokens.",
     "heading": "A polymorphic heading element (h1-h6) with weight variants and optional HTML rendering.",
     "section-container": "A section wrapper with configurable max-width and horizontal padding. Safe to nest because inner margin collapses automatically.",
-    "card": "Content card with style variants, layout directions, image, and action buttons."
+    "card": "Content card with style variants, layout directions, image, and action buttons.",
+    "link": "Accessible link with optional new tab behavior and supplemental screen reader text.",
+    "button": "Polymorphic button with variant, size, icon slots, and ripple interaction. Renders as button or anchor."
   }
 }

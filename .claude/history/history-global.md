@@ -153,6 +153,33 @@
 - Verificación: `bunx tsc --noEmit` y capturas headless desktop/mobile con Chrome.
 - Notas: ninguna.
 
+## 2026-05-13 16:30 - Leader + inspector + ui-designer (corrección de violación nextjs)
+
+- Tarea: Rediseñar el demo de Button que el agente nextjs había creado incorrectamente en la APP.
+- Agentes: leader, inspector, ui-designer.
+- Archivos: `ui/app/ComponentDetailPage.tsx`, `ui/app/ComponentDetailPage.scss`, `.claude/agents/nextjs.md`, `.claude/agents/drupal.md`, `.claude/agents/leader.md`.
+- Resultado: Demo reemplazado con 5 grupos visuales (variantes, ghost-on-dark, tamaños, estados, iconos). Agentes nextjs y drupal actualizados con zona prohibida explícita. Leader actualizado con protocolo de corrección. TypeScript limpio.
+- Verificación: Screenshots light/dark correctos.
+- Notas: LEADER CORRECCIÓN — nextjs tocó `ComponentDetailPage.tsx` y `.scss`. Agente editado: sí — sección ⛔ ZONA PROHIBIDA reforzada. Corrección: ui-designer rehízo el demo correctamente.
+
+## 2026-05-13 23:55 - Leader + nextjs + drupal
+
+- Tarea: agregar componente Button a la library (referencia: Button.tsx con ripple, polimorfismo, variantes via data-variant).
+- Agentes: leader, nextjs, drupal.
+- Archivos: `components-library/Button/` (8 archivos nuevos), `lib/components-registry.ts`, `lib/component-docs.ts`, `ui/app/ComponentDetailPage.tsx`, `ui/app/ComponentDetailPage.scss`, `messages/en.json`, `messages/es.json`.
+- Resultado: Button con 6 variantes (primary, secondary, ghost, outline, danger, link), 3 tamaños, polimorfismo as="a"|"button", iconos left/right, efecto ripple (solo React), data-variant en CSS. Drupal: sin ripple, con aria-disabled en anchors.
+- Verificación: `bunx tsc --noEmit` limpio. Screenshots light/dark correctos.
+- Notas: ninguna.
+
+## 2026-05-13 23:30 - Leader + nextjs + drupal
+
+- Tarea: agregar componente Link a la library con las tres salidas (React SCSS, React Tailwind, Drupal SDC).
+- Agentes: leader, nextjs, drupal.
+- Archivos: `components-library/Link/` (8 archivos nuevos), `lib/components-registry.ts`, `lib/component-docs.ts`, `ui/app/ComponentDetailPage.tsx`.
+- Resultado: Link completo con href, children, text, addClassName, assistiveHidden, openInNewTab, supplementalText. Auto-genera "Opens in new tab" si openInNewTab=true y no hay supplementalText. pu-visually-hidden en SCSS. Demo corregido para mostrar variantes reales.
+- Verificación: `bunx tsc --noEmit` limpio. Screenshots light/dark correctos.
+- Notas: ninguna.
+
 ## 2026-05-13 15:30 - Leader + inspector + ui-designer
 
 - Tarea: mejorar jerarquía de información de DocsPage inspirada en fumadocs.dev.

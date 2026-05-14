@@ -1,0 +1,53 @@
+{#
+  THEME-NAME:link — 1.0.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  basic link
+  {{ include('THEME-NAME:link', { href: 'https://example.com', text: 'Visit site' }, false) }}
+
+  open in new tab
+  {{ include('THEME-NAME:link', { href: 'https://example.com', text: 'External resource', open_in_new_tab: true }, false) }}
+
+  open in new tab with custom supplemental text
+  {{ include('THEME-NAME:link', { href: 'https://example.com', text: 'Download PDF', open_in_new_tab: true, supplemental_text: 'Opens in new window' }, false) }}
+
+  assistive hidden (decorative / duplicate link)
+  {{ include('THEME-NAME:link', { href: 'https://example.com', assistive_hidden: true, content: 'Read more' }, false) }}
+
+  with slot content (markup)
+  {{ include('THEME-NAME:link', { href: '/node/1', content: '<strong>Bold link</strong>' }, false) }}
+
+  field URL from Drupal node
+  {{ include('THEME-NAME:link', { href: node.field_url.uri, text: node.field_url.title, translate_enabled: false }, false) }}
+#}
+{% set _text = translate_enabled is same as(false) ? (text ?? '') : (text ?? '')|t %}
+{% set _supplemental_text = supplemental_text ?? '' %}
+{% set _opens_in_new_tab = open_in_new_tab is same as(true) or (href starts with 'http' and open_in_new_tab is not same as(false)) ? true : false %}
+{% if _supplemental_text is empty and _opens_in_new_tab %}
+  {% set _supplemental_text = translate_enabled is same as(false) ? 'Opens in new window' : 'Opens in new window'|t %}
+{% elseif _supplemental_text is not empty %}
+  {% set _supplemental_text = translate_enabled is same as(false) ? _supplemental_text : _supplemental_text|t %}
+{% endif %}
+{%
+  set classes = [
+    'pu-link',
+    addClassName ?? '',
+  ]
+%}
+{% set _attributes = (attributes is defined ? attributes : create_attribute()).addClass(classes) %}
+{% if assistive_hidden is same as(true) %}
+  {% set _attributes = _attributes.setAttribute('aria-hidden', 'true').setAttribute('tabindex', '-1') %}
+{% endif %}
+{% if _opens_in_new_tab %}
+  {% set _attributes = _attributes.setAttribute('rel', 'noreferrer').setAttribute('target', '_blank') %}
+{% endif %}
+<a href="{{ href }}"{{ _attributes }}>
+  {%- if content is defined and content is not empty -%}
+    {{ content }}
+  {%- else -%}
+    {{ _text }}
+  {%- endif -%}
+  {%- if _supplemental_text -%}
+    <span class="pu-visually-hidden">{{ _supplemental_text }}</span>
+  {%- endif -%}
+</a>

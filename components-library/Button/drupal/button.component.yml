@@ -1,0 +1,60 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Button
+status: stable
+description: Polymorphic button with variants, sizes, and icon slots. Renders as button or anchor when href is provided.
+props:
+  type: object
+  properties:
+    label:
+      type: string
+      title: Label
+      description: Visible button text.
+    variant:
+      type: string
+      title: Variant
+      description: 'primary | secondary | ghost | outline | danger | link'
+      enum: [primary, secondary, ghost, outline, danger, link]
+      default: primary
+    size:
+      type: string
+      title: Size
+      description: 'sm | md | lg'
+      enum: [sm, md, lg]
+      default: md
+    href:
+      type: string
+      title: URL
+      description: Renders as anchor element when set.
+    open_in_new_tab:
+      type: boolean
+      title: Open in new tab
+      description: Adds target="_blank" rel="noreferrer". Only applies when href is set.
+      default: false
+    disabled:
+      type: boolean
+      title: Disabled
+      default: false
+    type:
+      type: string
+      title: Button type
+      description: 'button | submit | reset. Only applies when href is not set.'
+      enum: [button, submit, reset]
+      default: button
+    translate_enabled:
+      type: boolean
+      title: Enable translation
+      description: "Apply Drupal t() to label. Set false when label already comes translated."
+      default: true
+    add_class_name:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element.
+  required:
+    - label
+slots:
+  icon:
+    title: Icon left
+    description: Icon markup rendered before the label.
+  icon_right:
+    title: Icon right
+    description: Icon markup rendered after the label.

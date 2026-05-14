@@ -1,0 +1,44 @@
+.pu-link {
+  // --- Overridable tokens ---
+  --pu-link-color:                   #2563eb;
+  --pu-link-color-hover:             #1d4ed8;
+  --pu-link-color-visited:           #7c3aed;
+  --pu-link-color-active:            #1e40af;
+  --pu-link-text-decoration:         none;
+  --pu-link-text-decoration-hover:   underline;
+  --pu-link-transition:              color 150ms ease, text-decoration-color 150ms ease;
+
+  // --- Implementation ---
+  color: var(--pu-link-color);
+  text-decoration: var(--pu-link-text-decoration);
+  transition: var(--pu-link-transition);
+}
+
+.pu-link:hover,
+.pu-link:focus-visible {
+  color: var(--pu-link-color-hover);
+  text-decoration: var(--pu-link-text-decoration-hover);
+  text-decoration-color: currentColor;
+}
+
+.pu-link:visited {
+  color: var(--pu-link-color-visited);
+}
+
+.pu-link:active {
+  color: var(--pu-link-color-active);
+}
+
+.pu-link:focus-visible {
+  outline: 2px solid var(--pu-link-color-hover);
+  outline-offset: 2px;
+}
+
+.pu-visually-hidden {
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

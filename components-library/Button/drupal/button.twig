@@ -1,0 +1,66 @@
+{#
+  THEME-NAME:button — 1.0.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  Primary button (default)
+  {{ include('THEME-NAME:button', { label: 'Get started' }, false) }}
+
+  Secondary button
+  {{ include('THEME-NAME:button', { label: 'Learn more', variant: 'secondary' }, false) }}
+
+  Anchor link (opens in new tab)
+  {{ include('THEME-NAME:button', { label: 'View docs', href: 'https://example.com', open_in_new_tab: true }, false) }}
+
+  With left icon
+  {{ include('THEME-NAME:button', { label: 'Download', variant: 'outline', icon: '<svg ...></svg>' }, false) }}
+
+  Disabled
+  {{ include('THEME-NAME:button', { label: 'Unavailable', disabled: true }, false) }}
+#}
+
+{# Resolve text props #}
+{% set _label = translate_enabled is same as(false) ? label : label|t %}
+
+{# Build class list #}
+{%
+  set classes = [
+    'pu-button',
+    add_class_name ?? '',
+  ]
+%}
+
+{# Determine element type #}
+{% if href %}
+  <a
+    {{ attributes.addClass(classes) }}
+    href="{{ href }}"
+    data-variant="{{ variant ?? 'primary' }}"
+    data-size="{{ size ?? 'md' }}"
+    {% if open_in_new_tab %}target="_blank" rel="noreferrer"{% endif %}
+    {% if disabled %}aria-disabled="true" tabindex="-1"{% endif %}
+  >
+    {%- if slots.icon -%}
+      <span class="pu-button__icon pu-button__icon--left">{{ slots.icon }}</span>
+    {%- endif -%}
+    {{- _label -}}
+    {%- if slots.icon_right -%}
+      <span class="pu-button__icon pu-button__icon--right">{{ slots.icon_right }}</span>
+    {%- endif -%}
+  </a>
+{% else %}
+  <button
+    {{ attributes.addClass(classes) }}
+    type="{{ type ?? 'button' }}"
+    data-variant="{{ variant ?? 'primary' }}"
+    data-size="{{ size ?? 'md' }}"
+    {% if disabled %}disabled{% endif %}
+  >
+    {%- if slots.icon -%}
+      <span class="pu-button__icon pu-button__icon--left">{{ slots.icon }}</span>
+    {%- endif -%}
+    {{- _label -}}
+    {%- if slots.icon_right -%}
+      <span class="pu-button__icon pu-button__icon--right">{{ slots.icon_right }}</span>
+    {%- endif -%}
+  </button>
+{% endif %}

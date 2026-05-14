@@ -1,0 +1,44 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Link
+status: stable
+description: Accessible link with optional new tab behavior and supplemental screen reader text.
+props:
+  type: object
+  properties:
+    href:
+      type: string
+      title: URL
+      description: Link destination URL.
+    text:
+      type: string
+      title: Text
+      description: Visible link text. Alternative to the content slot.
+    addClassName:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element.
+    assistive_hidden:
+      type: boolean
+      title: Assistive hidden
+      description: Adds aria-hidden="true" and tabindex="-1" to hide from the accessibility tree.
+      default: false
+    open_in_new_tab:
+      type: boolean
+      title: Open in new tab
+      description: Adds target="_blank" and rel="noreferrer". Auto-adds supplemental screen reader text if supplemental_text is empty.
+      default: false
+    supplemental_text:
+      type: string
+      title: Supplemental text
+      description: Visually hidden text appended inside the link for screen readers.
+    translate_enabled:
+      type: boolean
+      title: Enable translation
+      description: "Apply Drupal t() to the text and supplemental_text props. Set false when text already comes translated from the CMS."
+      default: true
+  required:
+    - href
+slots:
+  content:
+    title: Content
+    description: Link content (text or markup). Takes priority over the text prop.

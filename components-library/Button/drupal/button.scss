@@ -1,0 +1,149 @@
+.pu-button {
+  // --- Overridable tokens ---
+  --pu-button-radius:       0.375rem;
+  --pu-button-font-size:    0.875rem;
+  --pu-button-font-weight:  600;
+  --pu-button-transition:   background 150ms ease, color 150ms ease, border-color 150ms ease;
+  --pu-button-height-sm:    2rem;
+  --pu-button-height-md:    2.75rem;
+  --pu-button-height-lg:    3.25rem;
+  --pu-button-padding-sm:   0 0.75rem;
+  --pu-button-padding-md:   0 1.25rem;
+  --pu-button-padding-lg:   0 1.75rem;
+  --pu-button-gap:          0.5rem;
+  --pu-button-bg:           #ea580c;
+  --pu-button-bg-hover:     #c2410c;
+  --pu-button-color:        #ffffff;
+  --pu-button-color-hover:  #ffffff;
+  --pu-button-border:       transparent;
+  --pu-button-border-hover: transparent;
+
+  // --- Implementation ---
+  align-items: center;
+  background: var(--pu-button-bg);
+  border: 2px solid var(--pu-button-border);
+  border-radius: var(--pu-button-radius);
+  color: var(--pu-button-color);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--pu-button-font-size);
+  font-weight: var(--pu-button-font-weight);
+  gap: var(--pu-button-gap);
+  height: var(--pu-button-height-md);
+  justify-content: center;
+  overflow: hidden;
+  padding: var(--pu-button-padding-md);
+  position: relative;
+  text-decoration: none;
+  transition: var(--pu-button-transition);
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.pu-button:hover {
+  background: var(--pu-button-bg-hover);
+  border-color: var(--pu-button-border-hover);
+  color: var(--pu-button-color-hover);
+}
+
+.pu-button:focus-visible {
+  outline: 2px solid var(--pu-button-bg);
+  outline-offset: 2px;
+}
+
+.pu-button:disabled,
+.pu-button[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+// --- Sizes ---
+
+.pu-button[data-size="sm"] {
+  font-size: 0.8125rem;
+  height: var(--pu-button-height-sm);
+  padding: var(--pu-button-padding-sm);
+}
+
+.pu-button[data-size="lg"] {
+  font-size: 1rem;
+  height: var(--pu-button-height-lg);
+  padding: var(--pu-button-padding-lg);
+}
+
+// --- Variants ---
+
+.pu-button[data-variant="primary"] {
+  --pu-button-bg:           #ea580c;
+  --pu-button-bg-hover:     #c2410c;
+  --pu-button-color:        #ffffff;
+  --pu-button-color-hover:  #ffffff;
+  --pu-button-border:       transparent;
+  --pu-button-border-hover: transparent;
+}
+
+.pu-button[data-variant="secondary"] {
+  --pu-button-bg:           #f3f4f6;
+  --pu-button-bg-hover:     #e5e7eb;
+  --pu-button-color:        #111827;
+  --pu-button-color-hover:  #111827;
+  --pu-button-border:       transparent;
+  --pu-button-border-hover: transparent;
+}
+
+.pu-button[data-variant="ghost"] {
+  --pu-button-bg:           transparent;
+  --pu-button-bg-hover:     #f3f4f6;
+  --pu-button-color:        #374151;
+  --pu-button-color-hover:  #111827;
+  --pu-button-border:       transparent;
+  --pu-button-border-hover: transparent;
+}
+
+.pu-button[data-variant="outline"] {
+  --pu-button-bg:           transparent;
+  --pu-button-bg-hover:     #ea580c;
+  --pu-button-color:        #ea580c;
+  --pu-button-color-hover:  #ffffff;
+  --pu-button-border:       #ea580c;
+  --pu-button-border-hover: #ea580c;
+}
+
+.pu-button[data-variant="danger"] {
+  --pu-button-bg:           #dc2626;
+  --pu-button-bg-hover:     #b91c1c;
+  --pu-button-color:        #ffffff;
+  --pu-button-color-hover:  #ffffff;
+  --pu-button-border:       transparent;
+  --pu-button-border-hover: transparent;
+}
+
+.pu-button[data-variant="link"] {
+  --pu-button-bg:           transparent;
+  --pu-button-bg-hover:     transparent;
+  --pu-button-color:        #ea580c;
+  --pu-button-color-hover:  #c2410c;
+  --pu-button-border:       transparent;
+  --pu-button-border-hover: transparent;
+
+  height: auto;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+// --- Icon slots ---
+
+.pu-button__icon {
+  align-items: center;
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+.pu-button__icon svg {
+  height: 1em;
+  width: 1em;
+}

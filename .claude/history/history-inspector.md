@@ -1,9 +1,9 @@
 # Inspector
 
-## 2026-05-13 15:30 - inspector
+## 2026-05-13 16:30 - inspector
 
-- Tarea: audit pre/post para mejora de jerarquía de información en DocsPage.
-- Archivos: ui/app/DocsPage.tsx, ui/app/DocsPage.scss, ui/components/segment/AppSidebar/AppSidebar.tsx.
-- Resultado: pre-audit sin duplicados; post-audit encontró 2 must-fix (side-stripe border en refsList + focus-visible faltante en links externos) y 1 polish (reduced-motion en nextLink). Los 3 fueron corregidos.
-- Verificación: screenshots desktop y mobile confirman layout correcto, 3 subitems en sidebar, sin overflow.
-- Notas: ninguna.
+- Tarea: Pre/post audit para rediseño del demo de Button en ComponentDetailPage.
+- Archivos: `ui/app/ComponentDetailPage.tsx`, `ui/app/ComponentDetailPage.scss`.
+- Resultado: Pre-work sin duplicados ni componentes nuevos requeridos. Post-work: TypeScript limpio, 5 grupos visuales correctos (variantes, ghost-on-dark, tamaños, estados, iconos), todas las variantes visibles en light y dark. Sin overflow.
+- Verificación: `bunx tsc --noEmit` limpio + screenshots light/dark leídos visualmente.
+- Notas: `#35190f` hardcodeado en banda oscura del ghost — decisión justificada (token brown colapsa en dark mode). Registrado como intencional, no como must-fix.

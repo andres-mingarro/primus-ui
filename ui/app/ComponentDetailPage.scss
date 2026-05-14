@@ -203,6 +203,21 @@
   font-weight: 700;
 }
 
+.ComponentDetailPage__text-demo {
+  color: var(--app-color-ink);
+  display: grid;
+  gap: var(--app-space-6);
+}
+
+.ComponentDetailPage__text-demo-group {
+  display: grid;
+  gap: var(--app-space-3);
+}
+
+.ComponentDetailPage__text-demo .pu-text {
+  overflow-wrap: anywhere;
+}
+
 .ComponentDetailPage__demo .pu-divider {
   --pu-divider-color: var(--app-color-line);
   --pu-divider-thickness: 2px;
@@ -278,6 +293,86 @@
   color: var(--app-color-brown);
 }
 
+.ComponentDetailPage__button-demo {
+  display: grid;
+  gap: 0;
+}
+
+.ComponentDetailPage__button-group {
+  border-bottom: 1px solid var(--app-color-line-soft);
+  padding: var(--app-space-4);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.ComponentDetailPage__button-group--dark {
+  background: #35190f;
+  border-bottom-color: #5a2e1a;
+
+  // Override ghost token so it reads on the dark band in both light and dark mode
+  .pu-button[data-variant="ghost"] {
+    --pu-button-color: #ead8c3;
+    --pu-button-color-hover: #ffffff;
+    --pu-button-bg-hover: rgba(234, 216, 195, 0.12);
+  }
+}
+
+.ComponentDetailPage__button-group-label {
+  color: var(--app-color-ink-soft);
+  display: block;
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--app-space-4);
+  text-transform: uppercase;
+}
+
+.ComponentDetailPage__button-group-label--light {
+  color: var(--app-color-line-soft);
+}
+
+.ComponentDetailPage__button-variant-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--app-space-5) var(--app-space-6);
+}
+
+.ComponentDetailPage__button-ghost-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--app-space-5) var(--app-space-6);
+}
+
+.ComponentDetailPage__button-sizes-row {
+  align-items: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--app-space-5) var(--app-space-6);
+}
+
+.ComponentDetailPage__button-cell {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-space-2);
+}
+
+.ComponentDetailPage__button-cell-label {
+  color: var(--app-color-muted);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.ComponentDetailPage__button-cell-label--light {
+  color: var(--app-color-line-soft);
+}
+
 @include media.large {
   .ComponentDetailPage {
     gap: var(--app-space-7);
@@ -285,6 +380,10 @@
 
   .ComponentDetailPage__hero {
     padding: var(--app-space-7);
+  }
+
+  .ComponentDetailPage__button-group {
+    padding: var(--app-space-5) var(--app-space-6);
   }
 }
 

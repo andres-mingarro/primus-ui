@@ -1,7 +1,7 @@
-## 2026-05-13 15:30 - ui-designer
+## 2026-05-13 16:00 - ui-designer
 
-- Tarea: mejorar jerarquía de información de DocsPage (sidebar subitems + sección Usage + sección What's next).
-- Archivos: ui/app/DocsPage.tsx, ui/app/DocsPage.scss, ui/components/segment/AppSidebar/AppSidebar.tsx, messages/en.json, messages/es.json.
-- Resultado: sidebar con 3 subitems (Installation, Usage, Theming/Tokens); nueva sección Usage con grid 2col de addClassName y CSS vars; nueva sección What's next con PathCards; 12 claves nuevas en mensajes.
-- Verificación: screenshots desktop y mobile sin regresiones.
-- Notas: PathCard no acepta href — envuelto en `<a class="DocsPage__nextLink">`.
+- Tarea: Rediseñar el demo del componente Button en la página de documentación.
+- Archivos: `ui/app/ComponentDetailPage.tsx`, `ui/app/ComponentDetailPage.scss`
+- Resultado: El bloque `if (slug === 'button')` fue reemplazado por un layout de cinco grupos visuales claramente separados: Variantes (5 variantes en flex-wrap), Ghost on Dark (banda fija #35190f con override de tokens pu-button para legibilidad), Sizes (sm/md/lg alineados por baseline), States (enabled/disabled/danger disabled) e Icons (icon izquierda, icon derecha, icon+outline). Se eliminó `buttonDemoItems` y se introdujo `buttonVariantItems`. Las clases .ComponentDetailPage__button-demo* fueron reemplazadas por el nuevo sistema de grupos con SCSS correcto.
+- Verificación: Screenshots capturados en light y dark mode. Todas las variantes son visibles, el ghost tiene contraste en ambos modos, sin overflow horizontal.
+- Notas: El ghost variant en la librería tiene colores hardcodeados (#1c1917, #f5f5f4) invisibles sobre fondos oscuros. Se resolvió con override de CSS variables desde el contexto de la banda oscura del demo (.ComponentDetailPage__button-group--dark), sin tocar components-library.

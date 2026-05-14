@@ -94,6 +94,8 @@
     "text": "Un elemento de texto polimórfico que renderiza una etiqueta HTML configurable con tokens tipográficos sobreescribibles.",
     "heading": "Un heading polimórfico (h1-h6) con variantes de peso y renderizado HTML opcional.",
     "section-container": "Un wrapper de sección con max-width y padding horizontal configurables. Es seguro anidarlo porque el margen interno colapsa automáticamente.",
-    "card": "Card de contenido con variantes visuales, direcciones de layout, imagen y botones de acción."
+    "card": "Card de contenido con variantes visuales, direcciones de layout, imagen y botones de acción.",
+    "link": "Enlace accesible con opción de nueva pestaña y texto suplementario para lectores de pantalla.",
+    "button": "Botón polimórfico con variantes, tamaños, slots de ícono y efecto ripple. Renderiza como button o anchor."
   }
 }

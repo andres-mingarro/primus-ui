@@ -1,9 +1,11 @@
 import { useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
+import { Button } from '@/components-library/Button/Button'
 import { Card, type CardProps } from '@/components-library/Card/Card'
 import { Divider } from '@/components-library/Divider/Divider'
 import { GridTemplate } from '@/components-library/GridTemplate/GridTemplate'
 import { Heading } from '@/components-library/Heading/Heading'
+import { Link } from '@/components-library/Link/Link'
 import { SectionContainer } from '@/components-library/SectionContainer/SectionContainer'
 import { Text } from '@/components-library/Text/Text'
 import type { ComponentDoc } from '@/lib/component-docs'
@@ -153,9 +155,40 @@ function renderDemo(slug: string) {
 
   if (slug === 'text') {
     return (
-      <div className="ComponentDetailPage__demo-stack">
-        <Text tag="label" size="sm" weight="medium" text="Email address" />
-        <Text tag="p" size="lg" weight="regular" text="Helper text below the field." />
+      <div className="ComponentDetailPage__text-demo">
+        <div className="ComponentDetailPage__text-demo-group">
+          <span className="ComponentDetailPage__heading-demo-label">size</span>
+          <div className="ComponentDetailPage__heading-demo">
+            {textSizeDemoItems.map(({ size }) => (
+              <div className="ComponentDetailPage__heading-demo-item" key={size}>
+                <span className="ComponentDetailPage__heading-demo-label">{size}</span>
+                <Text size={size} text="The quick brown fox" />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="ComponentDetailPage__text-demo-group">
+          <span className="ComponentDetailPage__heading-demo-label">weight</span>
+          <div className="ComponentDetailPage__heading-demo">
+            {textWeightDemoItems.map(({ weight }) => (
+              <div className="ComponentDetailPage__heading-demo-item" key={weight}>
+                <span className="ComponentDetailPage__heading-demo-label">{weight}</span>
+                <Text size="md" weight={weight} text="The quick brown fox" />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="ComponentDetailPage__text-demo-group">
+          <span className="ComponentDetailPage__heading-demo-label">tag</span>
+          <div className="ComponentDetailPage__heading-demo">
+            {textTagDemoItems.map(({ tag, label, text }) => (
+              <div className="ComponentDetailPage__heading-demo-item" key={tag}>
+                <span className="ComponentDetailPage__heading-demo-label">{label}</span>
+                <Text tag={tag} text={text} />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     )
   }
@@ -208,6 +241,133 @@ function renderDemo(slug: string) {
             </div>
           </div>
         ))}
+      </div>
+    )
+  }
+
+  if (slug === 'link') {
+    return (
+      <div className="ComponentDetailPage__demo-stack">
+        <Link href="#" text="Default link" />
+        <Link href="https://example.com" openInNewTab text="Opens in new tab (auto supplemental text)" />
+        <Link href="https://example.com" openInNewTab supplementalText="Abre la documentación oficial">Official docs</Link>
+        <Link href="#">Children content — <em>with markup</em></Link>
+      </div>
+    )
+  }
+
+  if (slug === 'button') {
+    return (
+      <div className="ComponentDetailPage__button-demo">
+        <div className="ComponentDetailPage__button-group">
+          <span className="ComponentDetailPage__button-group-label">variants</span>
+          <div className="ComponentDetailPage__button-variant-grid">
+            {buttonVariantItems.map(({ variant, label }) => (
+              <div className="ComponentDetailPage__button-cell" key={variant}>
+                <Button variant={variant}>{label}</Button>
+                <span className="ComponentDetailPage__button-cell-label">{variant}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="ComponentDetailPage__button-group ComponentDetailPage__button-group--dark">
+          <span className="ComponentDetailPage__button-group-label ComponentDetailPage__button-group-label--light">ghost on dark</span>
+          <div className="ComponentDetailPage__button-ghost-row">
+            <div className="ComponentDetailPage__button-cell">
+              <Button variant="ghost">Ghost</Button>
+              <span className="ComponentDetailPage__button-cell-label ComponentDetailPage__button-cell-label--light">ghost</span>
+            </div>
+            <div className="ComponentDetailPage__button-cell">
+              <Button variant="ghost" disabled>Ghost</Button>
+              <span className="ComponentDetailPage__button-cell-label ComponentDetailPage__button-cell-label--light">ghost disabled</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="ComponentDetailPage__button-group">
+          <span className="ComponentDetailPage__button-group-label">sizes</span>
+          <div className="ComponentDetailPage__button-sizes-row">
+            <div className="ComponentDetailPage__button-cell">
+              <Button size="sm">Small</Button>
+              <span className="ComponentDetailPage__button-cell-label">sm</span>
+            </div>
+            <div className="ComponentDetailPage__button-cell">
+              <Button size="md">Medium</Button>
+              <span className="ComponentDetailPage__button-cell-label">md</span>
+            </div>
+            <div className="ComponentDetailPage__button-cell">
+              <Button size="lg">Large</Button>
+              <span className="ComponentDetailPage__button-cell-label">lg</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="ComponentDetailPage__button-group">
+          <span className="ComponentDetailPage__button-group-label">states</span>
+          <div className="ComponentDetailPage__button-sizes-row">
+            <div className="ComponentDetailPage__button-cell">
+              <Button variant="primary">Enabled</Button>
+              <span className="ComponentDetailPage__button-cell-label">enabled</span>
+            </div>
+            <div className="ComponentDetailPage__button-cell">
+              <Button variant="primary" disabled>Disabled</Button>
+              <span className="ComponentDetailPage__button-cell-label">disabled</span>
+            </div>
+            <div className="ComponentDetailPage__button-cell">
+              <Button variant="danger" disabled>Danger</Button>
+              <span className="ComponentDetailPage__button-cell-label">danger disabled</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="ComponentDetailPage__button-group">
+          <span className="ComponentDetailPage__button-group-label">with icons</span>
+          <div className="ComponentDetailPage__button-sizes-row">
+            <div className="ComponentDetailPage__button-cell">
+              <Button
+                variant="primary"
+                icon={
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M10 8H3m0 0 3-3M3 8l3 3" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M13 3v10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+                  </svg>
+                }
+              >
+                Back
+              </Button>
+              <span className="ComponentDetailPage__button-cell-label">icon left</span>
+            </div>
+            <div className="ComponentDetailPage__button-cell">
+              <Button
+                variant="secondary"
+                iconRight={
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M6 8h7m0 0-3-3m3 3-3 3" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M3 3v10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+                  </svg>
+                }
+              >
+                Next
+              </Button>
+              <span className="ComponentDetailPage__button-cell-label">icon right</span>
+            </div>
+            <div className="ComponentDetailPage__button-cell">
+              <Button
+                variant="outline"
+                icon={
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.75" />
+                    <path d="M8 5.5V8l2 2" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                }
+              >
+                Schedule
+              </Button>
+              <span className="ComponentDetailPage__button-cell-label">icon + outline</span>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -515,6 +675,11 @@ import './section-container.scss'
   content: '<p>No gap content</p>'
 }, false) }}`,
   },
+  link: {
+    reactCss: `import { Link } from './Link'\nimport './link.scss'\n\n<Link href="/about" text="About us" />\n<Link href="https://example.com" openInNewTab text="External link" />\n<Link href="/contact">Contact <span>us</span></Link>`,
+    reactTailwind: `import { Link } from './Link.tailwind'\n\n<Link href="/about" text="About us" />\n<Link href="https://example.com" openInNewTab text="External link" />`,
+    drupal: `{{ include('THEME-NAME:link', {\n  href: '/about',\n  text: 'About us'\n}, false) }}\n\n{{ include('THEME-NAME:link', {\n  href: 'https://example.com',\n  open_in_new_tab: true,\n  text: 'External link'\n}, false) }}`,
+  },
   card: {
     reactCss: `import { Card } from './Card'
 import './card.scss'
@@ -598,6 +763,16 @@ const drupalPropRowsBySlug: Record<string, string[][]> = {
     ['tag', 'string', 'section', 'HTML element to render'],
     ['addClassName', 'string', 'undefined', 'Extra classes appended to the root element'],
   ],
+  link: [
+    ['content', 'slot', 'undefined', 'Link content (text or markup)'],
+    ['href', 'string', 'required', 'Link URL'],
+    ['text', 'string', 'undefined', 'Visible link text (alternative to content slot)'],
+    ['open_in_new_tab', 'boolean', 'false', 'Adds target="_blank" and rel="noreferrer"'],
+    ['assistive_hidden', 'boolean', 'false', 'Adds aria-hidden and tabindex=-1'],
+    ['supplemental_text', 'string', 'undefined', 'Visually hidden text appended inside the link'],
+    ['translate_enabled', 'boolean', 'true', 'Wrap text prop with Drupal t()'],
+    ['class_name', 'string', 'undefined', 'Extra classes appended to the root element'],
+  ],
   card: [
     ['body', 'slot', 'undefined', 'Main card content'],
     ['title', 'string', 'required', 'Card heading text'],
@@ -641,6 +816,12 @@ const tailwindTokenRowsBySlug: Record<string, string[][]> = {
     ['px-4 / px-0', 'px-4', 'Tailwind padding utilities selected by gap'],
     ['max-[768px]:px-6 / max-[768px]:px-0', 'px-4', 'Responsive utilities selected by mobileGap'],
   ],
+  link: [
+    ['text-blue-600 hover:text-blue-700', 'color', 'Tailwind color utilities for default and hover state'],
+    ['visited:text-purple-600', 'visited', 'Tailwind visited state utility'],
+    ['underline / no-underline', 'text-decoration', 'Tailwind utilities for decoration state'],
+    ['focus-visible:outline-2', 'focus', 'Tailwind focus-visible outline utility'],
+  ],
   card: [
     ['bg-* text-* border-*', 'light style', 'Tailwind surface utilities selected by style'],
     ['flex-row / flex-col', 'flex-col', 'Tailwind layout utilities selected by direction'],
@@ -648,6 +829,35 @@ const tailwindTokenRowsBySlug: Record<string, string[][]> = {
     ['p-5 gap-3', 'p-5 gap-3', 'Tailwind spacing utilities for content layout'],
   ],
 }
+
+const buttonVariantItems = [
+  { variant: 'primary',   label: 'Primary' },
+  { variant: 'secondary', label: 'Secondary' },
+  { variant: 'outline',   label: 'Outline' },
+  { variant: 'danger',    label: 'Danger' },
+  { variant: 'link',      label: 'Link' },
+] as const satisfies readonly { variant: 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'link'; label: string }[]
+
+const textSizeDemoItems = [
+  { size: 'sm' },
+  { size: 'md' },
+  { size: 'lg' },
+  { size: 'xl' },
+] as const
+
+const textWeightDemoItems = [
+  { weight: 'light' },
+  { weight: 'regular' },
+  { weight: 'medium' },
+  { weight: 'bold' },
+] as const
+
+const textTagDemoItems = [
+  { tag: 'label', label: 'label', text: 'Form field label' },
+  { tag: 'span',  label: 'span',  text: 'Inline text element' },
+  { tag: 'p',     label: 'p',     text: 'A short paragraph of descriptive body text.' },
+  { tag: 'div',   label: 'div',   text: 'A div wrapper for grouped content.' },
+] as const
 
 const articleDemoItems = [
   '<article>Item 1</article>',

@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 import type { ReactNode } from 'react'
+import { Badge } from '@/components-library/Badge/Badge'
 import { Button } from '@/components-library/Button/Button'
 import { Card, type CardProps } from '@/components-library/Card/Card'
 import { Divider } from '@/components-library/Divider/Divider'
@@ -314,10 +315,7 @@ function renderDemo(slug: string) {
               <Button variant="primary" disabled>Disabled</Button>
               <span className="ComponentDetailPage__button-cell-label">disabled</span>
             </div>
-            <div className="ComponentDetailPage__button-cell">
-              <Button variant="danger" disabled>Danger</Button>
-              <span className="ComponentDetailPage__button-cell-label">danger disabled</span>
-            </div>
+
           </div>
         </div>
 
@@ -368,6 +366,28 @@ function renderDemo(slug: string) {
             </div>
           </div>
         </div>
+      </div>
+    )
+  }
+
+  if (slug === 'badge') {
+    return (
+      <div className="ComponentDetailPage__badge-matrix">
+        {badgeMatrixRows.map(({ appearance }) => (
+          <div className="ComponentDetailPage__badge-row" key={appearance}>
+            <span className="ComponentDetailPage__badge-row-label">{appearance}</span>
+            <div className="ComponentDetailPage__badge-cells">
+              {badgeMatrixCols.map(({ status }) => (
+                <Badge
+                  key={status}
+                  appearance={appearance}
+                  label={status}
+                  status={status}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     )
   }
@@ -722,6 +742,52 @@ import './card.scss'
 {{ include('THEME-NAME:card', { title: 'Horizontal card', direction: 'horizontal', image_src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', image_alt: 'Orange placeholder', body: 'Body text.' }, false) }}
 {{ include('THEME-NAME:card', { title: 'Horizontal reverse card', direction: 'horizontal-reverse', image_src: 'https://www.dummycontent.app/api/image/600x400/ff5b2e/2a130c/IMAGE', image_alt: 'Orange placeholder', body: 'Body text.' }, false) }}`,
   },
+  badge: {
+    reactCss: `import { Badge } from './Badge'
+import './badge.scss'
+
+{/* filled */}
+<Badge label="Informative" status="informative" appearance="filled" />
+<Badge label="Success" status="success" appearance="filled" />
+<Badge label="Warning" status="warning" appearance="filled" />
+<Badge label="Danger" status="danger" appearance="filled" />
+
+{/* tint */}
+<Badge label="Informative" status="informative" appearance="tint" />
+<Badge label="Success" status="success" appearance="tint" />
+<Badge label="Warning" status="warning" appearance="tint" />
+<Badge label="Danger" status="danger" appearance="tint" />
+
+{/* outline */}
+<Badge label="Informative" status="informative" appearance="outline" />
+<Badge label="Success" status="success" appearance="outline" />
+
+{/* ghost */}
+<Badge label="Informative" status="informative" appearance="ghost" />
+<Badge label="Success" status="success" appearance="ghost" />`,
+    reactTailwind: `import { Badge } from './Badge.tailwind'
+
+<Badge label="Informative" status="informative" appearance="filled" />
+<Badge label="Success" status="success" appearance="filled" />
+<Badge label="Warning" status="warning" appearance="tint" />
+<Badge label="Danger" status="danger" appearance="outline" />
+<Badge label="Brand" status="brand" appearance="ghost" />`,
+    drupal: `{# filled #}
+{{ include('THEME-NAME:badge', { label: 'Informative', status: 'informative', appearance: 'filled' }, false) }}
+{{ include('THEME-NAME:badge', { label: 'Success', status: 'success', appearance: 'filled' }, false) }}
+{{ include('THEME-NAME:badge', { label: 'Warning', status: 'warning', appearance: 'filled' }, false) }}
+{{ include('THEME-NAME:badge', { label: 'Danger', status: 'danger', appearance: 'filled' }, false) }}
+
+{# tint #}
+{{ include('THEME-NAME:badge', { label: 'Informative', status: 'informative', appearance: 'tint' }, false) }}
+{{ include('THEME-NAME:badge', { label: 'Success', status: 'success', appearance: 'tint' }, false) }}
+
+{# outline #}
+{{ include('THEME-NAME:badge', { label: 'Warning', status: 'warning', appearance: 'outline' }, false) }}
+
+{# ghost #}
+{{ include('THEME-NAME:badge', { label: 'Danger', status: 'danger', appearance: 'ghost' }, false) }}`,
+  },
 }
 
 const drupalPropRowsBySlug: Record<string, string[][]> = {
@@ -830,13 +896,27 @@ const tailwindTokenRowsBySlug: Record<string, string[][]> = {
   ],
 }
 
+const badgeMatrixRows = [
+  { appearance: 'filled' },
+  { appearance: 'tint' },
+  { appearance: 'outline' },
+  { appearance: 'ghost' },
+] as const satisfies readonly { appearance: 'filled' | 'tint' | 'outline' | 'ghost' }[]
+
+const badgeMatrixCols = [
+  { status: 'informative' },
+  { status: 'success' },
+  { status: 'warning' },
+  { status: 'danger' },
+  { status: 'brand' },
+] as const satisfies readonly { status: 'brand' | 'danger' | 'important' | 'informative' | 'severe' | 'success' | 'warning' }[]
+
 const buttonVariantItems = [
   { variant: 'primary',   label: 'Primary' },
   { variant: 'secondary', label: 'Secondary' },
   { variant: 'outline',   label: 'Outline' },
-  { variant: 'danger',    label: 'Danger' },
   { variant: 'link',      label: 'Link' },
-] as const satisfies readonly { variant: 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'link'; label: string }[]
+] as const satisfies readonly { variant: 'primary' | 'secondary' | 'ghost' | 'outline' | 'link'; label: string }[]
 
 const textSizeDemoItems = [
   { size: 'sm' },

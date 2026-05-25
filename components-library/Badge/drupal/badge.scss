@@ -1,0 +1,115 @@
+.pu-badge {
+  // --- Overridable tokens — status base and tint colors ---
+  --pu-badge-brand-base:       #2563eb;
+  --pu-badge-brand-tint:       #eff6ff;
+  --pu-badge-danger-base:      #dc2626;
+  --pu-badge-danger-tint:      #fef2f2;
+  --pu-badge-important-base:   #7c3aed;
+  --pu-badge-important-tint:   #f5f3ff;
+  --pu-badge-informative-base: #0891b2;
+  --pu-badge-informative-tint: #ecfeff;
+  --pu-badge-severe-base:      #ea580c;
+  --pu-badge-severe-tint:      #fff7ed;
+  --pu-badge-success-base:     #16a34a;
+  --pu-badge-success-tint:     #f0fdf4;
+  --pu-badge-warning-base:     #ca8a04;
+  --pu-badge-warning-tint:     #fefce8;
+
+  // --- Overridable tokens — structure ---
+  --pu-badge-font-size:    0.75rem;
+  --pu-badge-font-weight:  500;
+  --pu-badge-line-height:  1rem;
+  --pu-badge-padding:      0.25rem 0.625rem;
+  --pu-badge-radius:       9999px;
+  --pu-badge-gap:          0.25rem;
+  --pu-badge-border-width: 1px;
+
+  // --- Implementation ---
+  align-items: center;
+  border-radius: var(--pu-badge-radius);
+  border-style: solid;
+  border-width: var(--pu-badge-border-width);
+  display: inline-flex;
+  font-size: var(--pu-badge-font-size);
+  font-weight: var(--pu-badge-font-weight);
+  gap: var(--pu-badge-gap);
+  line-height: var(--pu-badge-line-height);
+  padding: var(--pu-badge-padding);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+// --- Status × Appearance ---
+// Each status block sets --_base and --_tint, then the appearance modifiers consume them.
+
+@mixin badge-status($base, $tint) {
+  // filled
+  &.pu-badge--filled {
+    background-color: #{$base};
+    border-color: #{$base};
+    color: #ffffff;
+  }
+
+  // ghost
+  &.pu-badge--ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: #{$base};
+  }
+
+  // outline
+  &.pu-badge--outline {
+    background-color: transparent;
+    border-color: #{$base};
+    color: #{$base};
+  }
+
+  // tint
+  &.pu-badge--tint {
+    background-color: #{$tint};
+    border-color: transparent;
+    color: #{$base};
+  }
+}
+
+.pu-badge--brand {
+  @include badge-status(var(--pu-badge-brand-base), var(--pu-badge-brand-tint));
+}
+
+.pu-badge--danger {
+  @include badge-status(var(--pu-badge-danger-base), var(--pu-badge-danger-tint));
+}
+
+.pu-badge--important {
+  @include badge-status(var(--pu-badge-important-base), var(--pu-badge-important-tint));
+}
+
+.pu-badge--informative {
+  @include badge-status(var(--pu-badge-informative-base), var(--pu-badge-informative-tint));
+}
+
+.pu-badge--severe {
+  @include badge-status(var(--pu-badge-severe-base), var(--pu-badge-severe-tint));
+}
+
+.pu-badge--success {
+  @include badge-status(var(--pu-badge-success-base), var(--pu-badge-success-tint));
+}
+
+.pu-badge--warning {
+  @include badge-status(var(--pu-badge-warning-base), var(--pu-badge-warning-tint));
+}
+
+// --- Icon slots ---
+
+.pu-badge__icon {
+  align-items: center;
+  display: inline-flex;
+  flex-shrink: 0;
+  justify-content: center;
+}
+
+.pu-badge__icon svg {
+  height: 1em;
+  width: 1em;
+}

@@ -1,0 +1,45 @@
+{#
+  THEME-NAME:badge — 1.0.0
+  Replace THEME-NAME with your Drupal theme or module machine name.
+
+  informative filled (default)
+  {{ include('THEME-NAME:badge', { label: 'New' }, false) }}
+
+  success tint
+  {{ include('THEME-NAME:badge', { label: 'Active', status: 'success', appearance: 'tint' }, false) }}
+
+  danger outline
+  {{ include('THEME-NAME:badge', { label: 'Overdue', status: 'danger', appearance: 'outline' }, false) }}
+
+  with left icon
+  {{ include('THEME-NAME:badge', { label: 'Live', status: 'success', iconLeft: '<svg ...></svg>' }, false) }}
+
+  with left and right icons
+  {{ include('THEME-NAME:badge', { label: 'Warning', status: 'warning', appearance: 'tint', iconLeft: '<svg ...></svg>', iconRight: '<svg ...></svg>' }, false) }}
+
+  caller-translated label
+  {{ include('THEME-NAME:badge', { label: 'Estado'|t, translate_enabled: false, status: 'brand' }, false) }}
+#}
+
+{# Resolve text props #}
+{% set _label = translate_enabled is same as(false) ? label : label|t %}
+
+{# Build class list #}
+{%
+  set classes = [
+    'pu-badge',
+    'pu-badge--' ~ (status ?? 'informative'),
+    'pu-badge--' ~ (appearance ?? 'filled'),
+    addClassName ?? '',
+  ]
+%}
+
+<span {{ attributes.addClass(classes) }}>
+  {%- if iconLeft -%}
+    <span class="pu-badge__icon pu-badge__icon--left">{{ iconLeft|raw }}</span>
+  {%- endif -%}
+  {{- _label -}}
+  {%- if iconRight -%}
+    <span class="pu-badge__icon pu-badge__icon--right">{{ iconRight|raw }}</span>
+  {%- endif -%}
+</span>

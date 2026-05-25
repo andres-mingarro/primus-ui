@@ -1,0 +1,42 @@
+$schema: 'https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json'
+name: Badge
+status: experimental
+description: Status badge with color variants and optional icons.
+props:
+  type: object
+  properties:
+    label:
+      type: string
+      title: Label
+      description: Visible text label.
+    status:
+      type: string
+      title: Status
+      description: 'brand | danger | important | informative | severe | success | warning'
+      enum: [brand, danger, important, informative, severe, success, warning]
+      default: informative
+    appearance:
+      type: string
+      title: Appearance
+      description: 'filled | ghost | outline | tint'
+      enum: [filled, ghost, outline, tint]
+      default: filled
+    iconLeft:
+      type: string
+      title: Icon left
+      description: Raw HTML string for the icon rendered before the label.
+    iconRight:
+      type: string
+      title: Icon right
+      description: Raw HTML string for the icon rendered after the label.
+    translate_enabled:
+      type: boolean
+      title: Enable translation
+      description: "Apply Drupal t() to label. Set false when label already comes translated."
+      default: true
+    addClassName:
+      type: string
+      title: Additional classes
+      description: Extra CSS classes appended to the root element.
+  required:
+    - label

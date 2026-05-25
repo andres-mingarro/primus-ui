@@ -293,6 +293,38 @@
   color: var(--app-color-brown);
 }
 
+.ComponentDetailPage__badge-matrix {
+  display: grid;
+  gap: 0;
+}
+
+.ComponentDetailPage__badge-row {
+  border-bottom: 1px solid var(--app-color-line-soft);
+  display: grid;
+  gap: var(--app-space-3);
+  padding: var(--app-space-4);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.ComponentDetailPage__badge-row-label {
+  color: var(--app-color-ink-soft);
+  font-family: var(--app-font-mono);
+  font-size: var(--app-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ComponentDetailPage__badge-cells {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--app-space-3);
+}
+
 .ComponentDetailPage__button-demo {
   display: grid;
   gap: 0;

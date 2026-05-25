@@ -96,6 +96,7 @@
     "section-container": "A section wrapper with configurable max-width and horizontal padding. Safe to nest because inner margin collapses automatically.",
     "card": "Content card with style variants, layout directions, image, and action buttons.",
     "link": "Accessible link with optional new tab behavior and supplemental screen reader text.",
-    "button": "Polymorphic button with variant, size, icon slots, and ripple interaction. Renders as button or anchor."
+    "button": "Polymorphic button with variant, size, icon slots, and ripple interaction. Renders as button or anchor.",
+    "badge": "Status badge with seven color variants and four appearance modes. Supports optional icon slots on either side."
   }
 }

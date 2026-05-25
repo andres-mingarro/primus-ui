@@ -1,3 +1,4 @@
+import { ComponentMeta as BadgeMeta } from '@/components-library/Badge/meta'
 import { ComponentMeta as ButtonMeta } from '@/components-library/Button/meta'
 import { ComponentMeta as CardMeta } from '@/components-library/Card/meta'
 import { ComponentMeta as DividerMeta } from '@/components-library/Divider/meta'
@@ -39,6 +40,7 @@ export const componentDocs: ComponentDoc[] = [
   CardMeta,
   LinkMeta,
   ButtonMeta,
+  BadgeMeta,
 ]
 
 export function getComponentDoc(slug: string) {

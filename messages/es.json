@@ -96,6 +96,7 @@
     "section-container": "Un wrapper de sección con max-width y padding horizontal configurables. Es seguro anidarlo porque el margen interno colapsa automáticamente.",
     "card": "Card de contenido con variantes visuales, direcciones de layout, imagen y botones de acción.",
     "link": "Enlace accesible con opción de nueva pestaña y texto suplementario para lectores de pantalla.",
-    "button": "Botón polimórfico con variantes, tamaños, slots de ícono y efecto ripple. Renderiza como button o anchor."
+    "button": "Botón polimórfico con variantes, tamaños, slots de ícono y efecto ripple. Renderiza como button o anchor.",
+    "badge": "Badge de estado con siete variantes de color y cuatro modos de apariencia. Soporta slots de ícono opcionales a ambos lados."
   }
 }

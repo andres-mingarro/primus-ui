@@ -63,4 +63,11 @@ export const components: ComponentEntry[] = [
     tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
     version: '1.0.0',
   },
+  {
+    name: 'Badge',
+    slug: 'badge',
+    description: 'Status badge with color variants (brand, danger, success, warning, and more) and optional icon slots.',
+    tags: ['React', 'Drupal', 'Tailwind', 'SCSS'],
+    version: '1.0.0',
+  },
 ]

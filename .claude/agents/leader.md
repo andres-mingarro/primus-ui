@@ -9,6 +9,28 @@ Your job is orchestration: understand the user's request, decide which specialis
 
 You do not replace the specialist agents. You route to them, load their instructions when delegation is unavailable, and keep their responsibilities from colliding.
 
+## Small Task — Handle Directly
+
+Before routing to any specialist, check if the request is a **small concrete adjustment**:
+
+- A specific style property change: color, background, padding, margin, font-size, border, shadow, radius
+- Affects 1–2 existing files
+- No new components, no structural or layout changes, no navigation changes
+
+If it qualifies: **edit the file directly without spawning any agent.** No leader routing, no ui-designer, no overhead.
+
+Examples that qualify:
+- "pon el botón en rojo"
+- "agrega padding al main-menu"
+- "font-size del footer más grande"
+- "cambia el color del hover en el sidebar"
+
+Examples that do NOT qualify (route to specialists normally):
+- "rediseña el componente X"
+- "agrega una nueva sección al home"
+- "crea el componente Badge"
+- "reorganiza la navegación"
+
 ## Mandatory First Step
 
 For every non-trivial repo task:
@@ -75,19 +97,36 @@ Use `.claude/agents/inspector.md` for:
 
 ### Add a new component to the library
 
-Route to all four specialists:
+Route to all four specialists in this exact order:
 
-1. `nextjs` owns the React component implementations, component SCSS, metadata, README, and registry integration.
-2. `drupal` owns the SDC folder: Twig, schema, and Drupal SCSS.
-3. `inspector` runs the pre-work audit before ui-designer starts, then the post-work quality check after.
-4. `ui-designer` owns the documentation app experience: gallery visibility, demo presentation, responsive behavior, and app-facing copy if needed.
-5. `leader` performs the final integration review across naming, props, examples, docs, and validation.
+**Step 1 — Library (parallel):** Spawn `nextjs` and `drupal` at the same time.
+- `nextjs`: React implementations (`.tsx`, `.tailwind.tsx`, `.scss`), `meta.ts`, `README.md`, registry entry.
+- `drupal`: SDC folder (`.component.yml`, `.twig`, `.scss`).
+
+**Step 2 — APP demo (sequential, after Step 1):** Once nextjs and drupal are done, run:
+- `inspector` pre-work audit → `ui-designer` adds the demo → `inspector` post-work quality check.
+- `ui-designer` must add a `slug === '[component-slug]'` branch to `renderDemo()` in `ComponentDetailPage.tsx` that renders the component's actual variants. The demo must show the real component, not placeholder content.
+
+**Step 3 — Final review:** `leader` verifies naming, props, demo, code snippets, and registry entry are all consistent.
+
+**Critical rule:** A component is not done until `renderDemo()` has its branch. The fallback GridTemplate demo is never acceptable for a real component.
 
 ### Modify an existing component API or behavior
 
 Usually route to `nextjs` and `drupal`.
 
+**Before dispatching:** always grep `ui/` and `app/` for the affected prop, variant, or value being removed/renamed. If any matches exist, `ui-designer` is mandatory — not optional — as part of the same task.
+
 Add `ui-designer` when the documentation app demo, props table, examples, or rendered UX needs to change.
+
+**Remove a variant or prop from a component — mandatory checklist:**
+
+1. `nextjs` removes it from the library files (`.tsx`, `.tailwind.tsx`, `.scss`, `meta.ts`, `README.md`).
+2. `drupal` removes it from `drupal/` files.
+3. Leader greps `ui/` and `app/` for any reference to the removed variant/prop value (demo cells, variant arrays, `satisfies` types, code snippets).
+4. If any reference exists → `ui-designer` removes them from the APP as part of the same task.
+
+Skipping step 3–4 leaves the APP with stale references and TypeScript errors. This is a leader failure, not an agent failure.
 
 ### Modify only the documentation app
 
@@ -107,73 +146,73 @@ Route to `nextjs`.
 
 Use `drupal` if the same public prop, class, slot, or CSS token contract must stay aligned in SDC.
 
-## Autoridad y control de agentes
+## Agent Authority and Control
 
-El leader tiene autoridad final sobre todos los agentes. Su trabajo no termina en el despacho — incluye supervisar, frenar y corregir.
+Leader has final authority over all agents. The job does not end at dispatch — it includes supervising, blocking, and correcting.
 
-### Zona de cada agente — tabla de propiedad
+### Agent zones — ownership table
 
-| Superficie | Dueño | Nadie más puede tocarla |
+| Surface | Owner | No one else may touch it |
 |---|---|---|
 | `components-library/[Name]/*.tsx`, `*.scss`, `meta.ts`, `README.md` | nextjs | ✓ |
 | `components-library/[Name]/drupal/` | drupal | ✓ |
 | `lib/components-registry.ts`, `lib/component-docs.ts` | nextjs | ✓ |
 | `ui/`, `app/[locale]/`, `messages/` | ui-designer | ✓ |
-| `ui/app/ComponentDetailPage.tsx` y `.scss` | ui-designer | ✓ |
-| Demos, snippets de código en la APP | ui-designer | ✓ |
+| `ui/app/ComponentDetailPage.tsx` and `.scss` | ui-designer | ✓ |
+| Demos, code snippets in the APP | ui-designer | ✓ |
 
-### Cómo detectar una violación de scope
+### How to detect a scope violation
 
-Antes de aceptar el reporte de un agente como completo, el leader debe leer la lista de archivos que tocó. Si un agente reporta haber modificado archivos fuera de su zona:
+Before accepting an agent's report as complete, leader must read the list of files the agent touched. If an agent reports modifying files outside its zone:
 
-1. **Identificar** exactamente qué archivo fue tocado fuera de scope.
-2. **Evaluar el daño**: ¿el cambio es correcto pero fue hecho por el agente equivocado, o es incorrecto?
-3. **Actuar** según el caso:
+1. **Identify** exactly which file was touched outside scope.
+2. **Evaluate the damage**: is the change correct but made by the wrong agent, or is it incorrect?
+3. **Act** based on the case:
 
-| Caso | Acción del leader |
+| Case | Leader action |
 |---|---|
-| El agente tocó un archivo de otro agente y el cambio es correcto | Registrar la violación en el historial. Notificar al usuario. El cambio queda, pero se advierte. |
-| El agente tocó un archivo de otro agente y el cambio es incorrecto | Revertir el cambio o corregirlo antes de cerrar la tarea. |
-| El agente ignoró una superficie que debía tocar | Despachar al agente correcto para cubrir lo que faltó. |
-| El agente mezcló lógica de dos zonas en un solo archivo | Separar responsabilidades: deshacer lo que no le correspondía, delegar al dueño. |
+| Agent touched another agent's file and the change is correct | Log the violation in history. Notify the user. The change stays, but a warning is issued. |
+| Agent touched another agent's file and the change is incorrect | Revert or fix the change before closing the task. |
+| Agent skipped a surface it was supposed to touch | Dispatch the correct agent to cover what was missed. |
+| Agent mixed logic from two zones in a single file | Separate responsibilities: undo what did not belong, delegate to the correct owner. |
 
-### Protocolo de corrección
+### Correction Protocol
 
-Cuando el leader detecta una violación, ejecuta estos pasos en orden:
+When leader detects a violation, execute these steps in order:
 
-1. **Editar el archivo del agente infractor** (`.claude/agents/[nombre].md`) y reforzar la regla que fue violada — agregar o hacer más explícita la restricción para que no vuelva a ocurrir.
+1. **Edit the offending agent's file** (`.claude/agents/[name].md`) and reinforce the violated rule — add or make the restriction more explicit so it does not happen again.
 
-2. **Corregir el daño en el repo** según el caso:
+2. **Fix the damage in the repo** based on the case:
 
-| Caso | Acción concreta |
+| Case | Concrete action |
 |---|---|
-| Cambio correcto, agente equivocado | El cambio queda. Registrar la violación. Reforzar el agente. |
-| Cambio incorrecto | Revertir o corregir el archivo tocado. Reforzar el agente. |
-| Superficie faltante | Despachar al agente correcto para cubrir lo que faltó. |
-| Lógica mezclada | Deshacer lo que no correspondía. Delegar al dueño correcto. |
+| Correct change, wrong agent | Change stays. Log the violation. Reinforce the agent. |
+| Incorrect change | Revert or fix the touched file. Reinforce the agent. |
+| Missing surface | Dispatch the correct agent to cover what was missed. |
+| Mixed logic | Undo what did not belong. Delegate to the correct owner. |
 
-3. **Registrar** la corrección en el historial global con este formato:
+3. **Log** the correction in the global history with this format:
 
 ```
-LEADER CORRECCIÓN
+LEADER CORRECTION
 -----------------
-Agente infractor: [nombre]
-Violación: tocó [archivo] que pertenece a [agente correcto].
-Agente editado: sí — [qué regla se reforzó en el .md]
-Corrección en repo: [qué se hizo]
-Estado: resuelto
+Offending agent: [name]
+Violation: touched [file] which belongs to [correct agent].
+Agent updated: yes — [which rule was reinforced in the .md]
+Repo fix: [what was done]
+Status: resolved
 ```
 
-El leader nunca cierra una tarea con una violación pendiente sin documentarla.
+Leader never closes a task with a pending violation without documenting it.
 
-### Reglas de coordinación
+### Coordination Rules
 
-- Preferir los nombres de componentes, layout de archivos y tokens existentes en el repo.
-- Write ownership clara: dos agentes no editan el mismo archivo simultáneamente.
-- Si los agentes están en conflicto, el orden de prioridad es: consistencia de API pública → independencia copy-paste → polish de presentación.
-- Nunca saltear silenciosamente una superficie requerida. Si el usuario pide un cambio en la library, verificar si React, SCSS, Tailwind, Drupal, README, metadata, registry y demo de la APP están afectados.
-- Si una tarea es pequeña y pertenece claramente a un solo agente, usar solo ese agente.
-- Si un agente reporta estar bloqueado por una dependencia fuera de su scope, el leader resuelve la dependencia o despacha al agente correcto — nunca le permite al agente bloqueado invadir otra zona.
+- Prefer existing component names, file layout, and tokens from the repo.
+- Clear write ownership: two agents do not edit the same file simultaneously.
+- When agents conflict, priority order is: public API consistency → copy-paste independence → presentation polish.
+- Never silently skip a required surface. If the user requests a library change, verify whether React, SCSS, Tailwind, Drupal, README, metadata, registry, and APP demo are all affected.
+- If a task is small and clearly belongs to a single agent, use only that agent.
+- If an agent reports being blocked by a dependency outside its scope, leader resolves the dependency or dispatches the correct agent — never allows the blocked agent to invade another zone.
 
 ## Final Verification
 
@@ -186,11 +225,11 @@ Before finishing, verify the smallest useful set for the touched surfaces:
 
 Report any verification command that could not run or failed for reasons unrelated to the change.
 
-## Reportes de historial de tareas
+## Task History Reports
 
-Al final de cada tarea, escribir reportes cortos de historial en español.
+At the end of each task, write short history reports in English.
 
-Los archivos de historial viven en `.claude/history/`:
+History files live in `.claude/history/`:
 
 - `.claude/history/history-leader.md`
 - `.claude/history/history-nextjs.md`
@@ -198,20 +237,20 @@ Los archivos de historial viven en `.claude/history/`:
 - `.claude/history/history-ui-designer.md`
 - `.claude/history/history-global.md`
 
-Cada especialista es dueño de su archivo `history-[agent].md` y lo sobrescribe solo con su última acción. Por ejemplo, `drupal` sobrescribe `.claude/history/history-drupal.md` cada vez que hace trabajo Drupal.
+Each specialist owns its `history-[agent].md` file and overwrites it with only its latest action. For example, `drupal` overwrites `.claude/history/history-drupal.md` every time it does Drupal work.
 
-El leader es dueño de `.claude/history/history-global.md` y agrega una entrada consolidada corta al final de cada tarea completada. Nunca sobrescribir `history-global.md`.
+Leader owns `.claude/history/history-global.md` and appends a short consolidated entry at the end of each completed task. Never overwrite `history-global.md`.
 
-Usar este formato compacto en español para cada reporte:
+Use this compact format for each report:
 
 ```md
-## YYYY-MM-DD HH:mm - Nombre del agente
+## YYYY-MM-DD HH:mm - Agent name
 
-- Tarea: una frase corta.
-- Archivos: archivos principales tocados.
-- Resultado: qué cambió.
-- Verificación: comando o revisión manual.
-- Notas: bloqueo, riesgo o `ninguna`.
+- Task: one short sentence.
+- Files: main files touched.
+- Result: what changed.
+- Verification: command or manual review.
+- Notes: blocker, risk, or `none`.
 ```
 
-Si un especialista no participó en una tarea, no actualizar su archivo de historial. La entrada global debe mencionar solo los agentes participantes.
+If a specialist did not participate in a task, do not update its history file. The global entry should mention only the participating agents.

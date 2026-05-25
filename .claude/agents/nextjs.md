@@ -17,27 +17,27 @@ Path aliases: `@/*` → repo root, `@primus/*` → `./components-library/*`
 
 ---
 
-## ⛔ ZONA PROHIBIDA — NO TOCAR NUNCA
+## ⛔ OFF-LIMITS — NEVER TOUCH
 
-**Nunca** escribas ni modifiques archivos en estas rutas:
+Never write or modify files at these paths:
 
-- `ui/` — cualquier archivo bajo este directorio
-- `app/[locale]/` — páginas, layouts, rutas
-- `ui/app/ComponentDetailPage.tsx` — el demo lo define ui-designer, no vos
-- `ui/app/ComponentDetailPage.scss` — ídem
-- `messages/en.json` y `messages/es.json` — traducciones de la APP
-- Cualquier componente bajo `ui/components/`
+- `ui/` — any file in this directory
+- `app/[locale]/` — pages, layouts, routes
+- `ui/app/ComponentDetailPage.tsx` — the demo is owned by ui-designer
+- `ui/app/ComponentDetailPage.scss`
+- `messages/en.json` and `messages/es.json` — APP translations
+- Any component under `ui/components/`
 
-**El agente ui-designer es el único dueño de la APP.** Si una tarea parece requerir tocar alguno de esos archivos, detenete y reportá al leader que esa parte debe ser delegada a ui-designer.
+**ui-designer is the sole owner of the APP.** If a task seems to require touching any of those files, stop and report to leader that the work must be delegated to ui-designer.
 
-Esto incluye:
-- Agregar demos de componentes en `ComponentDetailPage.tsx`
-- Agregar snippets de código en `formatDocsBySlug`
-- Agregar filas en `drupalPropRowsBySlug` o `tailwindTokenRowsBySlug`
-- Agregar claves en los archivos de mensajes
-- Crear páginas en `app/[locale]/`
+This includes:
+- Adding component demos in `ComponentDetailPage.tsx`
+- Adding code snippets in `formatDocsBySlug`
+- Adding rows in `drupalPropRowsBySlug` or `tailwindTokenRowsBySlug`
+- Adding keys in message files
+- Creating pages in `app/[locale]/`
 
-**Excepción única:** `lib/components-registry.ts` y `lib/component-docs.ts` son tuyas — son infraestructura de datos, no APP UI.
+**One exception:** `lib/components-registry.ts` and `lib/component-docs.ts` are yours — they are data infrastructure, not APP UI.
 
 ---
 
@@ -195,7 +195,7 @@ Demos render inside `<ShowcaseFrame>` from `@/ui/ShowcaseFrame` — neutral back
 
 ## Adapting reference components from the user's personal projects
 
-When the user says **"agregar"** (or "add to the library") and provides one or more reference files, follow this exact process. The reference file is the source of truth for **props and behavior**; the library spec is the source of truth for **structure and output**.
+When the user says **"add"** (or "agregar") and provides one or more reference files, follow this exact process. The reference file is the source of truth for **props and behavior**; the library spec is the source of truth for **structure and output**.
 
 ### Always produce all three output formats
 
@@ -250,10 +250,14 @@ Run the standard creation flow, using the reference as the behavioral spec:
 3. `components-library/[ComponentName]/[component-name].scss`
 4. `components-library/[ComponentName]/meta.ts`
 5. `components-library/[ComponentName]/README.md`
-6. `lib/components-registry.ts` — agregar entrada del componente
-7. `lib/component-docs.ts` — importar meta y agregar al array
+6. `lib/components-registry.ts` — add the component entry
+7. `lib/component-docs.ts` — import meta and add to the array
+8. `messages/en.json` — add `"[slug]": "..."` under `componentDescriptions`
+9. `messages/es.json` — add the same key translated to Spanish
 
-**No crear ni modificar nada en `app/` ni `ui/`.** La demo, los snippets de código y el registro visual en la APP son responsabilidad de ui-designer.
+**Steps 8 and 9 are mandatory.** Missing either key causes a runtime crash in the documentation app (`MISSING_MESSAGE` error on the component detail page). Write the description based on `meta.ts` — one sentence, accurate, no marketing language.
+
+**Do not create or modify anything in `app/` or `ui/`.** The demo, code snippets, and visual registration in the APP are ui-designer's responsibility.
 
 ### Step 4 — Accessibility (mandatory)
 
@@ -298,10 +302,12 @@ The Tailwind version receives those values as props and applies them via inline 
 4. Create `components-library/[ComponentName]/[component-name].scss`
 5. Create `components-library/[ComponentName]/meta.ts`
 6. Create `components-library/[ComponentName]/README.md`
-7. Update `lib/components-registry.ts` — agregar entrada
-8. Update `lib/component-docs.ts` — importar meta y agregar al array
+7. Update `lib/components-registry.ts` — add the entry
+8. Update `lib/component-docs.ts` — import meta and add to the array
+9. Add `"[slug]": "..."` under `componentDescriptions` in `messages/en.json`
+10. Add the same key translated to Spanish in `messages/es.json`
 
-**Detenerse aquí.** La demo en la APP, los snippets de código en `ComponentDetailPage`, y cualquier cambio visual en `ui/` o `app/` pertenecen a ui-designer.
+**Stop here.** The APP demo, code snippets in `ComponentDetailPage`, and any visual changes in `ui/` or `app/` belong to ui-designer.
 
 ---
 
@@ -426,20 +432,20 @@ export function Button({ label, variant = 'primary', disabled = false, onClick }
 - No comments unless the why is non-obvious
 - Semver: minor for new props, patch for style fixes
 
-## Reporte de historial de tarea
+## Task history report
 
-Al final de cada tarea donde este agente participe, sobrescribir `.claude/history/history-nextjs.md` con un reporte corto de última acción en español.
+At the end of each task where this agent participates, overwrite `.claude/history/history-nextjs.md` with a short report of the latest action.
 
-Usar este formato:
+Use this format:
 
 ```md
 ## YYYY-MM-DD HH:mm - Next.js
 
-- Tarea: una frase corta.
-- Archivos: archivos principales tocados.
-- Resultado: qué cambió.
-- Verificación: comando o revisión manual.
-- Notas: bloqueo, riesgo o `ninguna`.
+- Task: one short sentence.
+- Files: main files touched.
+- Result: what changed.
+- Verification: command or manual review.
+- Notes: blocker, risk, or `none`.
 ```
 
-No agregar contenido al final de este archivo. Siempre representa solo la última acción de Next.js.
+Do not append to this file. It always represents only the latest Next.js action.

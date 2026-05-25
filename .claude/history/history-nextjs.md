@@ -1,15 +1,7 @@
-## 2026-05-13 — Next.js
+## 2026-05-25 — Next.js
 
-- Tarea: crear componente Link en components-library con versiones SCSS y Tailwind, meta, README y registro en la app.
-- Archivos:
-  - `components-library/Link/Link.tsx` (creado)
-  - `components-library/Link/Link.tailwind.tsx` (creado)
-  - `components-library/Link/link.scss` (creado)
-  - `components-library/Link/meta.ts` (creado)
-  - `components-library/Link/README.md` (creado)
-  - `lib/components-registry.ts` (modificado — entrada Link agregada)
-  - `lib/component-docs.ts` (modificado — LinkMeta importado y agregado al array)
-  - `ui/app/ComponentDetailPage.tsx` (modificado — import Link, caso renderDemo, formatDocsBySlug, drupalPropRowsBySlug, tailwindTokenRowsBySlug)
-- Resultado: componente Link completo con addClassName, assistiveHidden, openInNewTab, supplementalText; supplementalText se autocompleta a "Opens in new tab" cuando openInNewTab=true; pu-visually-hidden definido en SCSS.
-- Verificación: `bunx tsc --noEmit` pasa sin errores.
-- Notas: ninguna.
+- Task: Remove the `danger` variant from the Button component.
+- Files: `components-library/Button/Button.tsx`, `components-library/Button/Button.tailwind.tsx`, `components-library/Button/button.scss`, `components-library/Button/meta.ts`, `components-library/Button/README.md`.
+- Result: `danger` removed from `ButtonVariant` union type in both `.tsx` and `.tailwind.tsx`; `danger` entry deleted from `variantClasses` in the Tailwind file (resolving TS2353); `.pu-button[data-variant="danger"]` block deleted from `button.scss`; `variant` prop type updated in `meta.ts`; props table and both usage examples updated in `README.md`.
+- Verification: TS error TS2353 resolved; no TypeScript errors remain in modified files.
+- Notes: none.

@@ -317,17 +317,17 @@ Never produce:
 - Unscoped global CSS hacks.
 - New breakpoints beyond `small` and `large`.
 
-## Verificación visual — obligatoria
+## Visual verification — mandatory
 
-Después de cada tarea de diseño, antes de escribir el reporte, tomar screenshots de las páginas afectadas y analizarlas visualmente.
+After each design task, before writing the report, take screenshots of the affected pages and analyze them visually.
 
-### Cómo tomar screenshots
+### How to take screenshots
 
 ```bash
 bash .claude/scripts/screenshot.sh <url-path> <output-name> [mobile]
 ```
 
-Ejemplos:
+Examples:
 ```bash
 bash .claude/scripts/screenshot.sh /en home
 bash .claude/scripts/screenshot.sh /en home mobile
@@ -335,42 +335,42 @@ bash .claude/scripts/screenshot.sh /en/docs docs
 bash .claude/scripts/screenshot.sh /en/components/divider divider
 ```
 
-El script arranca el dev server si no está corriendo. Las imágenes se guardan en `.claude/screenshots/`.
+The script starts the dev server if it is not already running. Images are saved to `.claude/screenshots/`.
 
-### Cómo leer las screenshots
+### How to read screenshots
 
-Usar la herramienta `Read` con la ruta del archivo `.png` para ver la imagen.
+Use the `Read` tool with the `.png` file path to view the image.
 
 ```
 Read: .claude/screenshots/home.png
 Read: .claude/screenshots/home-mobile.png
 ```
 
-### Qué verificar en la imagen
+### What to verify in the image
 
-- La página no está en blanco ni rota
-- Los tabs renderizan correctamente y el tab activo tiene el estilo esperado
-- La tipografía, espaciado y colores son coherentes con el sistema visual
-- No hay overflow horizontal en ningún breakpoint
-- El contenido dentro de los tabs es correcto y visible
-- Los componentes reutilizados mantienen su estilo original sin regresiones
+- The page is not blank or broken
+- Tabs render correctly and the active tab has the expected style
+- Typography, spacing, and colors are consistent with the visual system
+- No horizontal overflow at any breakpoint
+- Content inside tabs is correct and visible
+- Reused components retain their original style without regressions
 
-Si encontrás problemas en la imagen, corregirlos antes de escribir el reporte.
+If issues are found in the image, fix them before writing the report.
 
-## Reporte de historial de tarea
+## Task history report
 
-Al final de cada tarea donde este agente participe, sobrescribir `.claude/history/history-ui-designer.md` con un reporte corto de última acción en español.
+At the end of each task where this agent participates, overwrite `.claude/history/history-ui-designer.md` with a short report of the latest action.
 
-Usar este formato:
+Use this format:
 
 ```md
 ## YYYY-MM-DD HH:mm - ui-designer
 
-- Tarea: una frase corta.
-- Archivos: archivos principales tocados.
-- Resultado: qué cambió.
-- Verificación: comando o revisión manual.
-- Notas: bloqueo, riesgo o `ninguna`.
+- Task: one short sentence.
+- Files: main files touched.
+- Result: what changed.
+- Verification: command or manual review.
+- Notes: blocker, risk, or `none`.
 ```
 
-No agregar contenido al final de este archivo. Siempre representa solo la última acción de ui-designer.
+Do not append to this file. It always represents only the latest ui-designer action.

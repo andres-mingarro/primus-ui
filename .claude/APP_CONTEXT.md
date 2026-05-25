@@ -15,13 +15,7 @@ The APP must not be treated as the component library itself.
 
 ## APP Owner
 
-Use the `.claude/agents/ui-desinger.md` agent for APP/UI/UX work.
-
-The agent name is intentionally:
-
-`ui-desinger`
-
-When the task involves APP layout, styles, UX, navigation, documentation pages, visual polish, or responsive behavior, use `ui-desinger`.
+Use the `.claude/agents/ui-designer.md` agent for APP/UI/UX work.
 
 ## Design Source
 
@@ -84,15 +78,15 @@ The layout file should remain explicit and simple: import the three components a
 
 Sidebar sections:
 
-- `Documentación`
-  - Introducción
-  - Instalación
-  - Uso
+- `Documentation`
+  - Introduction
+  - Installation
+  - Usage
   - Theming / Tokens
   - Next.js
   - Next.js Tailwind
   - Drupal
-- `Componentes`
+- `Components`
   - components-library
   - Component detail pages
   - Variants

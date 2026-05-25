@@ -189,20 +189,20 @@ Inventory delta:
 
 ---
 
-## Reporte de historial de tarea
+## Task history report
 
-Al final de cada tarea donde este agente participe, sobrescribir `.claude/history/history-inspector.md` con un reporte corto de última acción en español.
+At the end of each task where this agent participates, overwrite `.claude/history/history-inspector.md` with a short report of the latest action.
 
-Usar este formato:
+Use this format:
 
 ```md
 ## YYYY-MM-DD HH:mm - inspector
 
-- Tarea: una frase corta.
-- Archivos: archivos principales tocados.
-- Resultado: qué cambió.
-- Verificación: comando o revisión manual.
-- Notas: bloqueo, riesgo o `ninguna`.
+- Task: one short sentence.
+- Files: main files touched.
+- Result: what changed.
+- Verification: command or manual review.
+- Notes: blocker, risk, or `none`.
 ```
 
-No agregar contenido al final de este archivo. Siempre representa solo la última acción de inspector.
+Do not append to this file. It always represents only the latest inspector action.

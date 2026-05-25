@@ -1,7 +1,7 @@
-## 2026-05-13 23:34 - Drupal
+## 2026-05-25 - Drupal
 
-- Tarea: Crear archivos Drupal SDC del componente Button en `components-library/Button/drupal/`.
-- Archivos: `button.component.yml`, `button.twig`, `button.scss`.
-- Resultado: Tres archivos creados. Componente polimórfico (button/a), variantes via `data-variant`, tamaños via `data-size`, slots `icon` e `icon_right`, `translate_enabled` con patrón `is same as(false)`, `add_class_name` como último en el array de clases, SCSS autocontenido con tokens CSS y selectores de atributo para variantes y tamaños.
-- Verificación: Archivos leídos y verificados manualmente post-creación. Sin dependencias externas.
-- Notas: El directorio `components-library/Button/` fue creado por este agente (la carpeta no existía al inicio). El agente Next.js trabaja en paralelo sobre los archivos React.
+- Task: Remove `danger` variant from Button component SDC definition.
+- Files: `components-library/Button/drupal/button.component.yml`
+- Result: Removed `danger` from the `variant` prop `description` string and from the `enum` array. The `enum` now reads `[primary, secondary, ghost, outline, link]`. No changes to `button.twig` or `button.scss` were needed.
+- Verification: Read the file and confirmed both occurrences of `danger` were removed successfully.
+- Notes: none.

@@ -198,6 +198,15 @@
 - Verificación: `bunx tsc --noEmit`.
 - Notas: ninguna.
 
+## 2026-05-25 - Leader + nextjs + drupal
+
+- Tarea: Eliminar la variante `danger` del componente Button.
+- Agentes: leader, nextjs, drupal (paralelo).
+- Archivos: `components-library/Button/Button.tsx`, `Button.tailwind.tsx`, `button.scss`, `meta.ts`, `README.md`, `drupal/button.component.yml`.
+- Resultado: `danger` eliminado del tipo `ButtonVariant`, del objeto `variantClasses` (Tailwind), del bloque `.pu-button[data-variant="danger"]` (SCSS), del `meta.ts`, del README y del enum/description en el YAML de Drupal.
+- Verificación: `grep -rn danger` sin resultados en ningún archivo del componente.
+- Notas: ninguna.
+
 ## 2026-05-12 - Leader
 
 - Tarea: Crear el agente inspector.

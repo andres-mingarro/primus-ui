@@ -3,7 +3,6 @@ import { Karla } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { cookies } from 'next/headers'
 import { routing } from '@/i18n/routing'
 import { ThemeProvider } from '@/providers/ThemeProvider'
 import { AppHeader } from '@/ui/components/segment/AppHeader/AppHeader'
@@ -40,16 +39,16 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages()
-  const cookieStore = await cookies()
-  const isDark = cookieStore.get('theme')?.value === 'dark'
 
   return (
     <html
       lang={locale}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={isDark ? 'dark' : ''}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var s=localStorage.getItem('theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';if((s||p)==='dark')document.documentElement.classList.add('dark')})()` }} />
+      </head>
       <body className={`${karla.variable} ${karla.className}`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>

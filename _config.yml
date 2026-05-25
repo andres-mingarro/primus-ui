@@ -1,0 +1,6 @@
+exclude:
+  - CLAUDE.md
+  - .claude/
+  - node_modules/
+  - "*.config.ts"
+  - "*.config.js"

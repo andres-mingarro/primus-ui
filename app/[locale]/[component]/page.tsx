@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { setRequestLocale } from 'next-intl/server'
 import { routing } from '@/i18n/routing'
 import { components } from '@/lib/components-registry'
 import { getComponentDoc } from '@/lib/component-docs'
@@ -19,6 +20,7 @@ export default async function Page({
   params: Promise<{ locale: string; component: string }>
 }) {
   const { locale, component } = await params
+  setRequestLocale(locale)
   const doc = getComponentDoc(component)
 
   if (!doc) {

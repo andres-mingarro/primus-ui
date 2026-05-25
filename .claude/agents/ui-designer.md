@@ -321,29 +321,40 @@ Never produce:
 
 After each design task, before writing the report, take screenshots of the affected pages and analyze them visually.
 
+### Screenshot slots — fixed names, always overwritten
+
+The repo keeps exactly 3 screenshot files. Never create new filenames. Always overwrite these three:
+
+| File | What to capture |
+|---|---|
+| `.claude/screenshots/app-light.png` | App in light mode — most representative page for the task |
+| `.claude/screenshots/app-dark.png` | Same page in dark mode |
+| `.claude/screenshots/app-mobile.png` | Same page at mobile width |
+
 ### How to take screenshots
 
 ```bash
 bash .claude/scripts/screenshot.sh <url-path> <output-name> [mobile]
 ```
 
-Examples:
+Always use these exact output names:
+
 ```bash
-bash .claude/scripts/screenshot.sh /en home
-bash .claude/scripts/screenshot.sh /en home mobile
-bash .claude/scripts/screenshot.sh /en/docs docs
-bash .claude/scripts/screenshot.sh /en/components/divider divider
+bash .claude/scripts/screenshot.sh /en app-light
+bash .claude/scripts/screenshot.sh /en app-dark        # add dark mode param if the script supports it
+bash .claude/scripts/screenshot.sh /en app-mobile mobile
 ```
 
-The script starts the dev server if it is not already running. Images are saved to `.claude/screenshots/`.
+The script starts the dev server if it is not already running. Images are saved to `.claude/screenshots/` and overwrite the existing slots.
 
 ### How to read screenshots
 
 Use the `Read` tool with the `.png` file path to view the image.
 
 ```
-Read: .claude/screenshots/home.png
-Read: .claude/screenshots/home-mobile.png
+Read: .claude/screenshots/app-light.png
+Read: .claude/screenshots/app-dark.png
+Read: .claude/screenshots/app-mobile.png
 ```
 
 ### What to verify in the image

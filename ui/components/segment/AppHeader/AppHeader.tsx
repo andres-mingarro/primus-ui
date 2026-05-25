@@ -29,7 +29,7 @@ export function AppHeader() {
         </Link>
 
         <nav className="AppHeader__nav" aria-label={t('globalNavigation')}>
-          <a className="AppHeader__link" href="https://github.com" target="_blank" rel="noreferrer">
+          <a className="AppHeader__link" href="https://github.com/andres-mingarro/primus-ui" target="_blank" rel="noreferrer">
             {t('github')}
           </a>
 

@@ -7,7 +7,7 @@ Version 1.0.0. Polymorphic button component with variant, size, icon slots, and 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | children | ReactNode | — | Button content |
-| variant | `'primary' \| 'secondary' \| 'ghost' \| 'outline' \| 'danger' \| 'link'` | `'primary'` | Visual variant |
+| variant | `'primary' \| 'secondary' \| 'ghost' \| 'outline' \| 'link'` | `'primary'` | Visual variant |
 | size | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
 | as | `'button' \| 'a'` | `'button'` | Root HTML element |
 | href | string | — | URL — used when `as="a"` |
@@ -60,7 +60,6 @@ import { Button } from './Button.tailwind'
 <Button>Primary</Button>
 <Button variant="secondary">Secondary</Button>
 <Button variant="outline">Outline</Button>
-<Button variant="danger">Danger</Button>
 <Button size="sm">Small</Button>
 <Button as="a" href="/about">Link button</Button>
 ```
@@ -74,7 +73,6 @@ import { Button } from './Button'
 <Button>Primary</Button>
 <Button variant="secondary">Secondary</Button>
 <Button variant="outline">Outline</Button>
-<Button variant="danger">Danger</Button>
 <Button size="sm">Small</Button>
 <Button as="a" href="/about">Link button</Button>
 ```

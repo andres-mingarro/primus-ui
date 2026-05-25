@@ -5,7 +5,7 @@ export const ComponentMeta = {
   description: 'Polymorphic button component with variant, size, icon slots, and ripple interaction. Renders as button or anchor.',
   props: [
     { name: 'children',    type: 'ReactNode',                                                        required: false, default: undefined,  description: 'Button content' },
-    { name: 'variant',     type: "'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'link'", required: false, default: 'primary', description: 'Visual variant' },
+    { name: 'variant',     type: "'primary' | 'secondary' | 'ghost' | 'outline' | 'link'", required: false, default: 'primary', description: 'Visual variant' },
     { name: 'size',        type: "'sm' | 'md' | 'lg'",                                               required: false, default: 'md',       description: 'Button size' },
     { name: 'as',          type: "'button' | 'a'",                                                   required: false, default: 'button',   description: 'Root HTML element' },
     { name: 'href',        type: 'string',                                                           required: false, default: undefined,  description: 'URL — used when as="a"' },

@@ -1,7 +1,7 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'link'
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'link'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
 interface ButtonBaseProps {
@@ -32,7 +32,6 @@ const variantClasses: Record<ButtonVariant, string> = {
   secondary: 'bg-white hover:bg-stone-50 text-stone-900 border-stone-300 hover:border-stone-400',
   ghost:     'bg-transparent hover:bg-stone-100 text-stone-900 border-transparent',
   outline:   'bg-transparent hover:bg-orange-600 text-orange-600 hover:text-white border-orange-600',
-  danger:    'bg-red-600 hover:bg-red-700 text-white border-transparent',
   link:      'bg-transparent text-orange-600 hover:text-orange-700 underline underline-offset-2 border-transparent p-0 h-auto',
 }
 

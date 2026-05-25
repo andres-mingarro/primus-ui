@@ -16,7 +16,7 @@ function spawnRipple(e: MouseEvent<HTMLElement>) {
   span.addEventListener('animationend', () => span.remove(), { once: true })
 }
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'link'
+type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'link'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
 interface ButtonBaseProps {

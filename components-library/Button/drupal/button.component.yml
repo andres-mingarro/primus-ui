@@ -12,8 +12,8 @@ props:
     variant:
       type: string
       title: Variant
-      description: 'primary | secondary | ghost | outline | danger | link'
-      enum: [primary, secondary, ghost, outline, danger, link]
+      description: 'primary | secondary | ghost | outline | link'
+      enum: [primary, secondary, ghost, outline, link]
       default: primary
     size:
       type: string
